@@ -1,4 +1,4 @@
-## ** 조지주(調持酒) **
+## 🍶조지주(調持酒)
 
 ## 1. 프로젝트 소개
 
@@ -12,9 +12,9 @@
 
 <div align="center">
 
-|                                                                                          |                                                                                          |                                                                                          |                                                                                       |
-| :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
-| <img src="https://avatars.githubusercontent.com/u/127311862?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/122030243?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/138555977?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/89963228?v=4" width="120" alt="" /> |
-|                         [박재웅](https://github.com/donguramee)                          |                        [조정현](https://github.com/hardy-is-cat)                         |                            [송재웅](https://github.com/AYFG)                             |                       [이재영](https://github.com/jaeyounging)                        |
+|                                                                                          |                                                                                         |                                                                                         |                                                                                       |
+| :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/122030243?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/76080643?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/88381607?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/87270448?v=4" width="120" alt="" /> |
+|                         [박재웅](https://github.com/donguramee)                          |                        [조정현](https://github.com/hardy-is-cat)                        |                            [송재웅](https://github.com/AYFG)                            |                       [이재영](https://github.com/jaeyounging)                        |
 
 </div>
