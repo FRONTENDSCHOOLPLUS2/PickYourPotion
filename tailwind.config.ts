@@ -26,6 +26,9 @@ const config: Config = {
         white: "#ffffff",
         error: "#eb5757",
       },
+      size: {
+        size: "10",
+      },
     },
   },
   plugins: [],
