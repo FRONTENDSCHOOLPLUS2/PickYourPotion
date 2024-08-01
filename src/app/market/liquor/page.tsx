@@ -1,5 +1,7 @@
+import VerticalCard from "@/components/VerticalCard";
+
 export default function Page() {
   return (
-    <div>page</div>
+    <VerticalCard/>
   )
 }
