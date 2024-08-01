@@ -16,10 +16,10 @@ export default function Category() {
   };
 
   const links = [
-    { href: "/market/raw", label: "탁주", src: raw },
-    { href: "/market/refined", label: "청주", src: refined },
-    { href: "/market/fruit", label: "과실주", src: fruit },
-    { href: "/market/liquor", label: "증류주", src: liquor },
+    { href: "/market/raw", label: "탁주", src: raw, alt:"탁주아이콘" },
+    { href: "/market/refined", label: "청주", src: refined , alt:"청주아이콘"},
+    { href: "/market/fruit", label: "과실주", src: fruit, alt:"과실주아이콘" },
+    { href: "/market/liquor", label: "증류주", src: liquor , alt:"증류주아이콘"},
   ];
   return (
     <div>
@@ -27,7 +27,7 @@ export default function Category() {
         {links.map((link, index) => (
           <li key={index} onClick={() => handleClick(index)}>
             <Link href={link.href} className="flex flex-col items-center justify-center ">
-              <Image src={link.src} alt="검색 아이콘" width={40} height={40} />
+              <Image src={link.src} alt={link.alt} width={40} height={40} />
               <span
                 className={`cursor-pointer ${activeIndex === index ? "underline decoration-4 underline-offset-8" : "text-[gray]"} content`}
               >
