@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,10 +15,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    
     <html lang="ko">
+      
       {/* <body className={inter.className}>{children}</body> */}
+      <body>
+        <Header/>
+        {children}
+      </body>
+
+
       <body>{children}</body>
       <Footer />
     </html>
+    
   );
 }
