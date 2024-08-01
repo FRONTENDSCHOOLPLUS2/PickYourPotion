@@ -14,6 +14,7 @@
     "prettier": "^3.3.3",
     "react": "^18",
     "react-dom": "^18",
+    "swiper": "^11.1.9",
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
