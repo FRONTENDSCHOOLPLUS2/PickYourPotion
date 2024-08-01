@@ -5,7 +5,6 @@ import Link from "next/link";
 import cart from "../../../public/images/icons/icon-cart.svg";
 import search from "../../../public/images/icons/icon-search.svg";
 import gnb from "../../../public/images/icons/icon-gnb.svg";
-import Navbar from "../Navbar";
 
 export default function Header() {
   return (
@@ -22,7 +21,6 @@ export default function Header() {
           </Link>
         </div>
       </div>
-      <Navbar />
     </>
   );
 }
