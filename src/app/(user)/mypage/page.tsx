@@ -1,5 +1,5 @@
-import MypageButton from "./mypage-button";
-import MypageList from "./mypage-list";
+import MypageButton from "./mypageButton";
+import MypageList from "./mypageList";
 
 export default function MyPage() {
   return (

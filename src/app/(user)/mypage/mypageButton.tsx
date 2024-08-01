@@ -11,7 +11,7 @@ const MypageButton = () => {
       src: listIcon,
       alt: "주문 내역 아이콘",
       content: "주문내역",
-      href: "/",
+      href: "/order",
     },
     {
       id: 1,
