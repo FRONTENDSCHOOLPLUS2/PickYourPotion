@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="py-3 px-6 text-darkGray description bg-whiteGray rounded-t-xl">
+    <footer className="relative translate-y-[10vh] bottom-0 px-6 py-3 text-darkGray description bg-whiteGray rounded-t-xl">
       <h1 className="font-medium text-[10px]">멋쟁이 사자처럼 프론트엔드 스쿨 플러스</h1>
       <div className="font-light text-[10px]">
         <p>고객센터: 010 - 2944 - 3793</p>
