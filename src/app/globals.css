@@ -63,6 +63,9 @@ body {
 .round {
   border-radius: 10px;
 }
+.topRound {
+  border-radius: 40px;
+}
 
 main {
   padding-left: 25px;
@@ -88,7 +91,7 @@ main .swiper {
 #wrapper {
   background-color: red;
   min-height: 100vh;
-  padding-bottom: 220px;
+  /* padding-bottom: 220px; */
 }
 body {
   display: flex;

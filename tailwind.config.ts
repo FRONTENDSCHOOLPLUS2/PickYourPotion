@@ -14,7 +14,7 @@ const config: Config = {
         bold: ["SBAggroB", "sans-serif"],
       },
       colors: {
-        primary: "#F29963",
+        primary: "#FF8F4B",
         peach: "#FFBB91",
         ivory: "#FFF3E3",
         blue: "#89A9D8",
