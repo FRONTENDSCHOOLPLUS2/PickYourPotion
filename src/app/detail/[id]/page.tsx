@@ -7,9 +7,10 @@ import smallDummyImage from "../../../../public/community-dummy-small.png";
 import iconLike from "../../../../public/images/icons/icon-like.svg";
 
 import { useState } from "react";
+import Detail from "./detail";
+import Reply from "./reply";
 export default function page() {
   const [showDetail, setShowDetail] = useState(true);
-  const [like, setLike] = useState(false);
 
   const handleToggle = () => {
     setShowDetail(!showDetail);
@@ -17,9 +18,12 @@ export default function page() {
   const handlLike = () => {
     setShowDetail(!showDetail);
   };
-  //   if(showDetail === true){
-
-  //   }
+  let content;
+  if (showDetail) {
+    content = <Detail />;
+  } else {
+    content = <Reply />;
+  }
   return (
     <div className="flex flex-col ">
       <div className="justify-center max-w-3xl">
@@ -34,7 +38,10 @@ export default function page() {
         <div className="flex flex-row mt-3">
           <div className="w-[82px] h-[64px] flex flex-col items-center justify-center bg-ivory mr-4 round ">
             <span className="text-black contentMedium">주종</span>
-            <p className="description text-ellipsis w-[33px] h-[28px]">증류식 소주</p>
+            <p className="description text-center">
+              증류식 <br />
+            </p>
+            <p className="description m-auto">소주</p>
           </div>
           <div className="w-[82px] h-[64px] flex flex-col items-center justify-center bg-ivory mr-4 round ">
             <span className="text-black contentMedium">도수</span>
@@ -67,44 +74,19 @@ export default function page() {
             후기
           </button>
         </div>
-        <div className="my-5">
-          <Image src={detailDummy} width={428} height={450} alt="막걸리 이미지" />
-        </div>
-        <div>
-          <div className="fixed bottom-0 flex flex-row gap-3 py-6 mt-5 mb-5 bg-white left-6 round">
-            <button
-              className={`contentMedium w-[124px] h-[62px] flex items-center justify-center cursor-pointe bg-whiteGray text-darkGray round`}
-            >
-              술바구니
-              <br /> 추가
-            </button>
-            <button
-              className={`contentMedium w-[244px] h-[62px] flex items-center  justify-center cursor-pointer bg-primary text-white round `}
-            >
-              구매하기
-            </button>
-          </div>
-        </div>
-        <div className="pt-5 pb-5 border-y-[0.5px] border-gray">
-          <form>
-            <input />
-            <button type="submit">전송</button>
-          </form>
-          <div className="flex flex-row justify-between ">
-            <p className="subTitleMedium">혈중 알콜농도 면허 취소</p>
-            <button>
-              <Image src={iconLike} width={25} height={22} alt="찜하기" />
-            </button>
-          </div>
-          <div className="flex flex-row">
-            <p className="description text-darkGray">@alcholfreeindechihae</p>
-            <p className="description text-darkGray">2020년 10월 21일</p>
-          </div>
-          <p className="leading-5 description text-darkGray">
-            어제 이 술마시고 오늘 저녁에 운전하다가 면허 취소 당했어요... 하지만 정말 맛은 좋고 끝에
-            달달한 맛이 너무 달콤 합니다. 다들 이거 마시고 행복한 연애 하세요 ㅎㅎ 맛꿀마
-          </p>
-          <Image src={dummyImage} width={348} height={228} alt="막걸리 이미지" />
+        {content}
+        <div className="fixed bottom-0 flex flex-row gap-3 py-6 mt-5 mb-5 bg-white left-6 round">
+          <button
+            className={`contentMedium w-[124px] h-[62px] flex items-center justify-center cursor-pointe bg-whiteGray text-darkGray round`}
+          >
+            술바구니
+            <br /> 추가
+          </button>
+          <button
+            className={`contentMedium w-[244px] h-[62px] flex items-center  justify-center cursor-pointer bg-primary text-white round `}
+          >
+            구매하기
+          </button>
         </div>
       </div>
     </div>
