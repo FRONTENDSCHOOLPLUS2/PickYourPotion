@@ -14,7 +14,7 @@ export default function page() {
       </div>
       <p className="mt-10 text-darkGray">추천 검색어</p>
 
-      <div className="flex flex-row flex-wrap content text-darkGray gap-[10px]">
+      <div className="flex flex-row flex-wrap content text-darkGray gap-[10px] mt-4">
         <button className=" px-4 py-2 border-2 border-peach rounded-[30px]">복순도가</button>
         <button className=" px-4 py-2 border-2 border-peach rounded-[30px]">막걸리</button>
         <button className=" px-4 py-2 border-2 border-peach rounded-[30px]">소주</button>
