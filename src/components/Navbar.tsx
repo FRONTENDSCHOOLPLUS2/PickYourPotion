@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ export default function Navbar() {
 
   const links = [
     { href: "/main", label: "오늘의 술" },
-    { href: "/market", label: "술상" },
+    { href: "/market/raw", label: "술상" },
     { href: "/community", label: "술창고" },
     { href: "/map", label: "지도" },
   ];
