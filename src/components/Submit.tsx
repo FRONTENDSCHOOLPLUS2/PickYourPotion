@@ -1,5 +1,9 @@
-export default function Submit() {
+import Button, { ButtonProps } from "./Button";
+
+export const Submit: React.FC<ButtonProps> = ({ children, selected, ...rest }) => {
   return (
-    <div>Submit</div>
-  )
-}
+    <Button type="submit" selected={false} {...rest}>
+      {children}
+    </Button>
+  );
+};
