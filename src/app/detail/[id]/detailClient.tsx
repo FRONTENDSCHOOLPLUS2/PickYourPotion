@@ -7,7 +7,7 @@ import Detail from "./detail";
 import Reply from "./reply";
 import { ProductDetail } from "./page";
 
-export default async function DetailClient({ data }: { data: ProductDetail }) {
+export default function DetailClient({ data }: { data: ProductDetail }) {
   let content;
   let likeBtn;
   const [showDetail, setShowDetail] = useState(true);

@@ -9,7 +9,7 @@ export interface ProductDetail {
   price: number;
   mainImages: ProductImage[];
   content: string;
-  _id: number;
+  _id: string;
   path: string;
 }
 export async function fetchPost(_id: string) {
@@ -25,13 +25,13 @@ export async function fetchPost(_id: string) {
   const resJson = await res.json();
   console.log(resJson);
   if (!resJson.ok) {
-    return null;
+    throw new Error("error");
   }
   return resJson.item;
 }
 
-export default async function Page() {
-  const data = await fetchPost("22");
+export default async function Page({ params }: { params: { id: string } }) {
+  const data = await fetchPost(params.id);
   return (
     <div className="flex flex-col ">
       <DetailClient data={data} />
