@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.fesp.shop",
+        port: "",
+        pathname: "/files/**",
+      },
+    ],
+  },
+};
 
 export default nextConfig;
