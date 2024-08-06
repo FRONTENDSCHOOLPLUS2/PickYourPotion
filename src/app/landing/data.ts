@@ -3,15 +3,19 @@ interface resultType {
 }
 
 export const question = [
-  { title: "평소 주량이 어떻게 되세요?", type: "alchol", A: "half", B: "1bottle", C: "2bottle" },
-  { title: "원하시는 당도를 선택해주세요!", type: "sweet", A: 0, B: 50, C: 100 },
   {
-    title: "술과 언제 함께 하실건가요?",
-    type: "situation",
-    A: "summer",
-    B: "rainy",
-    C: "romantic",
-    D: "friend",
+    title: "Q1. 평소 주량이 어떻게 되세요?",
+    A: "소주 반 병",
+    B: "소주 한 병",
+    C: "소주 두 병",
+  },
+  { title: "Q2. 원하시는 당도를 선택해주세요!", A: "0%", B: "50%", C: "100%" },
+  {
+    title: "Q3. 술과 언제 함께 하실건가요?",
+    A: "더운 날",
+    B: "비오는 날",
+    C: "연인과 함께",
+    D: "친구와 함께",
   },
 ];
 
