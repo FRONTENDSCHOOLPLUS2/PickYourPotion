@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
-import discount from "../../public/images/icons/discount.svg";
-import dummy from "../../public/community-dummy.png";
+
 import { useState } from "react";
 import Card from "./Card";
 
