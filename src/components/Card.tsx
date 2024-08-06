@@ -1,5 +1,5 @@
 import Image from "next/image";
-import discount from "../../public/images/icons/discount.svg";
+import discount from "../../public/images/icons/icon-discount.svg";
 import dummy from "../../public/community-dummy.png";
 
 interface CardProps {
