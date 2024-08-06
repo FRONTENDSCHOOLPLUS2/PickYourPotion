@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import { question } from "./data";
 import Button from "@/components/Button";
 import { LinkButton } from "@/components/LinkButton";
-import Soju from "@/components/icons/Soju";
-import SojuGlass from "@/components/icons/SojuGlass";
-import QuestionImage from "./QuestionImage";
+import AnswerImage from "./AnswerImage";
+import Result from "./Result";
 
 function LandingPage() {
   const [resultValue, setResultValue] = useState("");
@@ -39,9 +38,10 @@ function LandingPage() {
 
       {/* questionNum가 0과 4사이일 때 랜더링 */}
       {questionNum > 0 && questionNum < 4 && (
-        <div className="question flex flex-col justify-center text-center gap-2">
+        <div className="question relative flex flex-col justify-center text-center gap-2">
           <h2 className="mb-5 color-black text-subTitle">{question[questionNum - 1].title}</h2>
-          <input type="hidden" value={resultValue} />
+
+          {/* 답변 A */}
           <Button
             id="A"
             color={`${selectedValue === "A" ? "fill" : "line"}`}
@@ -49,6 +49,8 @@ function LandingPage() {
           >
             {question[questionNum - 1].A}
           </Button>
+
+          {/* 답변 B */}
           <Button
             id="B"
             color={`${selectedValue === "B" ? "fill" : "line"}`}
@@ -56,6 +58,8 @@ function LandingPage() {
           >
             {question[questionNum - 1].B}
           </Button>
+
+          {/* 답변 C */}
           <Button
             id="C"
             color={`${selectedValue === "C" ? "fill" : "line"}`}
@@ -63,6 +67,8 @@ function LandingPage() {
           >
             {question[questionNum - 1].C}
           </Button>
+
+          {/* 답변 D */}
           {question[questionNum - 1].D && (
             <Button
               id="D"
@@ -72,58 +78,25 @@ function LandingPage() {
               {question[questionNum - 1].D}
             </Button>
           )}
+
+          {/* 다음 질문 버튼 */}
           <Button
             id="next-btn"
             color={`${selectedValue ? "fill" : "disabled"}`}
-            className={`${!!selectedValue ? "opacity-100" : "opacity-0"}`}
+            className={`${!!selectedValue ? "opacity-100" : "opacity-0"} mb-3`}
             onClick={handleNextBtn}
           >
             다음
           </Button>
 
-          <QuestionImage questionNum={questionNum} selectedValue={selectedValue} />
+          <AnswerImage questionNum={questionNum} selectedValue={selectedValue} />
         </div>
       )}
 
       {/* questionNum가 4일때 결과창 랜더링 */}
       {questionNum === 4 && (
         <div className="result flex flex-col justify-center text-center">
-          <h2 className="text-center mb-2">
-            이런 술이 잘 맞으실것 같아요!
-            <br />
-            클릭하면 상품 페이지로 이동합니다
-          </h2>
-          <div className="w-full h-60 bg-slate-500 mb-3">이미지가 들어갈 자리</div>
-          <h3 className="mb-2">술 이름</h3>
-          <p className="mb-2">술 가격</p>
-          <table className="mb-5">
-            <tr>
-              <td width="30%">도수</td>
-              <td height="32px">술 도수</td>
-            </tr>
-            <tr>
-              <td width="30%">산미</td>
-              <td height="32px">
-                <div className="flex flex-row gap-[1px] h-4 bg-white rounded-full overflow-hidden">
-                  <span className="bg-primary w-1/4 h-full"></span>
-                  <span className="bg-primary w-1/4 h-full"></span>
-                  <span className="bg-primary w-1/4 h-full"></span>
-                  <span className="bg-lightGray w-1/4 h-full"></span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td width="30%">당도</td>
-              <td height="32px">
-                <div className="flex flex-row gap-[1px] h-4 bg-white rounded-full overflow-hidden">
-                  <span className="bg-primary w-1/4 h-full"></span>
-                  <span className="bg-primary w-1/4 h-full"></span>
-                  <span className="bg-primary w-1/4 h-full"></span>
-                  <span className="bg-lightGray w-1/4 h-full"></span>
-                </div>
-              </td>
-            </tr>
-          </table>
+          <Result value={selectedValue} />
 
           <Button className="mb-2" onClick={() => setQuestionNum(0)}>
             다시 하기
