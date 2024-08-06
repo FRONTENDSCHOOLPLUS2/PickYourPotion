@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { question } from "./data";
 import Button from "@/components/Button";
 import { LinkButton } from "@/components/LinkButton";
+import Soju from "@/components/icons/Soju";
+import SojuGlass from "@/components/icons/SojuGlass";
+import QuestionImage from "./QuestionImage";
 
 function LandingPage() {
   const [resultValue, setResultValue] = useState("");
@@ -77,6 +80,8 @@ function LandingPage() {
           >
             다음
           </Button>
+
+          <QuestionImage questionNum={questionNum} selectedValue={selectedValue} />
         </div>
       )}
 
