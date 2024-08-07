@@ -7,7 +7,7 @@ import Rainy from "@/components/icons/Rainy";
 import Heart from "@/components/icons/Heart";
 import Cheers from "@/components/icons/Cheers";
 
-function QuestionImage({
+function AnswerImage({
   questionNum,
   selectedValue,
 }: {
@@ -26,17 +26,17 @@ function QuestionImage({
 
       {/* 질문 2 이미지 */}
       {questionNum === 2 && (
-        <div className="relateve flex justify-center">
+        <div className="relative w-full h-full flex justify-center">
           <Spoon className="mt-3" />
           <SugarDice
-            className={`${
+            className={`absolute -translate-y-6 duration-700 ease-in-out opacity-0 ${
               (selectedValue === "B" || selectedValue === "C") && "translate-y-0 opacity-100"
-            } left-[53px] bottom-[95px]`}
+            } left-[16px] bottom-[24px]`}
           />
           <SugarDice
-            className={`${
+            className={`absolute -translate-y-6 duration-700 ease-in-out opacity-0 ${
               selectedValue === "C" && "translate-y-0 opacity-100"
-            } left-[57px] bottom-[133px]`}
+            } left-[20px] bottom-[60px]`}
           />
         </div>
       )}
@@ -64,4 +64,4 @@ function QuestionImage({
   );
 }
 
-export default QuestionImage;
+export default AnswerImage;
