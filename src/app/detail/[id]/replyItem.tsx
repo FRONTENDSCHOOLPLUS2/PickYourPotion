@@ -1,7 +1,6 @@
 import Image from "next/image";
-import iconLike from "../../../../public/images/icons/icon-like.svg";
 import dummyImage from "../../../../public/community-dummy.png";
-import { ProductDetail, ProductReplies } from "./page";
+import { ProductReplies } from "./page";
 export default function ReplyItem({ item }: { item: ProductReplies }) {
   return (
     <>

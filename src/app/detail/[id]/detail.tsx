@@ -1,5 +1,3 @@
-import Image from "next/image";
-import detailDummy from "../../../../public/detail_dummy.png";
 import { ProductDetail } from "./page";
 export default function Detail({ data }: { data: ProductDetail }) {
   const contentImg = `

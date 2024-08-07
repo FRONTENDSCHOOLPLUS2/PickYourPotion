@@ -31,7 +31,6 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
   } else {
     likeBtn = iconLike;
   }
-  console.log(data);
   return (
     <>
       <div className="justify-center max-w-3xl">
