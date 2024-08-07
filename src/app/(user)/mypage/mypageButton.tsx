@@ -18,21 +18,21 @@ const MypageButton = () => {
       src: cartIcon,
       alt: "장바구니 아이콘",
       content: "장바구니",
-      href: "/",
+      href: "/cart",
     },
     {
       id: 2,
       src: accountIcon,
       alt: "나의 활동 아이콘",
       content: "나의 활동",
-      href: "/",
+      href: "/mypage/activity",
     },
   ];
 
   return (
-    <ul className="flex mt-12 justify-between mx-auto">
+    <ul className="flex mt-12 justify-evenly mx-auto">
       {buttonData.map((item) => (
-        <li key={item.id} className="float-start bg-whiteGray rounded-[10px] px-3">
+        <li key={item.id} className="float-start bg-whiteGray rounded-[10px] px-5">
           <Link href={item.href} className="flex flex-col items-center py-1 text-darkGray">
             <Image src={item.src} alt={item.alt} />
             {item.content}
