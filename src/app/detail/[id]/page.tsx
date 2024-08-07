@@ -1,16 +1,31 @@
 import DetailClient from "./detailClient";
+export interface User {
+  name: string;
+  id: number;
+}
 export interface ProductImage {
   path: string;
   name: string;
   originalname: string;
+}
+export interface ProductReplies {
+  _id: number;
+  user: User;
+  user_id: number;
+  name: string;
+  image: string;
+  rating: number;
+  content: string;
+  createdAt: string;
 }
 export interface ProductDetail {
   name: string;
   price: number;
   mainImages: ProductImage[];
   content: string;
-  _id: string;
+  _id: number;
   path: string;
+  replies: ProductReplies[];
 }
 export async function fetchPost(_id: string) {
   const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
@@ -32,6 +47,8 @@ export async function fetchPost(_id: string) {
 
 export default async function Page({ params }: { params: { id: string } }) {
   const data = await fetchPost(params.id);
+  console.log("dasdsaasd", data);
+  console.log("dasdsaasd", params.id);
   return (
     <div className="flex flex-col ">
       <DetailClient data={data} />
