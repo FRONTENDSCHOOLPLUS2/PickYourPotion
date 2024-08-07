@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "custom-gradient":
+          "linear-gradient(180deg, rgba(238, 238, 238, 0) 62.5%, rgba(6, 6, 6, 0.626) 91.67%)",
+      },
       fontFamily: {
         light: ["SBAggroL", "sans-serif"],
         medium: ["SBAggroM", "sans-serif"],
