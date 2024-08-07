@@ -2,8 +2,8 @@
 
 import Button from "@/components/Button";
 import { useState } from "react";
-import OrderCard from "@/app/order/orderCard";
-import ReviewCard from "@/components/ReviewCard";
+import MyReview from "./WrittenReview";
+import ReviewToWrite from "./ReviewToWrite";
 
 export default function ActivityPage() {
   const buttonList = ["리뷰 작성", "작성한 리뷰"];
@@ -26,13 +26,7 @@ export default function ActivityPage() {
           </Button>
         ))}
       </div>{" "}
-      {selected === 0 ? (
-        <div>
-          <OrderCard />
-        </div>
-      ) : (
-        <ReviewCard />
-      )}
+      {selected === 0 ? <ReviewToWrite /> : <MyReview />}
     </main>
   );
 }

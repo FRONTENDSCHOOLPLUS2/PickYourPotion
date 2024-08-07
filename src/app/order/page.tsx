@@ -1,6 +1,6 @@
 import Image from "next/image";
 import OrderDate from "./orderDate";
-import OrderCard from "./orderCard";
+import OrderCard from "./OrderCard";
 
 export default function OrderPage() {
   return (
