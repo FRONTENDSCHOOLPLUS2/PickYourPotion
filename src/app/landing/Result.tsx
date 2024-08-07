@@ -1,5 +1,12 @@
-function Result({ value }: { value: string }) {
+import { fetchDetail } from "../detail/[id]/page";
+import { result } from "./data";
+
+async function Result({ value }: { value: string }) {
   // 받아온 value값으로 데이터 패칭하여 정보 채워넣기
+  // const productNum = result[value].productNumber;
+  // const result1 = await fetchDetail(productNum[0] + "");
+  // const result2 = await fetchDetail(productNum[1] + "");
+  console.log(value);
 
   return (
     <>
