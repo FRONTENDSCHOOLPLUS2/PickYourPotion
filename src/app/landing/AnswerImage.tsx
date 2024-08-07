@@ -2,12 +2,10 @@ import Soju from "@/components/icons/Soju";
 import SojuGlass from "@/components/icons/SojuGlass";
 import Spoon from "@/components/icons/Spoon";
 import SugarDice from "@/components/icons/SugarDice";
-
-import Image from "next/image";
-import picRainy from "../../../public/images/pic-rainy-day.png";
-import picSunny from "../../../public/images/pic-sunny-day.png";
-import picFriends from "../../../public/images/pic-with-friends.png";
-import picLover from "../../../public/images/pic-with-lover.png";
+import Sunny from "@/components/icons/Sunny";
+import Rainy from "@/components/icons/Rainy";
+import Heart from "@/components/icons/Heart";
+import Cheers from "@/components/icons/Cheers";
 
 function QuestionImage({
   questionNum,
@@ -17,7 +15,7 @@ function QuestionImage({
   selectedValue: string;
 }) {
   return (
-    <>
+    <div className="py-8">
       {/* 질문 1 이미지 */}
       {questionNum === 1 && (
         <div className="flex justify-center items-end gap-1">
@@ -32,57 +30,37 @@ function QuestionImage({
           <Spoon className="mt-3" />
           <SugarDice
             className={`${
-              (selectedValue === "A" || selectedValue === "B" || selectedValue === "C") &&
-              "translate-y-0 opacity-100"
-            } left-[43px] bottom-[25px]`}
-          />
-          <SugarDice
-            className={`${
               (selectedValue === "B" || selectedValue === "C") && "translate-y-0 opacity-100"
-            } left-[47px] bottom-[63px]`}
+            } left-[53px] bottom-[95px]`}
           />
           <SugarDice
             className={`${
               selectedValue === "C" && "translate-y-0 opacity-100"
-            } left-[40px] bottom-[99px]`}
+            } left-[57px] bottom-[133px]`}
           />
         </div>
       )}
 
       {/* 질문 3 이미지 */}
       {questionNum === 3 && (
-        <div className="relative m-auto w-[160px] h-[160px]">
-          <Image
-            src={picSunny}
-            className={`absolute t-0 l-0 duration-700 ${selectedValue === "A" ? "opacity-100" : "opacity-0"}`}
-            width={160}
-            height={160}
-            alt="맑은 날"
-          />
-          <Image
-            src={picRainy}
-            className={`absolute t-0 l-0 duration-700 ${selectedValue === "B" ? "opacity-100" : "opacity-0"}`}
-            width={160}
-            height={160}
-            alt="비오는 날"
-          />
-          <Image
-            src={picLover}
-            className={`absolute t-0 l-0 duration-700 ${selectedValue === "C" ? "opacity-100" : "opacity-0"}`}
-            width={160}
-            height={160}
-            alt="연인과 함께"
-          />
-          <Image
-            src={picFriends}
-            className={`absolute t-0 l-0 duration-700 ${selectedValue === "D" ? "opacity-100" : "opacity-0"}`}
-            width={160}
-            height={160}
-            alt="친구와 함께"
-          />
+        <div className="relative m-auto w-[220px] h-[220px]">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Sunny className={`${selectedValue === "A" ? "opacity-100" : "opacity-0"}`} />
+          </div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Rainy className={`${selectedValue === "B" ? "opacity-100" : "opacity-0"}`} />
+          </div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Heart
+              className={`${selectedValue === "C" ? "opacity-100" : "opacity-0"} animate-custom-bounce`}
+            />
+          </div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Cheers className={`${selectedValue === "D" ? "opacity-100" : "opacity-0"}`} />
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

@@ -44,7 +44,7 @@ function Soju({ isEmpty }: { isEmpty: string }) {
           y="31"
           width="60"
           height="135"
-          fill="#2f8da2"
+          fill="#27C865"
           className={twMerge("scale-y-0 origin-bottom ease-in-out duration-1000", fillSoju)}
         />
       </g>
@@ -90,7 +90,7 @@ function Soju({ isEmpty }: { isEmpty: string }) {
           y="31"
           width="60"
           height="135"
-          fill="#2f8da2"
+          fill="#27C865"
           className={`${isEmpty === "C" ? "scale-y-100" : "scale-y-0"} origin-bottom ease-in-out duration-1000`}
         />
       </g>
