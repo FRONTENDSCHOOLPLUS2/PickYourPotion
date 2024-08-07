@@ -87,8 +87,8 @@ export default function PayPage() {
                 <Button
                   key={index}
                   children={item}
+                  color={index === selected ? "fill" : "disabled"}
                   onClick={() => handleButtonClick(index)}
-                  selected={selected === index}
                   className="content w-full py-4"
                 />
               ))}
@@ -96,7 +96,6 @@ export default function PayPage() {
           </div>
           <Button
             children={"다음"}
-            selected={false}
             onClick={() => handleNextClick()}
             className="w-full py-5 mt-12 mb-9"
           />
@@ -109,7 +108,7 @@ export default function PayPage() {
             <p className="">빠른 시일 내에 배송해드릴게요!!</p>
           </div>
           <Link href={"/"}>
-            <Button children={"확인"} selected={true} className="w-full contentMedium py-5 mb-12" />
+            <Button children={"확인"} className="w-full contentMedium py-5 mb-12" />
           </Link>
         </main>
       )}
