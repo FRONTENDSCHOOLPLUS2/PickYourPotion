@@ -3,13 +3,14 @@ import { twMerge } from "tailwind-merge";
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string; // 추가적인 css
-  color?: "fill" | "line" | "disabled";
+  color?: "fill" | "line" | "disabled" | "white";
 }
 
 export const btnColor = {
-  line: "border-2 border-primary",
+  line: "border-2 border-primary bg-white",
   fill: "bg-primary text-white",
   disabled: "bg-whiteGray text-darkGray",
+  white: "bg-white text-primary",
 };
 
 const Button: React.FC<ButtonProps> = ({
