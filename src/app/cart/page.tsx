@@ -1,18 +1,13 @@
 import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
-import { useEffect, useState } from "react";
 
 export default function Page() {
   const dummys = [
-    { productPrice: 9000 },
+    { productPrice: 20000 },
     { productPrice: 30000 },
     { productPrice: 2200 },
     { productPrice: 8900 },
-    { productPrice: 8900 },
-    { productPrice: 8900 },
-    { productPrice: 8900 },
-    { productPrice: 8900 },
-    { productPrice: 8900 },
+    { productPrice: 400000 },
   ];
 
   return (
@@ -37,11 +32,9 @@ export default function Page() {
             <span>총 결제 금액</span>
             <span className="text-primary contentMedium">53,000원</span>
           </div>
-          <Button
-            children={"총 53,000원 결제하기"}
-            selected={true}
-            className="w-[378px] h-[62px] subTitle"
-          />
+          <Button color={"fill"} className="w-[378px] h-[62px] subTitle">
+            총 53,000원 결제하기
+          </Button>
         </div>
       </div>
     </div>
