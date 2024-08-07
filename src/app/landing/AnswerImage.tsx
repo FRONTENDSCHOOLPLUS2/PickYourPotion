@@ -15,7 +15,7 @@ function QuestionImage({
   selectedValue: string;
 }) {
   return (
-    <>
+    <div className="py-8">
       {/* 질문 1 이미지 */}
       {questionNum === 1 && (
         <div className="flex justify-center items-end gap-1">
@@ -60,7 +60,7 @@ function QuestionImage({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

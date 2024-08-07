@@ -59,7 +59,8 @@ const config: Config = {
             "animation-timing-function": "cubic-bezier(0.8, 0, 1, 1)",
           },
           "50%": {
-            transform: "translateX(25px) translateY(-5px)",
+            transform: "translateX(25px) translateY(-5px) rotate(-10deg)",
+            "transform-origin": "center",
             "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)",
           },
         },
@@ -69,7 +70,18 @@ const config: Config = {
             "animation-timing-function": "cubic-bezier(0.8, 0, 1, 1)",
           },
           "50%": {
-            transform: "translateX(-25px) translateY(-5px)",
+            transform: "translateX(-25px) translateY(-5px) rotate(10deg)",
+            "transform-origin": "center",
+            "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)",
+          },
+        },
+        blink: {
+          "0%, 100%": {
+            opacity: "0",
+            "animation-timing-function": "cubic-bezier(0.8, 0, 1, 1)",
+          },
+          "50%": {
+            opacity: "1",
             "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)",
           },
         },
@@ -81,6 +93,7 @@ const config: Config = {
         "custom-bounce": "custom-bounce 1.5s ease-in-out infinite",
         "cheers-glass": "cheers-glass 1.5s ease-in-out infinite",
         "cheers-glass-reverse": "cheers-glass-reverse 1.5s ease-in-out infinite",
+        blink: "blink 1.5s ease-in-out infinite",
       },
     },
   },
