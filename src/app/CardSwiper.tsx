@@ -5,20 +5,22 @@ import "swiper/css";
 
 function CardSwiper() {
   return (
-    <Swiper width={250} className="mb-12">
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-    </Swiper>
+    <div className="flex w-screen h-[532px] bg-whiteGray items-center ">
+      <Swiper width={250}>
+        <SwiperSlide className="ml-[25px]">
+          <ProductCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProductCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProductCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProductCard />
+        </SwiperSlide>
+      </Swiper>
+    </div>
   );
 }
 

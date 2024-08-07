@@ -7,8 +7,15 @@ import gnb from "../../../public/images/icons/icon-gnb.svg";
 
 export default function Header() {
   return (
+<<<<<<< Updated upstream
     <div className="flex flex-row items-center justify-between h-12 fixed top-0 w-full p-2 z-50 bg-white shadow-sm">
       <Image className="" src={gnb} alt="검색 아이콘" width={40} height={40} />
+=======
+    <div className="flex flex-row w-full items-center justify-between h-12 fixed top-0  p-2 z-50 bg-white">
+      <Link href="/">
+        <Image className="" src={gnb} alt="검색 아이콘" width={40} height={40} />
+      </Link>
+>>>>>>> Stashed changes
       <span className="ml-8 font-medium text-[20px] text-center">지금 페이지</span>
       <div className="flex flex-row">
         <Link href="/search">

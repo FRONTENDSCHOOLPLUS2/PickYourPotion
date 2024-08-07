@@ -6,10 +6,11 @@ import CardSwiper from "./CardSwiper";
 
 export default function Home() {
   return (
-    <main className="py-8">
+    <div className="py-8 overflow-hidden ">
       <CardSwiper />
+      <main>
       <h2 className="mb-6 text-black subTitleMedium">전통주</h2>
-      <ul className="mb-12 [&>*:last-child]:mb-0">
+      <ul className="mb-12 [&>*:last-child]:mb-0 ">
         <li className="mb-3">
           <Link href="/">
             <CardItemSmall />
@@ -27,6 +28,7 @@ export default function Home() {
         </li>
       </ul>
       <h2 className="mb-6 text-black subTitleMedium">술상</h2>
-    </main>
+      </main>
+    </div>
   );
 }
