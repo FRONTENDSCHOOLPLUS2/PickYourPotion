@@ -23,7 +23,7 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
   if (showDetail) {
     content = <Detail data={data} />;
   } else {
-    content = <Reply />;
+    content = <Reply data={data} />;
   }
 
   if (like) {
@@ -94,7 +94,9 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
             후기
           </button>
         </div>
+
         {content}
+
         <div className="sticky bottom-0 flex flex-row gap-3 mt-5 mb-5 bg-white left-6 round">
           <button
             className={`contentMedium w-[124px] h-[62px] flex items-center justify-center cursor-pointe bg-whiteGray text-darkGray round`}
