@@ -5,7 +5,7 @@ export interface User {
   phone?: string;
   address?: string;
   type: "user" | "seller" | "admin";
-  loginType?: "email" | "kakao";
+  loginType?: "google" | "naver";
   profileImage?: string;
   profile?: string;
   token?: {
@@ -21,3 +21,12 @@ export type UserInToken = Required<Pick<User, "_id" | "name">> &
     accessToken: string;
     refreshToken: string;
   };
+
+export type UserForm = {
+  type: "user" | "seller";
+  name: string;
+  email: string;
+  password: string;
+  attach?: string | string[];
+  profileImage?: string;
+};
