@@ -1,6 +1,5 @@
 import Image from "next/image";
 import dummyImage from "@/../public/community-dummy.png";
-import likeIcon from "@/../public/images/icons/icon-like.svg";
 import LikeIcon from "./icons/LikeIcon";
 
 const ReviewCard: React.FC = () => {

@@ -9,7 +9,7 @@ export default function Page() {
     <div className="mx-auto my-auto flex flex-col justify-center items-center">
       <Image src={drunken} alt={"만취이미지"} className="  mt-[80px]" />
       <p className="font-medium text-3xl mt-5">필름이 끊겼어요..🍶</p>
-      <p className="font-content text-darkGray mt-5 items-center">
+      <p className="font-content text-darkGray mt-5 items-center justify-center">
         존재하지 않는 페이지로 이동하셨어요.
         <br />
         입력하신 주소가 맞는지 다시한번 확인 해주세요:)

@@ -11,8 +11,10 @@ const config: Config = {
       backgroundImage: {
         "custom-gradient":
           "linear-gradient(180deg, rgba(238, 238, 238, 0) 62.5%, rgba(6, 6, 6, 0.626) 91.67%)",
+        "custom-white":
+          "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 24%, rgba(255,255,255,1) 100%)",
       },
-      fontFamily: {
+      Family: {
         light: ["SBAggroL", "sans-serif"],
         medium: ["SBAggroM", "sans-serif"],
         bold: ["SBAggroB", "sans-serif"],
