@@ -80,12 +80,16 @@ main {
   clip-path: polygon(0 0, 0 0, 0 0);
 }
 
+.swiper {
+  overflow: visible !important;
+}
+
 main .swiper {
   @apply mx-0 overflow-visible;
 }
 
 .swiper .swiper-slide {
-  @apply mr-4;
+  @apply mx-0;
 }
 
 #wrapper {
