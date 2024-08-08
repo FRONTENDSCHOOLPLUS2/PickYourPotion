@@ -20,7 +20,7 @@ const Input: React.FC<InputProps> = ({
   children,
 }: InputProps) => {
   return (
-    <>
+    <div className="flex flex-col">
       <label htmlFor={id} className={a11yHidden}>
         {children}
       </label>
@@ -31,7 +31,7 @@ const Input: React.FC<InputProps> = ({
         name={name}
         type={type}
       />
-    </>
+    </div>
   );
 };
 
