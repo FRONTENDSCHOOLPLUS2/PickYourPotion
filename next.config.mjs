@@ -5,11 +5,24 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "api.fesp.shop",
-        port: "",
         pathname: "/files/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/files/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.googleusercontent.com",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.githubusercontent.com",
+        pathname: "**",
       },
     ],
   },
 };
-
 export default nextConfig;
