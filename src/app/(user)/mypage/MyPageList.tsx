@@ -16,4 +16,4 @@ const MyPageList: React.FC = () => {
   );
 };
 
-export default MypageList;
+export default MyPageList;
