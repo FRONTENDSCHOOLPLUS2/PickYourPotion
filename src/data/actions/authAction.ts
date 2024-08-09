@@ -1,5 +1,5 @@
 "use server";
-import { signIn } from "./../../app/auth";
+import { signIn } from "../../auth";
 import { redirect } from "next/navigation";
 
 // email/password 로그인

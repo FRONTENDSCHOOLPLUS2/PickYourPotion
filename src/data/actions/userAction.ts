@@ -1,8 +1,7 @@
 "use server"; // 서버 액션 정의
 import { ApiResWithValidation, SingleItem, User, UserForm } from "@/types";
 
-const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-
+const SERVER = process.env.PICK_YOUR_POTION_NEXT_SERVER;
 type LoginForm = {
   email: string;
   password: string;
