@@ -75,7 +75,7 @@ function Detail({ item, content }: { item: ProductDetailAll; content: string }) 
       <h3 className="mb-2">어울리는 안주</h3>
       <div className="mb-8 flex flex-wrap justify-center gap-1">
         {snack.map((item, index) => (
-          <p key={index} className="py-1 px-3 border-2 border-primary rounded-full">
+          <p key={index} className="pt-[6px] pb-1 px-3 border-2 border-primary rounded-full">
             {item}
           </p>
         ))}
