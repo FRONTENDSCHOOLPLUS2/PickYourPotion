@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 export default function Home() {
   return (
     <div>
+      <Navbar />
       <CardSwiper />
       <main>
         <h2 className="mb-6 text-black subTitleMedium mt-5">전통주</h2>

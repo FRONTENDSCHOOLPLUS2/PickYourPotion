@@ -9,7 +9,7 @@ import Navbar from "../Navbar";
 export default function Header() {
   return (
     <>
-      <div className="flex flex-row w-full items-center justify-between  fixed top-0  px-2 py-4 z-50 bg-white">
+      <div className="flex flex-row items-center justify-between h-12 fixed top-0 w-screen px-2 py-10 z-50 bg-white shadow-sm">
         <Link href="/">
           <Image className="" src={gnb} alt="검색 아이콘" width={40} height={40} />
         </Link>
@@ -23,7 +23,6 @@ export default function Header() {
           </Link>
         </div>
       </div>
-      <Navbar />
     </>
   );
 }
