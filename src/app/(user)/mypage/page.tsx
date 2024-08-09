@@ -1,5 +1,5 @@
-import MypageButton from "./mypageButton";
-import MypageList from "./mypageList";
+import MyPageButton from "./MyPageButton";
+import MyPageList from "./MyPageList";
 
 export default function MyPage() {
   return (
@@ -8,8 +8,8 @@ export default function MyPage() {
         <h1 className="mt-[114px] text-2xl font-medium">조지주님</h1>
         <p className="text-2xl font-medium">안녕하세요👋🏻</p>
       </div>
-      <MypageButton />
-      <MypageList />
+      <MyPageButton />
+      <MyPageList />
     </main>
   );
 }

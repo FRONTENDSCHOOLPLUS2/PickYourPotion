@@ -1,6 +1,6 @@
 import Image from "next/image";
 import dummyImage from "../../../public/community-dummy.png";
-export default function page() {
+export default function Page() {
   return (
     <div className="flex flex-col ">
       <div className="justify-center max-w-3xl">
