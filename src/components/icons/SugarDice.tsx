@@ -8,7 +8,7 @@ function SugarDice({ className }: { className: string }) {
       viewBox="0 0 56 121"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${twMerge("absolute -translate-y-6 duration-700 ease-in-out opacity-0", className)}`}
+      className={`${twMerge("", className)}`}
     >
       <path
         d="M49.1668 107.673L35.3076 119.552H1.48927V85.8448L16.3509 73.9555L49.1668 74.9499V107.673Z"
