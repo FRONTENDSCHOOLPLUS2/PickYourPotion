@@ -1,3 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "SBAggroL";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SBAggroM";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroM.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SBAggroB";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "SBAggroL", sans-serif;
+}
+
+.title {
+  font-size: 25px;
+  font-family: "SBAggroB", sans-serif;
+}
+.titleMedium {
+  font-size: 25px;
+  font-family: "SBAggroM", sans-serif;
+}
+.subTitle {
+  font-size: 20px;
+  font-family: "SBAggroL", sans-serif;
+}
+.subTitleMedium {
+  font-size: 20px;
+  font-family: "SBAggroM", sans-serif;
+}
+.content {
+  font-size: 16px;
+  font-family: "SBAggroL", sans-serif;
+}
+.contentMedium {
+  font-size: 16px;
+  font-family: "SBAggroM", sans-serif;
+}
+.contentBold {
+  font-size: 16px;
+  font-family: "SBAggroB", sans-serif;
+}
+.description {
+  font-size: 12px;
+  font-family: "SBAggroL", sans-serif;
+}
+.round {
+  border-radius: 10px;
+}
+.topRound {
+  border-radius: 40px;
+}
+
+main {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.a11y-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+.swiper {
+  overflow: visible !important;
+}
+
+main .swiper {
+  @apply mx-0 overflow-visible;
+}
+
+.swiper .swiper-slide {
+  @apply mx-0;
+}
+
+#wrapper {
+  background-color: red;
+  min-height: 100vh;
+  /* padding-bottom: 220px; */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.topShadow {
+  box-shadow: 0px -42px 30px -33px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px -42px 30px -33px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px -42px 30px -33px rgba(0, 0, 0, 0.3);
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
