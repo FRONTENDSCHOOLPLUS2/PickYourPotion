@@ -1,4 +1,4 @@
-import OrderCard from "@/app/order/orderCard";
+import OrderCard from "@/app/order/OrderCard";
 
 const ReviewToWrite: React.FC = () => {
   return (
