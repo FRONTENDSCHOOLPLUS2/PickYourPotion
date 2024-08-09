@@ -1,4 +1,5 @@
-import DetailClient from "./detailClient";
+import DetailClient from "./DetailClient";
+
 export interface User {
   name: string;
   id: number;

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import OrderDate from "./OrderDate";
 import OrderCard from "./OrderCard";
 
