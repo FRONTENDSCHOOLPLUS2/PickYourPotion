@@ -43,4 +43,4 @@ const MyPageButton = () => {
   );
 };
 
-export default MypageButton;
+export default MyPageButton;
