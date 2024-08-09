@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { login } from "../data/actions/userAction";
+import { login } from "./data/actions/userAction";
 import github from "next-auth/providers/github";
 import google from "next-auth/providers/google";
 import naver from "next-auth/providers/naver";
 
-const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
+const CLIENT_ID = process.env.PICK_YOUR_POTION_CLIENT_ID;
 // OAuth2.0
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -17,6 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "client-id": `${CLIENT_ID}`,
           },
           body: JSON.stringify(credentials),
         });
