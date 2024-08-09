@@ -16,13 +16,13 @@ export default function Category() {
   };
 
   const links = [
-    { href: "/market/raw", label: "탁주", src: raw, alt:"탁주아이콘" },
-    { href: "/market/refined", label: "청주", src: refined , alt:"청주아이콘"},
-    { href: "/market/fruit", label: "과실주", src: fruit, alt:"과실주아이콘" },
-    { href: "/market/liquor", label: "증류주", src: liquor , alt:"증류주아이콘"},
+    { href: "/market/raw", label: "탁주", src: raw, alt: "탁주아이콘" },
+    { href: "/market/refined", label: "청주", src: refined, alt: "청주아이콘" },
+    { href: "/market/fruit", label: "과실주", src: fruit, alt: "과실주아이콘" },
+    { href: "/market/liquor", label: "증류주", src: liquor, alt: "증류주아이콘" },
   ];
   return (
-    <div>
+    <div className="pt-20">
       <ul className="flex flex-row mb-7 mx-10 mt-2.5 justify-between ">
         {links.map((link, index) => (
           <li key={index} onClick={() => handleClick(index)}>

@@ -8,6 +8,7 @@ export default function layout({
 }>) {
   return (
     <>
+    <Navbar/>
       <Category />
       {children}
     </>
