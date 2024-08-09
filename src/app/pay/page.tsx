@@ -48,7 +48,7 @@ export default function PayPage() {
             </div>
             <div className="py-2">
               <span className="contentMedium">주소(필수)</span>
-              <div className="mt-2 flex justify-between">
+              <div className="flex justify-between mt-2">
                 <div className="flex-grow">
                   <Input
                     placeholder="에) 광희동 2가 256"
@@ -68,7 +68,7 @@ export default function PayPage() {
                     a11yHidden="a11y-hidden"
                   />
                 </div>
-                <button className="w-20 h-12 bg-primary text-white rounded-lg ml-4">검색</button>
+                <button className="w-20 h-12 ml-4 text-white rounded-lg bg-primary">검색</button>
               </div>
             </div>
           </div>
@@ -76,39 +76,38 @@ export default function PayPage() {
             <p className="contentMedium">주문한 술</p>
             <OrderedCard />
           </div>
-          <div className="subTitleMedium mt-10">
+          <div className="mt-10 subTitleMedium">
             <p className="text-center">결제 금액</p>
-            <p className="titleMedium text-primary text-center mt-3">388,000원</p>
+            <p className="mt-3 text-center titleMedium text-primary">388,000원</p>
           </div>
-          <div className="subTitleMedium mt-10 text-center">
+          <div className="mt-10 text-center subTitleMedium">
             <p>결제 방법</p>
-            <div className="mt-3 px-1 grid grid-cols-2 justify-items-center gap-2 auto-cols-auto">
+            <div className="grid grid-cols-2 gap-2 px-1 mt-3 justify-items-center auto-cols-auto">
               {buttonLabels.map((item, index) => (
                 <Button
                   key={index}
-                  children={item}
                   color={index === selected ? "fill" : "disabled"}
                   onClick={() => handleButtonClick(index)}
-                  className="content w-full py-4"
-                />
+                  className="w-full py-4 content"
+                >
+                  {item}
+                </Button>
               ))}
             </div>
           </div>
-          <Button
-            children={"다음"}
-            onClick={() => handleNextClick()}
-            className="w-full py-5 mt-12 mb-9"
-          />
+          <Button onClick={() => handleNextClick()} className="w-full py-5 mt-12 mb-9">
+            {"다음"}
+          </Button>
         </main>
       ) : (
-        <main className="flex flex-col justify-between contentMedium text-black text-center h-screen">
+        <main className="flex flex-col justify-between h-screen text-center text-black contentMedium">
           <div className="mt-20">
             <p>박재웅님,</p>
             <p className="text-primary">술상이 준비되었습니다!</p>
             <p className="">빠른 시일 내에 배송해드릴게요!!</p>
           </div>
           <Link href={"/"}>
-            <Button children={"확인"} className="w-full contentMedium py-5 mb-12" />
+            <Button className="w-full py-5 mb-12 contentMedium">{"확인"}</Button>
           </Link>
         </main>
       )}

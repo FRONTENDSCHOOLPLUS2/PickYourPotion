@@ -13,9 +13,6 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
   const [showDetail, setShowDetail] = useState(true);
   const [like, setLike] = useState(false);
 
-  const handleToggle = () => {
-    setShowDetail(!showDetail);
-  };
   const handleLike = () => {
     setLike(!like);
   };

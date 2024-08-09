@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { login } from "./data/actions/userAction";
 import github from "next-auth/providers/github";
 import google from "next-auth/providers/google";
 import naver from "next-auth/providers/naver";
@@ -25,7 +24,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const resJson = await res.json();
         if (resJson.ok) {
           const user = resJson.item;
-          console.log(resJson);
           return {
             id: user._id,
             name: user.name,
@@ -65,7 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // true를 리턴하면 로그인 처리를 계속하고, false를 리턴하거나 Error를 throw하면 로그인 흐름을 중단
     // user: authorize()가 리턴한 값
 
-    async signIn({ user }) {
+    signIn({ user }) {
       //구글,깃헙 등 간편로그인 한 user에 들어있는 사용자 정보를 이용해서 최초에 한 번은 회원 DB에 저장(회원가입)
       // 가입한 회원일 경우 자동으로 로그인 처리
 
@@ -73,7 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     // 로그인 성공한 회원 접오로 token 객체를 설정
     // 최초 로그인시 user 객체 전달,
-    async jwt({ token, user }) {
+    jwt({ token, user }) {
       // 토큰 만료 체크, refreshToken으로 accessToken 갱신
       // refreshToken도 만료되었을 경우 로그아웃 처리
       if (user?.accessToken) {
@@ -84,7 +82,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     //  클라이언트에서 세션 정보 요청시 호출
     // token 객체 정보로 session 객체 설정
-    async session({ session, token }) {
+    session({ session, token }) {
       // session.user.type = user.type;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
