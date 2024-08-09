@@ -2,7 +2,7 @@ import Image from "next/image";
 import searchIcon from "../../../public/images/icons/icon-search.svg";
 import Input from "@/components/Input";
 
-export default function page() {
+export default function Page() {
   return (
     <div className="flex flex-col mx-[25px] mt-14 max-w-[428px]">
       <div className="flex">

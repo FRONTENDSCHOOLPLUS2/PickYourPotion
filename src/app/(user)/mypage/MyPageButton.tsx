@@ -4,7 +4,7 @@ import accountIcon from "@/../public/images/icons/icon-accont.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-const MypageButton = () => {
+const MyPageButton = () => {
   const buttonData = [
     {
       id: 0,
@@ -43,4 +43,4 @@ const MypageButton = () => {
   );
 };
 
-export default MypageButton;
+export default MyPageButton;
