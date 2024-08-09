@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
 import dummyImage from "../../../public/community-dummy.png";
-import smallDummyImage from "../../../public/community-dummy-small.png";
 export default function page() {
   return (
     <div className="flex flex-col ">

@@ -15,12 +15,13 @@ export default function ActivityPage() {
 
   return (
     <main>
-      <div className="flex gap-2 align-middle justify-center my-10">
+      <div className="flex justify-center gap-2 my-10 align-middle">
         {buttonList.map((item, index) => (
           <Button
             color={index === selected ? "fill" : "disabled"}
             onClick={() => handleButtonClick(index)}
             className="w-full py-4"
+            key={index}
           >
             {item}
           </Button>
