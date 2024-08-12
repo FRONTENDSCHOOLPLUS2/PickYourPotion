@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import github from "next-auth/providers/github";
 import google from "next-auth/providers/google";
+import kakao from "next-auth/providers/kakao";
 import naver from "next-auth/providers/naver";
 
 const SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
@@ -50,6 +51,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.NAVER_CLIENT_ID,
       clientSecret: process.env.NAVER_CLIENT_SECRET,
     }),
+    kakao({
+      clientId: process.env.KAKAO_CLIENT_ID,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET,
+    }),
   ],
   session: {
     strategy: "jwt", // default "jwt"
@@ -64,9 +69,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // user: authorize()가 리턴한 값
 
     signIn({ user }) {
-      //구글,깃헙 등 간편로그인 한 user에 들어있는 사용자 정보를 이용해서 최초에 한 번은 회원 DB에 저장(회원가입)
+      // 구글,깃헙 등 간편로그인 한 user에 들어있는 사용자 정보를 이용해서 최초에 한 번은 회원 DB에 저장(회원가입)
       // 가입한 회원일 경우 자동으로 로그인 처리
-
+      console.log(user);
       return true;
     },
     // 로그인 성공한 회원 접오로 token 객체를 설정
