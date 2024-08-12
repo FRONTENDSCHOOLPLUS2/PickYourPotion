@@ -1,0 +1,554 @@
+{
+  "brewery": [
+    {
+      "title": "산머루농원",
+      "location": "경기 파주시 적성면 객현리 67-1",
+      "phone": "031-958-4558",
+      "link": "http://www.sanmeoru.com",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 2420,
+      "number": 1
+    },
+    {
+      "title": "배상면주가",
+      "location": "경기도 포천시 화현면 화현리 512",
+      "phone": "031-531-9300",
+      "link": "https://www.soolsool.co.kr/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 3320,
+      "number": 2
+    },
+    {
+      "title": "우리술",
+      "location": "경기 가평군 하면 대보간선로 26",
+      "phone": "031-585-8525",
+      "link": "http://www.woorisool.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 2350,
+      "number": 3
+    },
+    {
+      "title": "그린영농조합",
+      "location": "경기도 안산시 단원구 뻐꾹산길 107",
+      "phone": "032-886-9873",
+      "link": "http://www.grandcoteau.co.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1845,
+      "number": 4
+    },
+    {
+      "title": "배혜정도가",
+      "location": "경기도 화성시 정남면 서봉로 835",
+      "phone": "031-354-9376",
+      "link": "http://www.baedoga.co.kr/",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 2301,
+      "number": 5
+    },
+    {
+      "title": "밝은세상영농조합",
+      "location": "경기도 평택시 포승읍 충열길 37",
+      "phone": "031-683-0981",
+      "link": "https://www.instagram.com/tigercalyx/?hl=ko",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 1590,
+      "number": 6
+    },
+    {
+      "title": "좋은술",
+      "location": "경기 평택시 오성면 숙성뜰길 108",
+      "phone": "031-681-8929",
+      "link": "https://jsul.modoo.at/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1557,
+      "number": 7
+    },
+    {
+      "title": "술샘",
+      "location": "경기도 용인시 처인구 양지면 죽양대로 2298-1",
+      "phone": "070-4218-5225",
+      "link": "http://www.sulseam.com",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1971,
+      "number": 8
+    },
+    {
+      "title": "신평양조장",
+      "location": "충남 당진시 신평면 신평로 813",
+      "phone": "041-362-6080",
+      "link": "http://www.koreansul.co.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1334,
+      "number": 15
+    },
+    {
+      "title": "예산사과와인",
+      "location": "충남 예산군 고덕면 대몽로 107-25",
+      "phone": "041-337-9584",
+      "link": "http://www.chusawine.com",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1481,
+      "number": 16
+    },
+    {
+      "title": "양촌양조",
+      "location": "충남 논산시 양촌면 매죽헌로1665번길 14-9",
+      "phone": "041-741-2011",
+      "link": "http://www.yangchon.co.kr/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1635,
+      "number": 20
+    },
+    {
+      "title": "한산소곡주",
+      "location": "충남 서천군 한산면 충절로 1118",
+      "phone": "041-951-0290",
+      "link": "http://www.sogokju.co.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1364,
+      "number": 19
+    },
+    {
+      "title": "중원당",
+      "location": "충북 충주시 가금면 창동리 243",
+      "phone": "043-842-5005",
+      "link": "http://www.청명주.com/",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 1252,
+      "number": 13
+    },
+    {
+      "title": "대강양조장",
+      "location": "충북 단양군 대강면 대강로 60",
+      "phone": "043-422-0077",
+      "link": "http://www.krwine.com",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1330,
+      "number": 14
+    },
+    {
+      "title": "조은술 세종",
+      "location": "충북 청주시 청원구 사천로18번길 5-2",
+      "phone": "043-218-7689",
+      "link": "http://www.joeunsulsj.co.kr",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 1487,
+      "number": 17
+    },
+    {
+      "title": "이원양조장",
+      "location": "충청북도 옥천군 이원면 묘목로 113",
+      "phone": "043-732-2177",
+      "link": "http://iwonwine.com/new/index.php",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1301,
+      "number": 22
+    },
+    {
+      "title": "여포와인농장",
+      "location": "충북 영동군 양강면 유점지촌길 75",
+      "phone": "043-744-7702",
+      "link": "https://yeopo.modoo.at/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 899,
+      "number": 23
+    },
+    {
+      "title": "시나브로 와이너리",
+      "location": "충청북도 영동군 심천면 약목2길 23",
+      "phone": "043-742-5275",
+      "link": "https://www.bhwinery.com/index",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 1023,
+      "number": 25
+    },
+    {
+      "title": "도란원",
+      "location": "충청북도 영동군 매곡면 옥전리 825-1",
+      "phone": "043-743-2109",
+      "link": "http://xn--hg3b13gpoq4muubvz4a.kr/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1309,
+      "number": 24
+    },
+    {
+      "title": "태인합동주조장",
+      "location": "전북 정읍시 태인면 태흥리 392-1",
+      "phone": "063-534-4018",
+      "link": "http://www.태인양조장.com/",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 1070,
+      "number": 39
+    },
+    {
+      "title": "지리산 운봉주조",
+      "location": "전북 남원시 운봉읍 서천리 622번지",
+      "phone": "063-634-0009",
+      "link": "http://www.herbsul.com/",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 1376,
+      "number": 42
+    },
+    {
+      "title": "청산녹수",
+      "location": "전남 장성군 장성읍 전고개로 240",
+      "phone": "061-393-4141",
+      "link": "http://www.bluegreenkorea.co.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1337,
+      "number": 40
+    },
+    {
+      "title": "추성고을",
+      "location": "전남 담양군 용면 추령로 29",
+      "phone": "061-383-3011",
+      "link": "http://www.chusungju.co.kr",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 1558,
+      "number": 41
+    },
+    {
+      "title": "대대로영농조합법인",
+      "location": "전남 진도군 군내면 둔전리 98",
+      "phone": "061-542-3399",
+      "link": "http://www.e-hongju.co.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1279,
+      "number": 43
+    },
+    {
+      "title": "해창주조장",
+      "location": "전남 해남군 화산면 해창길 1",
+      "phone": "061-532-5152",
+      "link": "https://haechangjujo.modoo.at/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1158,
+      "number": 44
+    },
+    {
+      "title": "예술주조",
+      "location": "강원도 춘천시 신동면 풍류1길 6-3",
+      "phone": 332611525,
+      "link": "http://www.ye-sul.co.kr",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 1453,
+      "number": 10
+    },
+    {
+      "title": "국순당",
+      "location": "강원특별자치도 횡성군 둔내면 강변로 975",
+      "phone": "033-340-4300",
+      "link": "http://drink.ksdb.co.kr/",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 1835,
+      "number": 11
+    },
+    {
+      "title": "울진술도가",
+      "location": "경상북도 울진군 근남면 노음2길 4",
+      "phone": "054-782-1855",
+      "link": false,
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 1313,
+      "number": 29
+    },
+    {
+      "title": "오미나라",
+      "location": "경북 문경시 문경읍 새재로 609",
+      "phone": "054-572-0601",
+      "link": "http://www.omynara.com/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1114,
+      "number": 27
+    },
+    {
+      "title": "문경주조",
+      "location": "경상북도 문경시 동로면 노은리 192번지",
+      "phone": "054-552-8285",
+      "link": "https://mgomijasul.modoo.at/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1634,
+      "number": 26
+    },
+    {
+      "title": "명인안동소주",
+      "location": "경북 안동시 풍산읍 산업단지6길 6",
+      "phone": "054-856-6903",
+      "link": "http://www.adsoju.com",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1862,
+      "number": 28
+    },
+    {
+      "title": "한국애플리즈",
+      "location": "경북 의성군 단촌면 일직점곡로 755",
+      "phone": "054-834-7800",
+      "link": "http://www.applewine.co.kr/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 860,
+      "number": 32
+    },
+    {
+      "title": "은척양조장",
+      "location": "경북 상주시 은척면 봉중2길 16-4",
+      "phone": "054-541-6409",
+      "link": "https://takbaeki.modoo.at/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 937,
+      "number": 30
+    },
+    {
+      "title": "한국와인",
+      "location": "경상북도 영천시 금호읍 원기리 414-2",
+      "phone": "054-333-3010",
+      "link": "http://www.vincoreewinery.com/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 885,
+      "number": 33
+    },
+    {
+      "title": "고도리 와이너리",
+      "location": "경북 영천시 고경면 고도길 38",
+      "phone": "054-335-3174",
+      "link": "http://고도리와인.com",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1658,
+      "number": 34
+    },
+    {
+      "title": "수도산와이너리",
+      "location": "경상북도 김천시 증산면 금곡리 226-1번지",
+      "phone": "054-439-1518",
+      "link": "https://smartstore.naver.com/sdsmeru/profile",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 911,
+      "number": 31
+    },
+    {
+      "title": "복순도가",
+      "location": "울산광역시 울주군 상북면 향산리 439",
+      "phone": "1577-6746",
+      "link": "http://www.boksoon.com/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1904,
+      "number": 38
+    },
+    {
+      "title": "금정산성 토산주",
+      "location": "부산 금정구 산성로 453",
+      "phone": "051-517-6552",
+      "link": "http://www.sanmak.kr/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1432,
+      "number": 37
+    },
+    {
+      "title": "제주샘주",
+      "location": "제주 제주시 애월읍 애원로 283",
+      "phone": "064-799-4225",
+      "link": "http://www.jejusaemju.co.kr",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1110,
+      "number": 45
+    },
+    {
+      "title": "제주고소리술익는집",
+      "location": "제주도 서귀포시 표선면 중산간동로 4726",
+      "phone": "064-787-5046",
+      "link": "http://jejugosorisul.com/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 1277,
+      "number": 46
+    },
+    {
+      "title": "모월",
+      "location": "강원 원주시 판부면 판부신촌길 84",
+      "phone": "033-748-8008",
+      "link": "http://www.mowall.co.kr/",
+      "alwaysvisit": "N",
+      "reservation": "N",
+      "visitcount": 1199,
+      "number": 12
+    },
+    {
+      "title": "술아원",
+      "location": "경기 여주 점봉길 93-12",
+      "phone": "070-8776-0043",
+      "link": "http://soolawon.co.kr/",
+      "alwaysvisit": "N",
+      "reservation": "N",
+      "visitcount": 1228,
+      "number": 9
+    },
+    {
+      "title": "장희도가",
+      "location": "충북 청주 청원구 내수읍 미원초정로 1275",
+      "phone": "070-4415-6567",
+      "link": "https://jhdg3491.modoo.at/",
+      "alwaysvisit": "N",
+      "reservation": "N",
+      "visitcount": 995,
+      "number": 21
+    },
+    {
+      "title": "하미앙 와인밸리",
+      "location": "경남 함양군 함양읍 삼봉로 442-14",
+      "phone": "055-964-2500",
+      "link": "https://www.sanmuru.com",
+      "alwaysvisit": "N",
+      "reservation": true,
+      "visitcount": 902,
+      "number": 36
+    },
+    {
+      "title": "풍정사계",
+      "location": "충청북도 청주시 청원구 내수읍 풍정1길 8-2",
+      "phone": "043-214-9424",
+      "link": "https://www.hwayang.co/",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 717,
+      "number": 18
+    },
+    {
+      "title": "솔송주",
+      "location": "경상남도 함양군 지곡면 지곡창촌길 3",
+      "phone": "055-963-8992",
+      "link": "https://www.solsongju.com/",
+      "alwaysvisit": true,
+      "reservation": false,
+      "visitcount": 638,
+      "number": 35
+    },
+    {
+      "title": "금풍양조",
+      "location": "인천 강화군 길상면 삼랑성길 8",
+      "phone": "070-4400-1931",
+      "link": "https://www.instagram.com/on_sul/",
+      "alwaysvisit": "N",
+      "reservation": "N",
+      "visitcount": 767,
+      "number": 47
+    },
+    {
+      "title": "오산양조",
+      "location": "경기도 오산시 중앙동 시장길 63",
+      "phone": "031-374-2139",
+      "link": "https://www.osansool.com/",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 710,
+      "number": 48
+    },
+    {
+      "title": "산막와이너리",
+      "location": "충북 영동군 영동읍 산막골길 31-45",
+      "phone": "043-745-3888",
+      "link": "http://www.sanmacwine.com/web/main/",
+      "alwaysvisit": true,
+      "reservation": true,
+      "visitcount": 598,
+      "number": 49
+    },
+    {
+      "title": "맑은내일",
+      "location": "경남 창원시 삼귀로 411-8",
+      "phone": "055-264-0996",
+      "link": "https://www.good-tomorrow.co.kr/",
+      "alwaysvisit": "N",
+      "reservation": true,
+      "visitcount": 1067,
+      "number": 50
+    },
+    {
+      "title": "인천탁주",
+      "location": "인천광역시 부평구 안남로 433번길 14",
+      "phone": "032-524-5016",
+      "link": "http://sosungju.modoo.at/",
+      "alwaysvisit": false,
+      "reservation": false,
+      "visitcount": 277,
+      "number": 51
+    },
+    {
+      "title": "술빚는 전가네",
+      "location": "경기도 포천시 영북면 산정호수로 335",
+      "phone": "050-71329-9708",
+      "link": "https://www.sooldoga.com/home",
+      "alwaysvisit": "N",
+      "reservation": false,
+      "visitcount": 234,
+      "number": 52
+    },
+    {
+      "title": "두레양조",
+      "location": "충청남도 천안시 서북구 입장면 율목길 17-6",
+      "phone": "041-585-8213",
+      "link": "https://shopping.naver.com/fresh/traditionalalcohol/stores/100293334",
+      "alwaysvisit": "N",
+      "reservation": false,
+      "visitcount": 272,
+      "number": 53
+    },
+    {
+      "title": "양촌감 와이너리",
+      "location": "충청남도 논산시 양촌면 황산벌로 1075-21",
+      "phone": "050-71466-8937",
+      "link": "https://smartstore.naver.com/choosi/?NaPm=ct%3Dlkm6j0d2%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3D1c05f130954f743bc8fb02b7bf901eade5a17fdc",
+      "alwaysvisit": "N",
+      "reservation": false,
+      "visitcount": 528,
+      "number": 54
+    },
+    {
+      "title": "덕유양조",
+      "location": "전라북도 무주군 안성면 장무로 1375-7",
+      "phone": "063-323-2355",
+      "link": "http://www.meoruwine.co.kr/",
+      "alwaysvisit": "N",
+      "reservation": true,
+      "visitcount": 371,
+      "number": 55
+    }
+  ]
+}

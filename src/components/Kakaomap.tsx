@@ -26,17 +26,34 @@ export default function Kakaomap() {
           minLevel: 10,
         });
 
-        fetch("/chicken.json")
+        fetch("/brewery.json")
           .then((response) => response.json())
           .then((data) => {
-            if (data.positions) {
-              const markers = data.positions.map((position: { lat: number; lng: number }) => {
-                return new window.kakao.maps.Marker({
-                  position: new window.kakao.maps.LatLng(position.lat, position.lng),
+            // 여기에서 brewerys 대신 brewery로 변경
+            if (data.brewery) {
+              //geocoder를 이용하여 지도에 표시
+              const geocoder = new window.kakao.maps.services.Geocoder();
+              const promises = data.brewery.map((brewery: { location: string }) => {
+                return new Promise((resolve) => {
+                  geocoder.addressSearch(brewery.location, (result: any, status: any) => {
+                    if (status === window.kakao.maps.services.Status.OK) {
+                      const marker = new window.kakao.maps.Marker({
+                        position: new window.kakao.maps.LatLng(result[0].y, result[0].x),
+                      });
+
+                      resolve(marker);
+                    } else {
+                      console.error(`Geocoding failed for: ${brewery.location}, status: ${status}`);
+                      resolve(null); // 주소가 잘못된 경우 null 반환
+                    }
+                  });
                 });
               });
 
-              clusterer.addMarkers(markers);
+              Promise.all(promises).then((markers) => {
+                const validMarkers = markers.filter((marker) => marker !== null);
+                clusterer.addMarkers(validMarkers);
+              });
             } else {
               console.error("Invalid data format:", data);
             }
@@ -47,18 +64,12 @@ export default function Kakaomap() {
 
         // 클러스터 클릭 이벤트 추가
         window.kakao.maps.event.addListener(clusterer, "clusterclick", function (cluster: any) {
-          // 현재 지도 레벨에서 1레벨 확대한 레벨
           const level = map.getLevel() - 1;
-
           const center = cluster.getCenter();
-
-          // 레벨을 먼저 변경
           map.setLevel(level, { anchor: center });
-
-          // 레벨 변경 후 일정 시간 대기 후에 부드럽게 이동
           setTimeout(() => {
             map.panTo(center);
-          }, 300); // 약간의 지연을 두어 애니메이션 효과를 부각
+          }, 300);
         });
       }
     };
