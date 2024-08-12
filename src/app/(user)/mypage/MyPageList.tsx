@@ -1,7 +1,7 @@
 import Image from "next/image";
 import arrowIcon from "@/../public/images/icons/icon-arrow-right.svg";
 
-const MypageList: React.FC = () => {
+const MyPageList: React.FC = () => {
   const list = ["취소/환불 내역", "회원 정보", "1:1 쳇봇 상담", "고객센터", "로그아웃"];
 
   return (
@@ -16,4 +16,4 @@ const MypageList: React.FC = () => {
   );
 };
 
-export default MypageList;
+export default MyPageList;
