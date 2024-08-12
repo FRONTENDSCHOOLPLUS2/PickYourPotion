@@ -14,7 +14,7 @@ async function ResultPage({ params: { result } }: { params: { result: string } }
   );
 
   return (
-    <div className="result flex flex-col justify-center items-center px-12 py-8 min-h-screen text-center bg-[#FFFAED]">
+    <div className="result pt-20 flex flex-col justify-center items-center px-12 py-8 min-h-screen text-center bg-[#FFFAED]">
       <h2 className="text-center mb-5">
         이런 술이 잘 맞으실것 같아요!
         <br />
@@ -22,7 +22,7 @@ async function ResultPage({ params: { result } }: { params: { result: string } }
       </h2>
       <div className="w-full p-7 mb-6 bg-white rounded-xl">
         {productDetailArr.map((item, index) => (
-          <Detail key={index} item={item} content={resultSheet[result].content[index]} />
+          <Detail key={index} item={item} />
         ))}
       </div>
       <LinkButton className="mb-2 w-full" href="/landing">
