@@ -36,19 +36,6 @@ export default function Navbar() {
           <span className="">술창고</span>
         </Link>
       </li>
-      <li className={selectedLink === "/community" ? "active" : ""}>
-        <Link
-          href="/community"
-          className={
-            selectedLink === "/community"
-              ? "underline decoration-4 underline-offset-8"
-              : "text-[gray]"
-          }
-          onClick={() => setSelectedLink("/")}
-        >
-          <span className="">술상</span>
-        </Link>
-      </li>
       <li className={selectedLink === "/brewery" ? "active" : ""}>
         <Link
           href="/brewery"
@@ -60,6 +47,17 @@ export default function Navbar() {
           onClick={() => setSelectedLink("/")}
         >
           <span className="">대동술지도</span>
+        </Link>
+      </li>
+      <li className={selectedLink === "/community" ? "active" : ""}>
+        <Link
+          href="/mypage"
+          className={
+            selectedLink === "/mypage" ? "underline decoration-4 underline-offset-8" : "text-[gray]"
+          }
+          onClick={() => setSelectedLink("/")}
+        >
+          <span className="">내술상</span>
         </Link>
       </li>
     </ul>
