@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const [selectedLink, setSelectedLink] = useState<string | null>(null);
+  const [selectedLink, setSelectedLink] = useState<string>("");
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -44,7 +44,7 @@ export default function Navbar() {
               ? "underline decoration-4 underline-offset-8"
               : "text-[gray]"
           }
-          onClick={() => setSelectedLink("/")}
+          onClick={() => setSelectedLink("/brewery")}
         >
           <span className="">대동술지도</span>
         </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
           className={
             selectedLink === "/mypage" ? "underline decoration-4 underline-offset-8" : "text-[gray]"
           }
-          onClick={() => setSelectedLink("/")}
+          onClick={() => setSelectedLink("/mypage")}
         >
           <span className="">내술상</span>
         </Link>
