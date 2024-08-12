@@ -1,5 +1,6 @@
 import { ProductDetail } from "@/app/detail/[id]/page";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProductDetailAll extends ProductDetail {
   extra: {
@@ -14,7 +15,7 @@ interface ProductDetailAll extends ProductDetail {
 
 const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
 
-function Detail({ item, content }: { item: ProductDetailAll; content: string }) {
+function Detail({ item }: { item: ProductDetailAll }) {
   const {
     name,
     price,
@@ -25,12 +26,14 @@ function Detail({ item, content }: { item: ProductDetailAll; content: string }) 
   // 산미 당도값 받아서 width값 계산하는 함수
   const translateWidth = (tasteDegree: string) => {
     if (tasteDegree === "1") {
-      tasteDegree = "w-1/4";
+      tasteDegree = "w-1/5";
     } else if (tasteDegree === "2") {
-      tasteDegree = "w-1/2";
+      tasteDegree = "w-2/5";
     } else if (tasteDegree === "3") {
-      tasteDegree = "w-3/4";
+      tasteDegree = "w-3/5";
     } else if (tasteDegree === "4") {
+      tasteDegree = "w-4/5";
+    } else if (tasteDegree === "5") {
       tasteDegree = "w-full";
     }
     return tasteDegree;
@@ -39,7 +42,14 @@ function Detail({ item, content }: { item: ProductDetailAll; content: string }) 
   return (
     <>
       <div className="h-60 mb-3 relative bg-slate-500 rounded-lg overflow-hidden">
-        <Image src={API_SERVER + mainImages[0].path} alt={name} fill />
+        <Link href={`/detail/${item._id}`}>
+          <Image
+            src={API_SERVER + mainImages[0].path}
+            alt={name}
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </Link>
       </div>
       <h3 className="mb-2">{name}</h3>
       <p className="mb-2 font-medium">{price.toLocaleString()}원</p>
@@ -71,7 +81,6 @@ function Detail({ item, content }: { item: ProductDetailAll; content: string }) 
           </tr>
         </tbody>
       </table>
-      <p className="mb-2 text-left">{content}</p>
       <h3 className="mb-2">어울리는 안주</h3>
       <div className="mb-8 flex flex-wrap justify-center gap-1">
         {snack.map((item, index) => (
