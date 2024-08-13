@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image"; // Next.js Image 컴포넌트 사용
+
+// 이미지 import
+import markerImg from "../../public/images/icons/icon-marker.png";
 
 declare global {
   interface Window {
@@ -29,22 +33,17 @@ export default function Kakaomap() {
         fetch("/brewery.json")
           .then((response) => response.json())
           .then((data) => {
-            // 여기에서 brewerys 대신 brewery로 변경
             if (data.brewery) {
-              //geocoder를 이용하여 지도에 표시
               const geocoder = new window.kakao.maps.services.Geocoder();
               const promises = data.brewery.map((brewery: { location: string }) => {
                 return new Promise((resolve) => {
                   geocoder.addressSearch(brewery.location, (result: any, status: any) => {
                     if (status === window.kakao.maps.services.Status.OK) {
-                      const marker = new window.kakao.maps.Marker({
-                        position: new window.kakao.maps.LatLng(result[0].y, result[0].x),
-                      });
-
+                      const marker = customMarker(result[0].y, result[0].x);
                       resolve(marker);
                     } else {
                       console.error(`Geocoding failed for: ${brewery.location}, status: ${status}`);
-                      resolve(null); // 주소가 잘못된 경우 null 반환
+                      resolve(null);
                     }
                   });
                 });
@@ -62,7 +61,6 @@ export default function Kakaomap() {
             console.error("Failed to fetch data:", error);
           });
 
-        // 클러스터 클릭 이벤트 추가
         window.kakao.maps.event.addListener(clusterer, "clusterclick", function (cluster: any) {
           const level = map.getLevel() - 1;
           const center = cluster.getCenter();
@@ -104,6 +102,23 @@ export default function Kakaomap() {
       }
     };
   }, []);
+
+  const customMarker = (lat: number, lng: number) => {
+    const imageSrc = markerImg.src; // Import한 이미지 URL 설정
+    const imageSize = new window.kakao.maps.Size(40, 48); // 마커 이미지의 크기
+    const imageOption = { offset: new window.kakao.maps.Point(13, 42) }; // 마커 이미지에서 좌표를 지정합니다.
+    const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+    const markerPosition = new window.kakao.maps.LatLng(lat, lng);
+
+    // 마커 생성
+    const marker = new window.kakao.maps.Marker({
+      position: markerPosition,
+      image: markerImage,
+    });
+
+    return marker; // 마커를 반환
+  };
 
   return <div id="map" className="pt-20 w-auto h-[585px]"></div>;
 }
