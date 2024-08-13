@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import AdminInput from "./AdminInput";
 import AdminSelect from "./AdminSelect";
-import FileUpload from "@/../public/images/icons/icon-file-upload.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/Button";
 import { useRef, useState } from "react";
@@ -30,12 +28,10 @@ interface FormData {
 }
 
 export default function AdminPage() {
-  const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
-  const CLIENT_ID = process.env.PICK_YOUR_POTION_CLIENT_ID;
-  const url = `https://api.fesp.shop/seller/products/`;
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInR5cGUiOiJhZG1pbiIsIm5hbWUiOiLsobDsp4Dso7xhZG1pbiIsImlhdCI6MTcyMzQyNDcyNiwiZXhwIjoxNzIzNTExMTI2LCJpc3MiOiJGRVNQIn0._8-LqQldOJImXxkGq-q4RPYXKTqdNChK79IYjW8-PtQ";
-  const fileUploadUrl = `${API_SERVER}/files/`;
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const url = `${API_SERVER}/seller/products/`;
+  const token = process.env.NEXT_PUBLIC_ACCESS_TOCKEN;
 
   const category = [
     { value: "takjoo", name: "탁주" },
@@ -55,11 +51,49 @@ export default function AdminPage() {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<FormData>();
+
+  const fetchFile = async () => {
+    if (fileInputRef.current?.files?.length) {
+      const formData = new FormData();
+
+      // 파일 개수 제한(최대 10개)
+      const files = Array.from(fileInputRef.current.files).slice(0, 10);
+
+      files.forEach((file) => {
+        formData.append("attach", file); // 각 파일을 formData에 저장
+      });
+
+      try {
+        const response = await fetch(`${API_SERVER}/files/`, {
+          method: "POST",
+          headers: {
+            "client-id": "${CLIENT_ID}",
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.ok === 1) {
+          setMainImages(result.item);
+        } else {
+          alert(`이미지 업로드에 실패했습니다. ${result.message}`);
+        }
+      } catch (error) {
+        console.error("파일 업로드 중 에러 발생: ", error);
+        alert("파일 업로드 중 에러가 발생했습니다.");
+      }
+    } else {
+      alert("파일을 선택해주세요.");
+    }
+  };
 
   // 폼 제출 처리하는 함수
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    fetchFile(); // 파일 업로드
+
     const capacityWithUnit = `${formData.extra?.capacity}${formData.extra?.capacityUnit}`;
 
     const finalData = {
@@ -75,7 +109,7 @@ export default function AdminPage() {
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          "client-id": "06-PickYourPotion",
+          "client-id": `${CLIENT_ID}`,
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
@@ -90,41 +124,6 @@ export default function AdminPage() {
       }
     } catch (error) {
       alert("네트워크 오류가 발생했습니다.");
-    }
-  };
-
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch("https://api.fesp.shop/files/", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      const result = await response.json();
-      if (response.ok && result.ok === 1) {
-        setMainImages((prev) => [
-          ...prev,
-          {
-            path: result.item[0].path,
-            name: result.item[0].name,
-            originalname: result.item[0].originalname,
-          },
-        ]);
-        alert("파일 업로드 성공!");
-      } else {
-        alert("파일 업로드 실패!");
-      }
-    } catch (error) {
-      alert("파일 업로드 중 오류가 발생했습니다.");
     }
   };
 
@@ -228,13 +227,7 @@ export default function AdminPage() {
       {/* 상세설명 */}
       <div>
         <p className="mb-3 subTitleMedium">상세설명</p>
-        <Image
-          src={FileUpload}
-          alt="사진을 추가할 수 있는 버튼"
-          onClick={() => fileInputRef.current?.click()}
-          style={{ cursor: "pointer" }}
-        />
-        <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
+        <input type="file" ref={fileInputRef} multiple />
         <textarea
           {...register("content", {
             required: "상세설명을 입력해주세요.",
