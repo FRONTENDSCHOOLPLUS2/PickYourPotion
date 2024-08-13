@@ -56,8 +56,8 @@ export interface ProductDetail {
   extra: Extra;
 }
 export async function fetchDetail(_id: string) {
-  const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
-  const CLIENT_ID = process.env.PICK_YOUR_POTION_CLIENT_ID;
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/products/${_id}`;
   const res = await fetch(url, {
     headers: {
