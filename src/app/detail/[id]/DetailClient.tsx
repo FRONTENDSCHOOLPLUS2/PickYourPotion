@@ -2,16 +2,22 @@
 import Image from "next/image";
 import iconLike from "../../../../public/images/icons/icon-like.svg";
 import iconLikeTrue from "../../../../public/images/icons/icon-like-true.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
 import { ProductDetail } from "./page";
+import { ReplyStore, replyStore } from "@/zustand/Store";
 
 export default function DetailClient({ data }: { data: ProductDetail }) {
-  let content;
-  let likeBtn;
+  const { setOrderId, setProductId } = replyStore((state) => ({
+    setOrderId: state.setOrderId,
+    setProductId: state.setProductId,
+  }));
   const [showDetail, setShowDetail] = useState(true);
   const [like, setLike] = useState(false);
+  let content;
+  let likeBtn;
+  console.log(data);
 
   const handleLike = () => {
     setLike(!like);
@@ -28,6 +34,7 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
   } else {
     likeBtn = iconLike;
   }
+
   return (
     <>
       <div className="justify-center max-w-3xl">

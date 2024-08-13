@@ -6,7 +6,7 @@ export default function ReplyItem({ item }: { item: ProductReplies }) {
   return (
     <>
       <div className="pt-5 border-gray">
-        <ReplyForm />
+        <ReplyForm item={item} />
         <div className="flex flex-row justify mt-5 between border-t-[0.5px] border-gray">
           <p className="mt-5 subTitleMedium">{item.user.name}</p>
         </div>
@@ -21,9 +21,6 @@ export default function ReplyItem({ item }: { item: ProductReplies }) {
           </span>
           <span className="px-[7px] py-[5px] text-darkGray bg-lightGray mr-4 round">파전</span>
           <span className="px-[7px] py-[5px] text-darkGray bg-lightGray mr-4 round">칼국수</span>
-        </div>
-        <div className="mt-5">
-          <Image src={dummyImage} width={348} height={228} alt="막걸리 이미지" className="round" />
         </div>
       </div>
     </>
