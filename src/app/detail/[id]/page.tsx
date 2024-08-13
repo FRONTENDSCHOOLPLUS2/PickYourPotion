@@ -19,6 +19,32 @@ export interface ProductReplies {
   content: string;
   createdAt: string;
 }
+export interface Extra {
+  inherence: string;
+  taste: {
+    acidity: string;
+    sweet: string;
+    body: string;
+    alcohol: string;
+    sparkle: string;
+    tannin: string;
+    bitter: string;
+  };
+  brewery: string;
+  useByDate: string;
+  volume: string;
+  detailImage: [
+    {
+      path: string;
+      name: string;
+      originalname: string;
+    },
+  ];
+  snack: string[];
+  isNew: boolean;
+  isBest: boolean;
+  category: string[];
+}
 export interface ProductDetail {
   name: string;
   price: number;
@@ -27,6 +53,7 @@ export interface ProductDetail {
   _id: number;
   path: string;
   replies: ProductReplies[];
+  extra: Extra;
 }
 export async function fetchDetail(_id: string) {
   const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
