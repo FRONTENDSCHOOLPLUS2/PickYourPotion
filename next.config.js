@@ -1,5 +1,22 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+  // eslint-disable-next-line
+  async redirects() {
+    return [
+      {
+        source: "/",
+        missing: [
+          {
+            type: "cookie",
+            key: "isLandingClose",
+            value: "true",
+          },
+        ],
+        permanent: false,
+        destination: "/landing",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -25,4 +42,3 @@ const nextConfig = {
     ],
   },
 };
-export default nextConfig;
