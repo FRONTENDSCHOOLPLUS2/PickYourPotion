@@ -1,0 +1,19 @@
+meta {
+  name: 회원 정보 조회
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{URL}}/users/2/name
+  body: none
+  auth: bearer
+}
+
+headers {
+  : 
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInR5cGUiOiJhZG1pbiIsIm5hbWUiOiLsobDsp4Dso7xhZG1pbiIsImlhdCI6MTcyMzUxNzU1OSwiZXhwIjoxNzIzNjAzOTU5LCJpc3MiOiJGRVNQIn0.q9AaVtublObnGHL9nIQYRQYvT7yZ9JNlThY5ssPPKrM
+}
