@@ -55,10 +55,12 @@ export interface ProductDetail {
   replies: ProductReplies[];
   extra: Extra;
 }
-export async function fetchDetail(_id: string) {
+export async function fetchDetail(_id: string, delay?: number) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/products/${_id}`;
+  // 경우에 따라 delay 매개변수를 받아 delay 파라미터 설정
+  const delayTime = delay ? "/?delay=" + delay : "";
+  const url = `${API_SERVER}/products/${_id}${delayTime}`;
   const res = await fetch(url, {
     headers: {
       "client-id": `${CLIENT_ID}`,
