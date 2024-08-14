@@ -21,7 +21,7 @@ function LandingPage() {
             테스트 시작하기
           </LinkButton>
           <form action={setCookieCloseLanding}>
-            <Button className="w-full" color="white">
+            <Button type="submit" className="w-full" color="white">
               다시 보지 않기
             </Button>
           </form>
