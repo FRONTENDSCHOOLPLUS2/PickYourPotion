@@ -9,6 +9,7 @@ import { ProductDetail, fetchDetail } from "./page";
 import { ReplyStore, replyStore } from "@/zustand/Store";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import Buying from "./Buying";
 
 export default function DetailClient() {
   let { id } = useParams();
@@ -111,11 +112,7 @@ export default function DetailClient() {
             술바구니
             <br /> 추가
           </button>
-          <button
-            className={`contentMedium w-[244px] h-[62px] flex items-center  justify-center cursor-pointer bg-primary text-white round `}
-          >
-            구매하기
-          </button>
+          <Buying />
         </div>
       </div>
     </>
