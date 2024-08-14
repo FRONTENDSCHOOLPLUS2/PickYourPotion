@@ -2,20 +2,9 @@ import { ProductDetail } from "@/app/detail/[id]/page";
 import Image from "next/image";
 import Link from "next/link";
 
-interface ProductDetailAll extends ProductDetail {
-  extra: {
-    taste: {
-      acidity: string;
-      sweet: string;
-      alcohol: string;
-    };
-    snack: string[];
-  };
-}
+const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
-const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
-
-function Detail({ item }: { item: ProductDetailAll }) {
+function Detail({ item }: { item: ProductDetail }) {
   const {
     name,
     price,
@@ -41,12 +30,13 @@ function Detail({ item }: { item: ProductDetailAll }) {
 
   return (
     <>
-      <div className="h-60 mb-3 relative bg-slate-500 rounded-lg overflow-hidden">
-        <Link href={`/detail/${item._id}`}>
+      <div className="h-60 mb-3 bg-slate-500 rounded-lg overflow-hidden">
+        <Link href={`/detail/${item._id}`} className="block relative w-full h-full">
           <Image
             src={API_SERVER + mainImages[0].path}
             alt={name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{ objectFit: "cover" }}
           />
         </Link>
