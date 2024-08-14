@@ -1,10 +1,14 @@
+"use client";
+
 import { ProductDetail } from "@/app/detail/[id]/page";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 function Detail({ item }: { item: ProductDetail }) {
+  const router = useRouter();
   const {
     name,
     price,
@@ -28,10 +32,23 @@ function Detail({ item }: { item: ProductDetail }) {
     return tasteDegree;
   };
 
+  const handleCookie = () => {
+    const oneDay = 60 * 60 * 24;
+    document.cookie = `isLandingClose=true; path=/; max-age=${oneDay}`;
+  };
+
   return (
     <>
       <div className="h-60 mb-3 bg-slate-500 rounded-lg overflow-hidden">
-        <Link href={`/detail/${item._id}`} className="block relative w-full h-full">
+        <Link
+          onClick={(e) => {
+            e.preventDefault();
+            handleCookie();
+            router.push(`/detail/${item._id}`);
+          }}
+          href="#"
+          className="block relative w-full h-full"
+        >
           <Image
             src={API_SERVER + mainImages[0].path}
             alt={name}
