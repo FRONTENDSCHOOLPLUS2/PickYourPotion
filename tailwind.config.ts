@@ -121,6 +121,13 @@ const config: Config = {
             opacity: "0",
           },
         },
+        "scale-y-0-to-100": {
+          "0%": {
+            transform: "scaleY(0)",
+            "animation-timing-function": "cubic-bezier(.17,.67,.62,.92)",
+          },
+          "100%": { transform: "scaleY(1)" },
+        },
       },
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",

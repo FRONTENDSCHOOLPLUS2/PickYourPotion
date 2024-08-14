@@ -9,7 +9,7 @@ async function ResultPage({ params: { result } }: { params: { result: string } }
   // 결과값 객체에서 상품 번호 배열을 받아와 패치한 데이터를 배열 형태로 저장
   const productDetailArr = await Promise.all(
     productNumArr.map(async (productNum) => {
-      return await fetchDetail(productNum + "", 5000);
+      return await fetchDetail(productNum + "", 3000);
     }),
   );
 
