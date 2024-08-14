@@ -73,11 +73,10 @@ export async function fetchDetail(_id: string, delay?: number) {
   return resJson.item;
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const data = await fetchDetail(params.id);
+export default function Page() {
   return (
     <div className="flex flex-col ">
-      <DetailClient data={data} />
+      <DetailClient />
     </div>
   );
 }
