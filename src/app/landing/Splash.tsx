@@ -8,9 +8,10 @@ function Splash() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowSplash(false);
     }, 4001);
+    return () => clearTimeout(timer);
   });
 
   return (
