@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Button";
-import drunken from "../../public/images/404image.png";
+import drunken from "../../../public/images/404image.png";
 import Link from "next/link";
 import Image from "next/image";
 

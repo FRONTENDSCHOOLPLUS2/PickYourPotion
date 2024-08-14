@@ -12,15 +12,6 @@ export default function Page() {
           <li>
             <OrderCard />
           </li>
-          <li>
-            <OrderCard />
-          </li>
-          <li>
-            <OrderCard />
-          </li>
-          <li>
-            <OrderCard />
-          </li>
         </ul>
       </main>
     </div>
