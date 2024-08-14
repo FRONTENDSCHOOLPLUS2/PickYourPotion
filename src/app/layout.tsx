@@ -1,4 +1,4 @@
-import TanstackProvider from "@/provider/tanstackProvider";
+import TanstackProvider from "@/provider/TanstackProvider";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 
