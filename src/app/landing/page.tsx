@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/components/Button";
 import { LinkButton } from "@/components/LinkButton";
 import startPic from "../../../public/images/pic-mbti-start.png";
@@ -26,6 +28,7 @@ function LandingPage() {
             </Button>
           </form>
         </div>
+
       </div>
     </>
   );
