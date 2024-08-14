@@ -14,7 +14,7 @@ const config: Config = {
         "custom-white":
           "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 24%, rgba(255,255,255,1) 100%)",
       },
-      Family: {
+      fontFamily: {
         light: ["SBAggroL", "sans-serif"],
         medium: ["SBAggroM", "sans-serif"],
         bold: ["SBAggroB", "sans-serif"],
@@ -89,6 +89,36 @@ const config: Config = {
           "50%": {
             opacity: "1",
             "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)",
+          },
+        },
+        "moving-left": {
+          "0%": {
+            transform: "translateX(50px)",
+            opacity: "0",
+            "animation-timing-function": "cubic-bezier(.17,.67,.62,.92)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
+          },
+        },
+        "moving-top": {
+          "0%": {
+            transform: "translateY(50px)",
+            opacity: "0",
+            "animation-timing-function": "cubic-bezier(.17,.67,.62,.92)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
+        fadeout: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
           },
         },
       },
