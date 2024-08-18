@@ -112,7 +112,7 @@ export default function DetailClient() {
             술바구니
             <br /> 추가
           </button>
-          <Buying />
+          <Buying data={data} />
         </div>
       </div>
     </>

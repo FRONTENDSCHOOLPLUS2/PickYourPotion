@@ -1,44 +1,26 @@
-import { PortOne } from "@team-mintc/portone-v2";
+import PortOne from "@portone/browser-sdk/v2";
 import React from "react";
+import { ProductDetail } from "./page";
 
-export default function Buying() {
-  const storeId = process.env.TOSS_CLIENT_STORE_ID ?? "defaultStoreId";
-
-  const handlePayment = () => {
-    PortOne.requestPayment({
-      storeId,
-      isTestChannel: true,
-      redirectUrl: "http://192.168.50.27:3000/payment/redirect",
-      orderName: "소주",
-      totalAmount: 100,
-      pgProvider: "PG_PROVIDER_TOSSPAYMENTS",
-      payMethod: "CARD",
-      paymentId: "1",
-      taxFreeAmount: 0,
-      customer: {
-        customerId: "조지주seller",
-        fullName: "박재웅",
-        phoneNumber: "1670-5176",
-        email: "test@portone.io",
-        zipcode: "04783",
-      },
-      windowType: {
-        pc: "IFRAME",
-        mobile: "REDIRECTION",
-      },
-      noticeUrls: ["http://192.168.50.27:3000/api/payment/hook"],
-      confirmUrl: "http://192.168.50.27:3000/payment/confirm",
-      appScheme: "portone://",
-      isCulturalExpense: false,
-      currency: "CURRENCY_KRW",
-      locale: "KO_KR",
-    });
-  };
-
+function handlePayment(data: ProductDetail) {
+  const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
+  const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
+  const response = PortOne.requestPayment({
+    storeId: STORE_ID,
+    paymentId: "testlzza7wm0",
+    orderName: data.name,
+    totalAmount: 1000,
+    currency: "CURRENCY_KRW",
+    channelKey: CHANNEL_KEY,
+    payMethod: "CARD",
+    card: {},
+  });
+}
+export default function Buying({ data }: { data: ProductDetail }) {
   return (
     <button
       className={`contentMedium w-[244px] h-[62px] flex items-center justify-center cursor-pointer bg-primary text-white round`}
-      onClick={handlePayment}
+      onClick={() => handlePayment(data)}
     >
       구매하기
     </button>
