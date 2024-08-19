@@ -1,12 +1,12 @@
-import MyPageCard from "@/components/MyPageCard";
+import ReviewCardItem from "@/components/ReviewCardItem";
 
 const MyReview: React.FC = () => {
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      <MyPageCard />
-      <MyPageCard />
-      <MyPageCard />
-      <MyPageCard />
+      <ReviewCardItem />
+      <ReviewCardItem />
+      <ReviewCardItem />
+      <ReviewCardItem />
     </div>
   );
 };
