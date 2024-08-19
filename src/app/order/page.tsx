@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from "react";
 import OrderList from "./OrderList";
+import { Order } from "./order";
+
+interface GroupedOrders {
+  date: string;
+  orders: Order[];
+}
 
 export default function OrderPage() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -9,7 +15,7 @@ export default function OrderPage() {
   const url = `${API_SERVER}/orders/`;
   const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
-  const [orders, setOrders] = useState([]); // 빈 배열로 초기화
+  const [groupedOrders, setGroupedOrders] = useState<GroupedOrders[]>([]); // 날짜별로 그룹화 된 주문내역을 상태로 관리
 
   useEffect(() => {
     // 주문 내역을 불러오는 함수
@@ -25,7 +31,26 @@ export default function OrderPage() {
         const result = await response.json();
 
         if (response.ok) {
-          setOrders(result.item);
+          const orders: Order[] = result.item;
+
+          // 날짜별로 그룹화
+          const grouped = orders.reduce((acc: Record<string, Order[]>, order) => {
+            const date = order.createdAt.split(" ")[0]; // 날짜만 추출
+            // 해당 날짜에 대한 배열이 없으면,
+            if (!acc[date]) {
+              acc[date] = []; // 빈배열로 초기화
+            }
+            acc[date].push(order); // 해당 날짜에 주문내역 푸시
+            return acc;
+          }, {});
+
+          // 객체를 배열로 변환 [{date, orders}, {date, orders}]
+          const groupedArray = Object.keys(grouped).map((date) => ({
+            date,
+            orders: grouped[date],
+          }));
+
+          setGroupedOrders(groupedArray);
         } else {
           console.log(result.message);
         }
@@ -37,54 +62,11 @@ export default function OrderPage() {
     getOrderList();
   }, [url, CLIENT_ID, token]);
 
-  // // 주문 목록을 날짜별로 그룹화
-  // const groupOrdersByDate = (orders: Order[]) => {
-  //   const grouped: { [date: string]: Order[] } = orders.reduce(
-  //     (acc, order) => {
-  //       const date = order.createdAt.split(" ")[0]; // 날짜만 추출
-  //       if (!acc[date]) acc[date] = [];
-  //       acc[date].push(order);
-  //       return acc;
-  //     },
-  //     {} as { [date: string]: Order[] },
-  //   );
-  //   return grouped;
-  // };
-
-  // const groupedOrders = groupOrdersByDate(orders);
-  // console.log(groupedOrders);
   return (
     <main className="flex flex-col gap-10 mt-10">
-      <OrderList />
-      <OrderList />
-      <OrderList />
-      <OrderList />
-      {/* {Object.keys(groupedOrders).map((date) => (
-        <div key={date}>
-          <OrderDate date={date} />
-          {groupedOrders[date].map((item, index) => (
-            <div key={index}>{item.updatedAt}</div>
-          ))}
-        </div>
-      ))} */}
+      {groupedOrders.map((grouped) => (
+        <OrderList key={grouped.date} date={grouped.date} orders={grouped.orders} />
+      ))}
     </main>
   );
 }
-
-//  {/* {groupedOrders[date].map((order) => (
-//             <OrderCard key={order._id} order={order} />
-//           ))} */}
-
-function add(num1: number, num2: number) {
-  return num1 + num2;
-}
-
-function printResult(num: number) {
-  console.log(num);
-}
-
-let combineValues: (a: number, b: number) => number;
-
-combineValues = add;
-
-console.log(combineValues(7, 7));

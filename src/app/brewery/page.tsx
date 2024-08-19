@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Kakaomap from "@/components/Kakaomap";
-import OrderCard from "../order/OrderDetail";
+import OrderCard from "../../components/OrderDetail";
 
 export default function Page() {
   return (
