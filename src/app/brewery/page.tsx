@@ -15,6 +15,7 @@ interface Brewery {
   title: string;
   phone: string;
   main: string;
+  mainImage: string;
 }
 interface MarkerData {
   marker: kakao.maps.Marker;
@@ -22,6 +23,7 @@ interface MarkerData {
   location: string;
   phone: string;
   main: string;
+  image: string;
 }
 
 export default function Page() {
@@ -62,6 +64,7 @@ export default function Page() {
                           location: brewery.location,
                           phone: brewery.phone,
                           main: brewery.main,
+                          image: brewery.mainImage,
                         });
                       }
 
@@ -174,6 +177,7 @@ export default function Page() {
                     <h2 className="flex flex-col contentMedium text-black mb-1">
                       {markerData.title}
                     </h2>
+                    {/* <Image src={`markerData.title`} /> */}
                     <table>
                       <tr>
                         <td className="pr-1 text-black">주소</td>
