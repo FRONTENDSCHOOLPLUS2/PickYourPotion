@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function PayPage() {
   const buttonLabels = [
-    "신용/체크카드",
+    "간편결제",
     "현대카드",
     "네이버페이",
     "카카오페이",
