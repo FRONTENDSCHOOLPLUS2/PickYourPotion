@@ -17,7 +17,7 @@ export default function DetailClient() {
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
   });
-  console.log(data);
+  // console.log(data);
   const [showDetail, setShowDetail] = useState(true);
   const [like, setLike] = useState(false);
   let content;
