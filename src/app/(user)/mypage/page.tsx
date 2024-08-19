@@ -9,7 +9,7 @@ export default function MyPage() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/users/4/name`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOCKEN;
+  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
   const [name, setName] = useState<string>("");
 
@@ -39,7 +39,6 @@ export default function MyPage() {
 
   return (
     <>
-      <Navbar />
       <main className="px-10">
         <div className="px-3">
           <h1 className="mt-[114px] text-2xl font-medium">{`${name}님`}</h1>
