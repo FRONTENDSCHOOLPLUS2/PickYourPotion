@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 // 선택된 selectedValue만을 넘겨주세요
-function Soju({ isEmpty }: { isEmpty: string }) {
+function Soju2bottle({ isEmpty }: { isEmpty: string }) {
   // 첫번째 소주병의 빈 정도
   let fillSoju;
   if (isEmpty === "A") {
@@ -114,4 +114,4 @@ function Soju({ isEmpty }: { isEmpty: string }) {
   );
 }
 
-export default Soju;
+export default Soju2bottle;

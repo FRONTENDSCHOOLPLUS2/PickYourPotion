@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Kakaomap from "@/components/Kakaomap";
-import OrderCard from "../order/OrderCard";
+import OrderCard from "../../components/OrderDetail";
 
 export default function Page() {
   return (
@@ -9,15 +9,6 @@ export default function Page() {
       <Kakaomap />
       <main>
         <ul>
-          <li>
-            <OrderCard />
-          </li>
-          <li>
-            <OrderCard />
-          </li>
-          <li>
-            <OrderCard />
-          </li>
           <li>
             <OrderCard />
           </li>

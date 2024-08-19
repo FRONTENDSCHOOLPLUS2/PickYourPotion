@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import ArrowIcon from "@/../public/images/icons/icon-arrow-drop-down.svg";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface CategoryProps {
   value: string;
@@ -10,13 +11,20 @@ interface CategoryProps {
 
 interface SelectProps {
   id: string;
-  name: string;
   category: CategoryProps[];
   labelChildren?: string;
   className?: string;
+  register: UseFormRegisterReturn; // 타입을 변경
+  required?: boolean;
 }
 
-export default function AdminSelect({ id, name, category, labelChildren, className }: SelectProps) {
+export default function AdminSelect({
+  id,
+  category,
+  labelChildren,
+  className,
+  register,
+}: SelectProps) {
   return (
     <div className={`flex flex-col ${className}`}>
       <label htmlFor={id} className="subTitleMedium mb-3">
@@ -24,9 +32,9 @@ export default function AdminSelect({ id, name, category, labelChildren, classNa
       </label>
       <div className="relative">
         <select
-          name={name}
           id={id}
           className="w-full h-16 subTitle focus:outline-none focus:border-primary border border-gray round px-5 appearance-none"
+          {...register}
         >
           {category.map((item, index) => (
             <option key={index} value={item.value}>

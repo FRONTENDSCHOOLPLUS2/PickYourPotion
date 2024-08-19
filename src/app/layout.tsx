@@ -1,3 +1,4 @@
+import TanstackProvider from "@/provider/TanstackProvider";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 
@@ -8,9 +9,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="pt-12">
+      <body className="pt-14">
         <Header />
-        {children}
+        <TanstackProvider>{children}</TanstackProvider>
       </body>
     </html>
   );

@@ -11,7 +11,7 @@ export default function Home() {
       <Navbar />
       <CardSwiper />
       <main>
-        <h2 className="mb-6 text-black subTitleMedium mt-5">전통주</h2>
+        <h2 className="mt-5 mb-6 text-black subTitleMedium">전통주</h2>
         <ul className="mb-3 [&>*:last-child]:mb-0 ">
           <li className="mb-3">
             <Link href="/">
