@@ -11,7 +11,6 @@ declare global {
     kakao: any;
   }
 }
-
 export default function Kakaomap() {
   useEffect(() => {
     const createMap = () => {
@@ -35,24 +34,49 @@ export default function Kakaomap() {
           .then((data) => {
             if (data.brewery) {
               const geocoder = new window.kakao.maps.services.Geocoder();
-              const promises = data.brewery.map((brewery: { location: string }) => {
-                return new Promise((resolve) => {
-                  geocoder.addressSearch(brewery.location, (result: any, status: any) => {
-                    if (status === window.kakao.maps.services.Status.OK) {
-                      const marker = customMarker(result[0].y, result[0].x);
-                      resolve(marker);
-                    } else {
-                      console.error(`Geocoding failed for: ${brewery.location}, status: ${status}`);
-                      resolve(null);
-                    }
+              const markerDataList: any[] = [];
+
+              const promises = data.brewery.map(
+                (brewery: { location: string; title: string; phone: string; main: string }) => {
+                  return new Promise((resolve) => {
+                    geocoder.addressSearch(brewery.location, (result: any, status: any) => {
+                      if (status === window.kakao.maps.services.Status.OK) {
+                        const marker = customMarker(result[0].y, result[0].x);
+                        markerDataList.push({
+                          marker,
+                          title: brewery.title,
+                          location: brewery.location,
+                          phone: brewery.phone,
+                          main: brewery.main,
+                        });
+                        resolve(marker);
+                      } else {
+                        console.error(
+                          `Geocoding failed for: ${brewery.location}, status: ${status}`,
+                        );
+                        resolve(null);
+                      }
+                    });
                   });
-                });
-              });
+                },
+              );
 
               Promise.all(promises).then((markers) => {
                 const validMarkers = markers.filter((marker) => marker !== null);
                 clusterer.addMarkers(validMarkers);
               });
+
+              // 맵의 경계 내에 있는 마커들 정보를 콘솔에 출력
+              function getMarkersInBounds() {
+                const bounds = map.getBounds();
+                const visibleMarkers = markerDataList.filter((item) =>
+                  bounds.contain(item.marker.getPosition()),
+                );
+                console.log("Visible markers:", visibleMarkers);
+              }
+
+              // 맵의 idle 이벤트에 getMarkersInBounds 함수 등록
+              window.kakao.maps.event.addListener(map, "idle", getMarkersInBounds);
             } else {
               console.error("Invalid data format:", data);
             }
@@ -105,7 +129,7 @@ export default function Kakaomap() {
 
   const customMarker = (lat: number, lng: number) => {
     const imageSrc = markerImg.src; // Import한 이미지 URL 설정
-    const imageSize = new window.kakao.maps.Size(40, 48); // 마커 이미지의 크기
+    const imageSize = new window.kakao.maps.Size(50, 60); // 마커 이미지의 크기
     const imageOption = { offset: new window.kakao.maps.Point(13, 42) }; // 마커 이미지에서 좌표를 지정합니다.
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
