@@ -1,6 +1,6 @@
 import listIcon from "@/../public/images/icons/icon-list.svg";
-import cartIcon from "@/../public/images/icons/icon-cart.svg";
-import accountIcon from "@/../public/images/icons/icon-accont.svg";
+import likeIcon from "@/../public/images/icons/icon-like.svg";
+import reviewIcon from "@/../public/images/icons/icon-review.svg";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,16 +15,16 @@ const MyPageButton = () => {
     },
     {
       id: 1,
-      src: cartIcon,
-      alt: "장바구니 아이콘",
-      content: "장바구니",
+      src: likeIcon,
+      alt: "찜 아이콘",
+      content: "찜",
       href: "/cart",
     },
     {
       id: 2,
-      src: accountIcon,
-      alt: "나의 활동 아이콘",
-      content: "나의 활동",
+      src: reviewIcon,
+      alt: "리뷰 아이콘",
+      content: "리뷰",
       href: "/mypage/activity",
     },
   ];
@@ -32,9 +32,9 @@ const MyPageButton = () => {
   return (
     <ul className="flex mt-12 justify-evenly mx-auto">
       {buttonData.map((item) => (
-        <li key={item.id} className="float-start bg-whiteGray rounded-[10px] px-5">
+        <li key={item.id} className="float-start bg-whiteGray rounded-[10px] px-5 w-[100px]">
           <Link href={item.href} className="flex flex-col items-center py-1 text-darkGray">
-            <Image src={item.src} alt={item.alt} />
+            <Image src={item.src} alt={item.alt} width={40} height={40} />
             {item.content}
           </Link>
         </li>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
+
 import Link from "next/link";
 
 // 카카오 지도 타입을 명시적으로 선언
@@ -25,6 +26,7 @@ interface MarkerData {
   main: string;
   image: string;
 }
+
 
 export default function Page() {
   const [visibleMarkers, setVisibleMarkers] = useState<MarkerData[]>([]);

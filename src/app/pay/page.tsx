@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function PayPage() {
   const buttonLabels = [
-    "신용/체크카드",
+    "간편결제",
     "현대카드",
     "네이버페이",
     "카카오페이",
@@ -73,7 +73,7 @@ export default function PayPage() {
             </div>
           </div>
           <div className="mt-5">
-            <p className="contentMedium">주문한 술</p>
+            <p className="contentMedium mb-3">주문한 술</p>
             <OrderedCard />
           </div>
           <div className="mt-10 subTitleMedium">

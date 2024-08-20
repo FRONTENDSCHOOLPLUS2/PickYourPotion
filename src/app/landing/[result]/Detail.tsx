@@ -1,10 +1,15 @@
+"use client";
+
 import { ProductDetail } from "@/app/detail/[id]/page";
+import DegreeBar from "@/components/DegreeBar";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 function Detail({ item }: { item: ProductDetail }) {
+  const router = useRouter();
   const {
     name,
     price,
@@ -12,26 +17,23 @@ function Detail({ item }: { item: ProductDetail }) {
     extra: { taste, snack },
   } = item;
 
-  // 산미 당도값 받아서 width값 계산하는 함수
-  const translateWidth = (tasteDegree: string) => {
-    if (tasteDegree === "1") {
-      tasteDegree = "w-1/5";
-    } else if (tasteDegree === "2") {
-      tasteDegree = "w-2/5";
-    } else if (tasteDegree === "3") {
-      tasteDegree = "w-3/5";
-    } else if (tasteDegree === "4") {
-      tasteDegree = "w-4/5";
-    } else if (tasteDegree === "5") {
-      tasteDegree = "w-full";
-    }
-    return tasteDegree;
+  const handleCookie = () => {
+    const oneDay = 60 * 60 * 24;
+    document.cookie = `isLandingClose=true; path=/; max-age=${oneDay}`;
   };
 
   return (
     <>
       <div className="h-60 mb-3 bg-slate-500 rounded-lg overflow-hidden">
-        <Link href={`/detail/${item._id}`} className="block relative w-full h-full">
+        <Link
+          onClick={(e) => {
+            e.preventDefault();
+            handleCookie();
+            router.push(`/detail/${item._id}`);
+          }}
+          href="#"
+          className="block relative w-full h-full"
+        >
           <Image
             src={API_SERVER + mainImages[0].path}
             alt={name}
@@ -52,21 +54,13 @@ function Detail({ item }: { item: ProductDetail }) {
           <tr>
             <td width="30%">산미</td>
             <td height="32px">
-              <div className="flex flex-row gap-[1px] h-4 bg-[#FFEDC7] rounded-full overflow-hidden">
-                <span
-                  className={`bg-[#FDC140] ${translateWidth(taste.acidity)} h-full rounded-full`}
-                ></span>
-              </div>
+              <DegreeBar degree={taste.acidity} color="#FDC140" />
             </td>
           </tr>
           <tr>
             <td width="30%">당도</td>
             <td height="32px">
-              <div className="flex flex-row gap-[1px] h-4 bg-[#FFE2BA] rounded-full overflow-hidden">
-                <span
-                  className={`bg-primary ${translateWidth(taste.sweet)} h-full rounded-full`}
-                ></span>
-              </div>
+              <DegreeBar degree={taste.sweet} color="#ff8f4b" />
             </td>
           </tr>
         </tbody>

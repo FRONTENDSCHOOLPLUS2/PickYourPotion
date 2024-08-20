@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import { LinkButton } from "@/components/LinkButton";
 import startPic from "../../../public/images/pic-mbti-start.png";
 import Image from "next/image";
-import setCookie from "./setCookie";
+import { setCookieCloseLanding } from "./setCookie";
 import Splash from "./Splash";
 
 function LandingPage() {
@@ -20,7 +20,7 @@ function LandingPage() {
           <LinkButton href="/landing/question" className="mb-2 w-full">
             테스트 시작하기
           </LinkButton>
-          <form action={setCookie}>
+          <form action={setCookieCloseLanding}>
             <Button type="submit" className="w-full" color="white">
               다시 보지 않기
             </Button>
