@@ -4,6 +4,7 @@ export interface Product {
   quantity: number;
   price: number;
   image: ImageProps;
+  reply_id?: number;
   extra: {
     brewery: string;
   };

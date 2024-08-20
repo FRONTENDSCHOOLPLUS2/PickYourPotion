@@ -117,6 +117,6 @@ export async function signInWithGoogle() {
 export async function signInWithGithub(formData: FormData) {
   await signIn("github", { redirectTo: "/" });
 }
-export async function signInWithFacebook() {
-  await signIn("facebook", { redirectTo: `/` });
+export async function signInWithDiscord() {
+  await signIn("discord", { redirectTo: `/` });
 }
