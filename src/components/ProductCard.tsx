@@ -1,21 +1,25 @@
 import Image from "next/image";
 import cart from "../../public/images/icons/icon-cart.svg";
-import dummy from "../../public/community-dummy.png";
+import { ProductDetail } from "@/app/detail/[id]/page";
 
-function ProductCard() {
+function ProductCard({ data }: { data: ProductDetail }) {
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+
   return (
-    <div className="flex flex-col w-[230px] bg-white round relative shadow-lg">
-      <div className="h-[324px] p-[10px] rounded-[10px]">
+    <div className="flex flex-col w-[260px] bg-white p-[10px] relative shadow-lg rounded-2xl">
+      <div className="relative h-[324px] rounded-xl">
         <Image
-          src={dummy}
-          alt="추천 술 이미지"
-          className="w-[230px] h-full object-cover rounded-[8px]"
+          src={API_SERVER + data.mainImages[0].path}
+          alt={data.name}
+          className="object-cover h-full rounded-lg"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className="w-[230px] px-5 py-4 rounded-b-lg">
-        <h3 className="text-black subTitleMedium text-[18px] mb-1">복순도가 손 막걸리</h3>
-        <p className="text-gray content mb-1">복순도가</p>
-        <p className="text-black contentMedium mb-1">32,000원</p>
+        <h3 className="text-black subTitleMedium text-[18px] mb-1 truncate">{data.name}</h3>
+        <p className="mb-1 text-gray content">{data.extra.brewery}</p>
+        <p className="mb-1 text-black contentMedium">{data.price.toLocaleString()}원</p>
       </div>
       <button
         type="button"

@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 // 선택된 selectedValue만을 넘겨주세요
-function Soju2bottle({ isEmpty }: { isEmpty: string }) {
+function Soju2bottle({ isEmpty, className }: { isEmpty: string; className?: string }) {
   // 첫번째 소주병의 빈 정도
   let fillSoju;
   if (isEmpty === "A") {
@@ -17,6 +17,7 @@ function Soju2bottle({ isEmpty }: { isEmpty: string }) {
       viewBox="0 0 120 165"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={twMerge("", className)}
     >
       <path
         d="M17 7H16V8V43C16 45.3818 15.3936 49.6701 14.4048 53.6271C13.912 55.5992 13.3334 57.4511 12.7057 58.9168C12.3919 59.6497 12.0742 60.2659 11.7608 60.7449C11.4407 61.2343 11.1614 61.5239 10.9453 61.6679C9.29396 62.7688 6.83335 65.3802 4.79866 68.3658C2.77676 71.3325 1 74.9209 1 78V153C1 159.075 5.92487 164 12 164H46C52.0751 164 57 159.075 57 153V78C57 74.9698 55.6433 71.6201 53.7793 68.713C51.9085 65.7955 49.4373 63.1839 47.0369 61.6563C46.1051 61.0634 45.2365 60.0338 44.4597 58.6382C43.6879 57.2516 43.0418 55.5671 42.5243 53.748C41.4884 50.1063 41 46.0396 41 43V8V7H40H17Z"
