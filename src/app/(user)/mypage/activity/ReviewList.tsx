@@ -1,6 +1,7 @@
 import { Order } from "@/app/order/order";
 import Button from "@/components/Button";
 import OrderDetail from "@/components/OrderDetail";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ReviewList() {
@@ -50,9 +51,11 @@ export default function ReviewList() {
                 quantity={product.quantity}
                 className="border round border-gray p-[15px] mb-[10px]"
               />
-              <Button className="rounded-3xl text-xs absolute z-50 right-5 top-1/2 transform -translate-y-1/2">
-                리뷰 작성
-              </Button>
+              <Link href={`/detail/${product._id}`}>
+                <Button className="rounded-3xl text-xs absolute z-50 right-5 top-1/2 transform -translate-y-1/2">
+                  리뷰 작성
+                </Button>
+              </Link>
             </div>
           ) : null,
         ),
