@@ -180,19 +180,23 @@ export default function Page() {
                     {/* <Image src={`markerData.title`} /> */}
                     <table>
                       <tr>
-                        <td className="pr-1 text-black">주소</td>
-                        <td>|</td>
-                        <td className="pl-1">{markerData.location}</td>
+                        <td className=" text-black ">주소</td>
+                        <td className="pr-1 ">|</td>
+                        <td className=" overflow-hidden text-ellipsis line-clamp-1">
+                          {markerData.location}
+                        </td>
                       </tr>
                       <tr>
-                        <td className="pr-1 text-black">대표술</td>
-                        <td>|</td>
-                        <td className="pl-1 truncate-text">{markerData.main}</td>
+                        <td className=" text-black">대표술</td>
+                        <td className="pr-1 ">|</td>
+                        <td className="pr-5 overflow-hidden text-ellipsis line-clamp-1">
+                          {markerData.main}
+                        </td>
                       </tr>
                       <tr>
-                        <td className="pr-1 text-black">전화번호</td>
-                        <td>|</td>
-                        <td className="pl-1">{markerData.phone}</td>
+                        <td className="w-16 text-black">전화번호</td>
+                        <td className="pr-1 ">|</td>
+                        <td className="">{markerData.phone}</td>
                       </tr>
                     </table>
                   </div>
