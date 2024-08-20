@@ -8,6 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        "custom-light": "0 5px 5px rgba(0, 0, 0, 0.35)",
+        // '0 5px 5px rgba(1, 1, 1, 0.55)'와 같은 사용자 정의 그림자
+      },
+      letterSpacing: {
+        "5percent-tight": "-0.05em", // 자간을 5% 줄이는 설정
+      },
+      lineHeight: {
+        lineHeight: "1.7", // 예: 170%의 line-height
+      },
       backgroundImage: {
         "custom-gradient":
           "linear-gradient(180deg, rgba(238, 238, 238, 0) 62.5%, rgba(6, 6, 6, 0.626) 91.67%)",

@@ -8,8 +8,8 @@ function CardSwiper() {
   const [hideElement, setHideElement] = useState(false);
 
   return (
-    <div className="pt-20">
-      <div className="flex w-screen h-[530px] bg-ivory items-center relative overflow-hidden">
+    <div>
+      <div className="flex w-screen h-[530px] bg-ivory items-center relative overflow-hidden mt-[68px]">
         <div className="w-full justify-center items-center absolute">
           <Swiper
             slidesPerView={1.7}
