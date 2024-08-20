@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import dummyImg from "@/../public/community-dummy.png";
 import { ImageProps } from "@/app/order/order";
 
 interface OrderDetailProps {
@@ -9,11 +8,19 @@ interface OrderDetailProps {
   brewery: string;
   price: number;
   quantity: number;
+  className?: string;
 }
 
-export default function OrderDetail({ image, name, brewery, price, quantity }: OrderDetailProps) {
+export default function OrderDetail({
+  image,
+  name,
+  brewery,
+  price,
+  quantity,
+  className,
+}: OrderDetailProps) {
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center ${className}`}>
       <Image
         src={`https://api.fesp.shop${image.path}`}
         alt={image.name}
