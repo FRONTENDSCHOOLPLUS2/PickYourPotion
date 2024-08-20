@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import github from "next-auth/providers/github";
 import google from "next-auth/providers/google";
 import { login, loginOAuth, signupWithOAuth } from "./model/action/userAction";
-import { OAuthUser, UserData, UserLoginForm } from "./types";
+import { OAuthUser, RefreshTokenRes, UserData, UserLoginForm } from "./types";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { fetchAccessToken } from "./model/fetch/userFetch";
 import discord from "next-auth/providers/discord";
@@ -110,23 +110,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } undefined
       */
       console.log("callbacks.signIn", user, account, profile, credentials);
+
       switch (account?.provider) {
         case "credentials":
-          /*
-            id/pwd 로그인 {
-              id: '2',
-              email: 's1@market.com',
-              name: '네오',
-              type: 'seller',
-              image: 'https://api.fesp.shop/files/00-sample/user-neo.webp',
-              accessToken: '...',
-              refreshToken: '...'
-            }
-          */
           console.log("id/pwd 로그인", user);
           break;
         case "google":
-        case "github":
+
         case "discord":
           /*
             OAuth 로그인 {
@@ -168,12 +158,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             console.error(err);
             throw err;
           }
-
           user.id = String(userInfo._id);
           user.type = userInfo.type;
           user.accessToken = userInfo.token!.accessToken;
           user.refreshToken = userInfo.token!.refreshToken;
-
           break;
       }
 
@@ -273,7 +261,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // console.log(`토큰 ${accessTokenExpires - Date.now()} ms 남음`);
       }
 
-      // 세션 없데이트
+      // 세션 업데이트
       if (trigger === "update" && session) {
         token.name = session.name;
       }
@@ -284,7 +272,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // 클라이언트에서 세션 정보 요청시 호출
     // 세션에 저장할 사용자 정보를 지정(세션 정보 수정)
     // token 객체 정보로 session 객체 설정
-    async session({ session, token }) {
+    session({ session, token }) {
       /*
         callbacks.session {
           user: {
@@ -326,10 +314,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // },
   },
 });
-
-/*
- GET / 200 in 1187ms
- POST /login 303 in 5719ms
-
-
-*/
