@@ -27,3 +27,6 @@ export async function signInWithGithub() {
 export async function signInWithNaver() {
   await signIn("naver", { redirectTo: "/" });
 }
+export async function signInWithKakao() {
+  await signIn("kakao", { redirectTo: "/" });
+}

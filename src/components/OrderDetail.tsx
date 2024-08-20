@@ -29,7 +29,7 @@ export default function OrderDetail({
         className="round"
       />
       <div className="ml-3">
-        <p className="contentMedium text-black">{name}</p>
+        <p className="text-black contentMedium">{name}</p>
         <p className="description text-gray ">{brewery}</p>
         <p className="text-[14px] font-medium">
           <span className="text-primary">{price}원</span>
