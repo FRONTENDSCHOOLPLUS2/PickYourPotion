@@ -1,14 +1,11 @@
-import { version } from "./../node_modules/preact/compat/src/index.d";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import github from "next-auth/providers/github";
 import google from "next-auth/providers/google";
 import { login, loginOAuth, signupWithOAuth } from "./model/action/userAction";
 import { OAuthUser, UserData, UserLoginForm } from "./types";
-// import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { fetchAccessToken } from "./model/fetch/userFetch";
-import twitter from "next-auth/providers/twitter";
-import facebook from "next-auth/providers/facebook";
 import discord from "next-auth/providers/discord";
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -130,7 +127,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           break;
         case "google":
         case "github":
-        case "twitter":
+        case "discord":
           /*
             OAuth 로그인 {
               id: '409716c3-f6d3-4988-bf0e-062d85b3114e',
@@ -242,46 +239,46 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       // JWT 자체의 만료 시간 추출
-      // const decodedToken = jwt.decode(token.accessToken) as JwtPayload | null;
-      // const accessTokenExpires = decodedToken?.exp ? decodedToken?.exp * 1000 : 0; // 밀리초 단위로 변환
+      const decodedToken = jwt.decode(token.accessToken) as JwtPayload | null;
+      const accessTokenExpires = decodedToken?.exp ? decodedToken?.exp * 1000 : 0; // 밀리초 단위로 변환
 
-      // // 토큰 만료 확인
-      // const shouldRefreshToken = Date.now() > accessTokenExpires;
-      // if (shouldRefreshToken) {
-      //   try {
-      //     console.log("토큰 만료됨.", Date.now() + " > " + accessTokenExpires);
-      //     const res = await fetchAccessToken(token.refreshToken);
-      //     if (res.ok) {
-      //       const resJson: RefreshTokenRes = await res.json();
-      //       return {
-      //         ...token,
-      //         accessToken: resJson.accessToken,
-      //       };
-      //     } else {
-      //       if (res.status === 401) {
-      //         // 인증 되지 않음(리플래시 토큰 인증 실패)
-      //         console.log("리플래시 토큰 인증 실패. 로그인 페이지로 이동해야 함", await res.json());
-      //       }
-      //     }
-      //   } catch (error) {
-      //     if (error instanceof Error) {
-      //       console.error(error);
-      //       return {
-      //         ...token,
-      //         error: error.message,
-      //       };
-      //     }
-      //   }
-      // } else {
-      //   // console.log(`토큰 ${accessTokenExpires - Date.now()} ms 남음`);
-      // }
+      // 토큰 만료 확인
+      const shouldRefreshToken = Date.now() > accessTokenExpires;
+      if (shouldRefreshToken) {
+        try {
+          console.log("토큰 만료됨.", Date.now() + " > " + accessTokenExpires);
+          const res = await fetchAccessToken(token.refreshToken);
+          if (res.ok) {
+            const resJson: RefreshTokenRes = await res.json();
+            return {
+              ...token,
+              accessToken: resJson.accessToken,
+            };
+          } else {
+            if (res.status === 401) {
+              // 인증 되지 않음(리플래시 토큰 인증 실패)
+              console.log("리플래시 토큰 인증 실패. 로그인 페이지로 이동해야 함", await res.json());
+            }
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error(error);
+            return {
+              ...token,
+              error: error.message,
+            };
+          }
+        }
+      } else {
+        // console.log(`토큰 ${accessTokenExpires - Date.now()} ms 남음`);
+      }
 
-      // // 세션 없데이트
-      // if (trigger === "update" && session) {
-      //   token.name = session.name;
-      // }
+      // 세션 없데이트
+      if (trigger === "update" && session) {
+        token.name = session.name;
+      }
 
-      // return token;
+      return token;
     },
 
     // 클라이언트에서 세션 정보 요청시 호출
