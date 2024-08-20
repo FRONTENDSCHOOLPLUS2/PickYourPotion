@@ -8,7 +8,7 @@ const OrderedCard: React.FC = () => {
       <div className="flex">
         <Image src={OrderImage} alt="" />
         <div className="description text-gray ml-6">
-          <h2 className="contentBold text-black">로렘입숨 생막걸리</h2>
+          <h2 className="contentMedium text-black">로렘입숨 생막걸리</h2>
           <p>17도</p>
           <p>입생로랑 양조장</p>
         </div>

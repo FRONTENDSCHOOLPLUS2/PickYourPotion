@@ -1,12 +1,9 @@
-import OrderCard from "@/app/order/OrderDetail";
+import ReviewList from "./ReviewList";
 
 const ReviewToWrite: React.FC = () => {
   return (
     <div>
-      <OrderCard />
-      <OrderCard />
-      <OrderCard />
-      <OrderCard />
+      <ReviewList />
     </div>
   );
 };
