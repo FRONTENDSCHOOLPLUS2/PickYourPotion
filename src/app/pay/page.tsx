@@ -7,31 +7,16 @@ import Button from "@/components/Button";
 import Link from "next/link";
 
 export default function PayPage() {
-  const buttonLabels = [
-    "간편결제",
-    "현대카드",
-    "네이버페이",
-    "카카오페이",
-    "페이코",
-    "SSG페이",
-    "무통장입금",
-    "휴대폰결제",
-  ];
-  const [selected, setSelected] = useState<number>(0); // 초기상태는 0번 인덱스 버튼이 선택
   const [currentPage, setCurrentPage] = useState<number>(0); // 결제 진행 상태 관리
-
-  const handleButtonClick = (index: number) => {
-    setSelected(index);
-  };
 
   const handleNextClick = () => {
     setCurrentPage((page) => page + 1);
   };
 
   return (
-    <>
+    <div>
       <div
-        className={`sticky top-0 left-0 h-[6px] bg-primary transition-width duration-700 ease-in-out`}
+        className={`fixed top-14 h-[6px] bg-primary transition-width duration-700 ease-in-out`}
         style={{ width: currentPage === 1 ? "100%" : "50%" }}
       ></div>
       {currentPage === 0 ? (
@@ -72,31 +57,21 @@ export default function PayPage() {
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          <div className="flex flex-col gap-[10px] mt-6">
             <p className="contentMedium mb-3">주문한 술</p>
+            <OrderedCard />
+            <OrderedCard />
             <OrderedCard />
           </div>
           <div className="mt-10 subTitleMedium">
             <p className="text-center">결제 금액</p>
             <p className="mt-3 text-center titleMedium text-primary">388,000원</p>
           </div>
-          <div className="mt-10 text-center subTitleMedium">
-            <p>결제 방법</p>
-            <div className="grid grid-cols-2 gap-2 px-1 mt-3 justify-items-center auto-cols-auto">
-              {buttonLabels.map((item, index) => (
-                <Button
-                  key={index}
-                  color={index === selected ? "fill" : "disabled"}
-                  onClick={() => handleButtonClick(index)}
-                  className="w-full py-4 content"
-                >
-                  {item}
-                </Button>
-              ))}
-            </div>
-          </div>
-          <Button onClick={() => handleNextClick()} className="w-full py-5 mt-12 mb-9">
-            {"다음"}
+          <Button
+            onClick={() => handleNextClick()}
+            className="w-full py-5 mt-12 mb-9 contentMedium"
+          >
+            {"결제"}
           </Button>
         </main>
       ) : (
@@ -111,6 +86,6 @@ export default function PayPage() {
           </Link>
         </main>
       )}
-    </>
+    </div>
   );
 }
