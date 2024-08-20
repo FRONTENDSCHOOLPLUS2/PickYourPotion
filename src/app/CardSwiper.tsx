@@ -3,9 +3,10 @@
 import { useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ProductDetail } from "./detail/[id]/page";
 import "swiper/css";
 
-function CardSwiper() {
+function CardSwiper({ data }: { data: ProductDetail[] }) {
   const [hideElement, setHideElement] = useState(false);
 
   return (
@@ -13,7 +14,7 @@ function CardSwiper() {
       <div className="relative w-screen py-10 overflow-hidden bg-ivory">
         <Swiper
           id="main-is-new-swiper"
-          slidesPerView={1.3}
+          slidesPerView={1.2}
           spaceBetween={10}
           onProgress={(swiper, progress) => {
             if (progress > 0.9) {
@@ -23,8 +24,8 @@ function CardSwiper() {
             }
           }}
           breakpoints={{
-            360: {
-              slidesPerView: 1.5,
+            420: {
+              slidesPerView: 1.3,
             },
             640: {
               slidesPerView: 2.5,
@@ -36,24 +37,14 @@ function CardSwiper() {
             },
           }}
         >
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
+          {data &&
+            data.map((item) => {
+              return (
+                <SwiperSlide key={item._id}>
+                  <ProductCard data={item} />
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
         {!hideElement && (
           <div className="absolute top-0 right-0 z-10 flex w-1/5 h-full pointer-events-none bg-custom-white"></div>
