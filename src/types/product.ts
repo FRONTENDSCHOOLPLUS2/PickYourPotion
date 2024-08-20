@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export interface ProductItem {
   content: string;
   updatedAt: string;
