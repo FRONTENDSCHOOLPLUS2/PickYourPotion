@@ -2,14 +2,15 @@
 import Image from "next/image";
 import iconLike from "../../../../public/images/icons/icon-like.svg";
 import iconLikeTrue from "../../../../public/images/icons/icon-like-true.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
-import { ProductDetail, fetchDetail } from "./page";
-import { ReplyStore, replyStore } from "@/zustand/Store";
+import { fetchDetail } from "./page";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Buying from "./Buying";
+import AddCart from "./AddCart";
+import { useProductStore } from "@/zustand/Store";
 
 export default function DetailClient() {
   let { id } = useParams();
@@ -17,8 +18,11 @@ export default function DetailClient() {
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
   });
-  // console.log(data);
-  const [showDetail, setShowDetail] = useState(true);
+  // const [showDetail, setShowDetail] = useState(true);
+  const { showDetail, setShowDetail } = useProductStore((state) => ({
+    showDetail: state.showDetail,
+    setShowDetail: state.setShowDetail,
+  }));
   const [like, setLike] = useState(false);
   let content;
   let likeBtn;
@@ -106,12 +110,7 @@ export default function DetailClient() {
 
         {content}
         <div className="sticky bottom-0 flex flex-row gap-3 mt-5 mb-5 bg-white left-6 round">
-          <button
-            className={`contentMedium w-[124px] h-[62px] flex items-center justify-center cursor-pointe bg-whiteGray text-darkGray round`}
-          >
-            술바구니
-            <br /> 추가
-          </button>
+          <AddCart />
           <Buying data={data} />
         </div>
       </div>

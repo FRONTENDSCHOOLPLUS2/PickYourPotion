@@ -1,9 +1,7 @@
 "use client";
-import { replyStore, userStore } from "@/zustand/Store";
-import { ProductReplies } from "./page";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Submit } from "@/components/Submit";
 
 export interface FormData {
@@ -29,7 +27,6 @@ export async function addReply(_id: number, formData: FormData, accessToken: str
     body: JSON.stringify(data),
   });
   const resJson = await res.json();
-  console.log(resJson);
   if (!resJson.ok) {
     throw new Error("error");
   }
@@ -38,12 +35,8 @@ export async function addReply(_id: number, formData: FormData, accessToken: str
 
 export default function ReplyForm() {
   const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-  const { productId } = replyStore((state) => ({
-    productId: state.productId,
-  }));
   const queryClient = useQueryClient();
   let { id } = useParams();
-  console.log("id", id);
   let _id = Number(id);
   const { mutate } = useMutation({
     mutationFn(formData: FormData) {

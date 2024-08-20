@@ -73,7 +73,7 @@ export default function PayPage() {
             </div>
           </div>
           <div className="mt-5">
-            <p className="contentMedium">주문한 술</p>
+            <p className="contentMedium mb-3">주문한 술</p>
             <OrderedCard />
           </div>
           <div className="mt-10 subTitleMedium">

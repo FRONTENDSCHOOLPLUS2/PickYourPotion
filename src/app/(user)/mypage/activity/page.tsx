@@ -2,7 +2,7 @@
 
 import Button from "@/components/Button";
 import { useState } from "react";
-import MyReview from "./WrittenReview";
+import WrittenReview from "./WrittenReviewList";
 import ReviewToWrite from "./ReviewToWrite";
 
 export default function ActivityPage() {
@@ -27,7 +27,7 @@ export default function ActivityPage() {
           </Button>
         ))}
       </div>{" "}
-      {selected === 0 ? <ReviewToWrite /> : <MyReview />}
+      {selected === 0 ? <ReviewToWrite /> : <WrittenReview />}
     </main>
   );
 }
