@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import MyPageButton from "./MyPageButton";
 import MyPageList from "./MyPageList";
 import { useEffect, useState } from "react";

@@ -1,9 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-<<<<<<< HEAD
-export const userStore = create();
-=======
 export interface UserStore {
   accessToken: string;
   refreshToken: string;
@@ -25,4 +22,3 @@ export const replyStore = create<ReplyStore>((set) => ({
   productId: 0,
   setProductId: (id: number) => set({ productId: id }),
 }));
->>>>>>> feature/sjw-#88
