@@ -30,6 +30,7 @@ export default function DetailClient() {
   const handleLike = () => {
     setLike(!like);
   };
+
   if (data) {
     if (showDetail) {
       content = <Detail data={data} />;
