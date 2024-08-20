@@ -8,13 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        "custom-light": "0 5px 5px rgba(0, 0, 0, 0.35)",
+        // '0 5px 5px rgba(1, 1, 1, 0.55)'와 같은 사용자 정의 그림자
+      },
+      letterSpacing: {
+        "5percent-tight": "-0.05em", // 자간을 5% 줄이는 설정
+      },
+      lineHeight: {
+        lineHeight: "1.7", // 예: 170%의 line-height
+      },
       backgroundImage: {
         "custom-gradient":
           "linear-gradient(180deg, rgba(238, 238, 238, 0) 62.5%, rgba(6, 6, 6, 0.626) 91.67%)",
         "custom-white":
           "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 24%, rgba(255,255,255,1) 100%)",
       },
-      Family: {
+      fontFamily: {
         light: ["SBAggroL", "sans-serif"],
         medium: ["SBAggroM", "sans-serif"],
         bold: ["SBAggroB", "sans-serif"],
@@ -90,6 +100,43 @@ const config: Config = {
             opacity: "1",
             "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)",
           },
+        },
+        "moving-left": {
+          "0%": {
+            transform: "translateX(50px)",
+            opacity: "0",
+            "animation-timing-function": "cubic-bezier(.17,.67,.62,.92)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
+          },
+        },
+        "moving-top": {
+          "0%": {
+            transform: "translateY(50px)",
+            opacity: "0",
+            "animation-timing-function": "cubic-bezier(.17,.67,.62,.92)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
+        fadeout: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
+        "scale-y-0-to-100": {
+          "0%": {
+            transform: "scaleY(0)",
+            "animation-timing-function": "cubic-bezier(.17,.67,.62,.92)",
+          },
+          "100%": { transform: "scaleY(1)" },
         },
       },
       animation: {

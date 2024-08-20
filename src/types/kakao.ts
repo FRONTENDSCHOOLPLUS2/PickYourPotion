@@ -12,3 +12,12 @@ export interface Cluster {
   averageCenter: boolean;
   minLevel: number;
 }
+
+export interface Brewery {
+  location: string;
+  title: string;
+  phone: string;
+  main: string;
+  mainImage: string;
+  marker: any;
+}

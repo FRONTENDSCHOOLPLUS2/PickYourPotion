@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import iconGoogle from "../../../../public/images/icons/icon-google.svg";
-import iconNaver from "../../../../public/images/icons/icon-naver.png";
-import { signInWithGoogle, signInWithNaver } from "@/data/actions/authAction";
+import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
+import { signInWithGoogle, signInWithDiscord } from "../../../model/action/userAction";
 export default function Page() {
   return (
     <div className="max-w-[428px] mt-28 flex flex-col justify-between h-[600px]">
@@ -15,12 +15,12 @@ export default function Page() {
       </div>
       <div className="flex flex-col items-center gap-5 contentMedium text-darkGray">
         <button
-          onClick={() => signInWithNaver()}
-          className="flex w-[377px] h-[60px] justify-center items-center text-white  bg-[#03c75a] rounded-[44px]"
+          onClick={() => signInWithDiscord()}
+          className="flex w-[377px] h-[60px] justify-center items-center text-white  bg-[#5865F2] rounded-[44px]"
         >
           <div className="flex flex-row items-center justify-center">
-            <Image src={iconNaver} width={30} height={30} alt="카카오톡 로그인" className="m-3" />
-            <p className="mt-1">네이버 계정으로 로그인</p>
+            <Image src={iconDiscord} width={30} height={30} alt="카카오톡 로그인" className="m-3" />
+            <p className="mt-1">디스코드 계정으로 로그인</p>
           </div>
         </button>
         <button

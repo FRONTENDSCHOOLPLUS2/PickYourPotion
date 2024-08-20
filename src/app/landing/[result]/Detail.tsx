@@ -1,20 +1,15 @@
+"use client";
+
 import { ProductDetail } from "@/app/detail/[id]/page";
+import DegreeBar from "@/components/DegreeBar";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-interface ProductDetailAll extends ProductDetail {
-  extra: {
-    taste: {
-      acidity: string;
-      sweet: string;
-      alcohol: string;
-    };
-    snack: string[];
-  };
-}
+const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
-const API_SERVER = process.env.PICK_YOUR_POTION_API_SERVER;
-
-function Detail({ item, content }: { item: ProductDetailAll; content: string }) {
+function Detail({ item }: { item: ProductDetail }) {
+  const router = useRouter();
   const {
     name,
     price,
@@ -22,24 +17,31 @@ function Detail({ item, content }: { item: ProductDetailAll; content: string }) 
     extra: { taste, snack },
   } = item;
 
-  // 산미 당도값 받아서 width값 계산하는 함수
-  const translateWidth = (tasteDegree: string) => {
-    if (tasteDegree === "1") {
-      tasteDegree = "w-1/4";
-    } else if (tasteDegree === "2") {
-      tasteDegree = "w-1/2";
-    } else if (tasteDegree === "3") {
-      tasteDegree = "w-3/4";
-    } else if (tasteDegree === "4") {
-      tasteDegree = "w-full";
-    }
-    return tasteDegree;
+  const handleCookie = () => {
+    const oneDay = 60 * 60 * 24;
+    document.cookie = `isLandingClose=true; path=/; max-age=${oneDay}`;
   };
 
   return (
     <>
-      <div className="h-60 mb-3 relative bg-slate-500 rounded-lg overflow-hidden">
-        <Image src={API_SERVER + mainImages[0].path} alt={name} fill />
+      <div className="h-60 mb-3 bg-slate-500 rounded-lg overflow-hidden">
+        <Link
+          onClick={(e) => {
+            e.preventDefault();
+            handleCookie();
+            router.push(`/detail/${item._id}`);
+          }}
+          href="#"
+          className="block relative w-full h-full"
+        >
+          <Image
+            src={API_SERVER + mainImages[0].path}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: "cover" }}
+          />
+        </Link>
       </div>
       <h3 className="mb-2">{name}</h3>
       <p className="mb-2 font-medium">{price.toLocaleString()}원</p>
@@ -52,26 +54,17 @@ function Detail({ item, content }: { item: ProductDetailAll; content: string }) 
           <tr>
             <td width="30%">산미</td>
             <td height="32px">
-              <div className="flex flex-row gap-[1px] h-4 bg-[#FFEDC7] rounded-full overflow-hidden">
-                <span
-                  className={`bg-[#FDC140] ${translateWidth(taste.acidity)} h-full rounded-full`}
-                ></span>
-              </div>
+              <DegreeBar degree={taste.acidity} color="#FDC140" />
             </td>
           </tr>
           <tr>
             <td width="30%">당도</td>
             <td height="32px">
-              <div className="flex flex-row gap-[1px] h-4 bg-[#FFE2BA] rounded-full overflow-hidden">
-                <span
-                  className={`bg-primary ${translateWidth(taste.sweet)} h-full rounded-full`}
-                ></span>
-              </div>
+              <DegreeBar degree={taste.sweet} color="#ff8f4b" />
             </td>
           </tr>
         </tbody>
       </table>
-      <p className="mb-2 text-left">{content}</p>
       <h3 className="mb-2">어울리는 안주</h3>
       <div className="mb-8 flex flex-wrap justify-center gap-1">
         {snack.map((item, index) => (

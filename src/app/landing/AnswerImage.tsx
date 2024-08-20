@@ -1,4 +1,4 @@
-import Soju from "@/components/icons/Soju";
+import Soju2bottle from "@/components/icons/Soju2bottle";
 import SojuGlass from "@/components/icons/SojuGlass";
 import Spoon from "@/components/icons/Spoon";
 import SugarDice from "@/components/icons/SugarDice";
@@ -20,7 +20,7 @@ function AnswerImage({
       {questionNum === 1 && (
         <div className="flex justify-center items-end gap-1">
           <SojuGlass isEmpty={selectedValue} />
-          <Soju isEmpty={selectedValue} />
+          <Soju2bottle isEmpty={selectedValue} />
         </div>
       )}
 

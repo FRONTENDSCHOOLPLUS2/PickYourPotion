@@ -5,22 +5,37 @@ import iconLikeTrue from "../../../../public/images/icons/icon-like-true.svg";
 import { useState } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
-import { ProductDetail } from "./page";
+import { fetchDetail } from "./page";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import Buying from "./Buying";
+import AddCart from "./AddCart";
+import { useProductStore } from "@/zustand/Store";
 
-export default function DetailClient({ data }: { data: ProductDetail }) {
+export default function DetailClient() {
+  let { id } = useParams();
+  const { data } = useQuery({
+    queryKey: ["detail", id],
+    queryFn: () => fetchDetail(id as string),
+  });
+  // const [showDetail, setShowDetail] = useState(true);
+  const { showDetail, setShowDetail } = useProductStore((state) => ({
+    showDetail: state.showDetail,
+    setShowDetail: state.setShowDetail,
+  }));
+  const [like, setLike] = useState(false);
   let content;
   let likeBtn;
-  const [showDetail, setShowDetail] = useState(true);
-  const [like, setLike] = useState(false);
 
   const handleLike = () => {
     setLike(!like);
   };
-
-  if (showDetail) {
-    content = <Detail data={data} />;
-  } else {
-    content = <Reply data={data} />;
+  if (data) {
+    if (showDetail) {
+      content = <Detail data={data} />;
+    } else {
+      content = <Reply data={data} />;
+    }
   }
 
   if (like) {
@@ -30,23 +45,25 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
   }
   return (
     <>
-      <div className="justify-center max-w-3xl">
-        <Image
-          src={`https://api.fesp.shop${data.mainImages[0]?.path}`}
-          width={428}
-          height={450}
-          alt="막걸리 이미지"
-        />
-      </div>
+      {data && (
+        <div className="justify-center max-w-3xl">
+          <Image
+            src={`https://api.fesp.shop${data?.mainImages[0]?.path}`}
+            width={428}
+            height={450}
+            alt="막걸리 이미지"
+          />
+        </div>
+      )}
       <div className="relative px-10 py-8 mt-[-35px]  max-w-[428px] bg-white topRound topShadow">
         <div className="flex flex-row justify-between">
-          <h1 className="flex items-center title">{data.name}</h1>
+          <h1 className="flex items-center title">{data?.name}</h1>
           <button onClick={handleLike}>
             <Image src={likeBtn} width={32} height={22} alt="막걸리 이미지" />
             <p className="flex justify-center description text-darkGray">4472</p>
           </button>
         </div>
-        <p className="content text-darkGray text-ellipsis mt-2.5">{data.price}원</p>
+        <p className="content text-darkGray text-ellipsis mt-2.5">{data?.price}원</p>
         <p className="content text-darkGray text-ellipsis mt-2.5">
           Lorem Ipsum is simply dummy text of the printing and
         </p>
@@ -92,19 +109,9 @@ export default function DetailClient({ data }: { data: ProductDetail }) {
         </div>
 
         {content}
-
         <div className="sticky bottom-0 flex flex-row gap-3 mt-5 mb-5 bg-white left-6 round">
-          <button
-            className={`contentMedium w-[124px] h-[62px] flex items-center justify-center cursor-pointe bg-whiteGray text-darkGray round`}
-          >
-            술바구니
-            <br /> 추가
-          </button>
-          <button
-            className={`contentMedium w-[244px] h-[62px] flex items-center  justify-center cursor-pointer bg-primary text-white round `}
-          >
-            구매하기
-          </button>
+          <AddCart />
+          <Buying data={data} />
         </div>
       </div>
     </>

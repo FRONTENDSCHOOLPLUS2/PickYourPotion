@@ -42,7 +42,6 @@ export default function CartCard({ productPrice }: CartCardProps) {
         height={76}
         className="object-cover rounded-[8px] mr-4"
       />
-
       <div className="flex flex-col grow justify-center">
         <span className="contentMedium">로렘입숨 막걸리</span>
         <span className="text-gray text-[12px] mt-[4px]">입생로랑 양조장</span>
