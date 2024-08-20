@@ -1,6 +1,9 @@
 {
   "name": "PickYourPotion",
   "version": "0.1.0",
+  "overrides": {
+    "oauth4webapi": "npm:@jacobkim/oauth4webapi@^2.10.4"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
