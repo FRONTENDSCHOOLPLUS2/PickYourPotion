@@ -35,7 +35,8 @@ export default function Address() {
               type="text"
               placeholder="우편번호"
               readOnly
-              className="border-b-[1px] border-lightGray py-2"
+              onClick={onClickAddr}
+              className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
             />
             <input
               id="addr"
@@ -43,7 +44,7 @@ export default function Address() {
               placeholder="주소"
               readOnly
               onClick={onClickAddr}
-              className="border-b-[1px] border-lightGray py-2"
+              className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
             />
           </div>
         </div>
