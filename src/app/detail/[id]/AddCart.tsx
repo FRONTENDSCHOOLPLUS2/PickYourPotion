@@ -1,13 +1,38 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ProductDetail } from "./page";
 
-export default function AddCart() {
+export async function fetchAddCart(_id: number, quantity: number, accessToken: string) {
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const url = `${API_SERVER}/carts`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      "client-id": `${CLIENT_ID}`,
+    },
+    body: JSON.stringify({
+      product_id: _id,
+      quantity: quantity,
+    }),
+  });
+  const resJson = await res.json();
+  if (!resJson.ok) {
+    throw new Error("error");
+  }
+  return resJson.item;
+}
+
+export default function AddCart({ data }: { data: ProductDetail }) {
   const session = useSession();
   const router = useRouter();
+  const token = session.data?.accessToken;
 
   const sessionCheckEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!session) {
-      //장바구니 추가 fetch
+    if (token) {
+      fetchAddCart(data._id, 1, token);
     } else {
       e.preventDefault();
       alert("장바구니 추가를 하려면 로그인해야 합니다.");
