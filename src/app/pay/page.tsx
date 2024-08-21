@@ -5,6 +5,39 @@ import { useState } from "react";
 import OrderedCard from "./OrderedCard";
 import Button from "@/components/Button";
 import Link from "next/link";
+import { ProductDetail } from "../detail/[id]/page";
+import PortOne from "@portone/browser-sdk/v2";
+import Address from "./Address";
+
+// const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+// const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+// const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
+// const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
+// const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+
+// async function handlePayment(data: ProductDetail) {
+//   const response = await PortOne.requestPayment({
+//     storeId: STORE_ID,
+//     paymentId: `payment-${crypto.randomUUID()}`,
+//     orderName: data.name,
+//     totalAmount: 10,
+//     currency: "CURRENCY_KRW",
+//     channelKey: CHANNEL_KEY,
+//     payMethod: "CARD",
+//     redirectUrl: `${API_SERVER}/pay`,
+//   })
+//     .then((response) => {
+//       console.log(response);
+//       if (response?.transactionType === "PAYMENT") {
+//         alert("결제 성공!");
+//       } else {
+//         alert("결제 실패: " + response?.message);
+//       }
+//     })
+//     .catch((error) => {
+//       alert("결제 중 오류가 발생했습니다: " + error.message);
+//     });
+// }
 
 export default function PayPage() {
   const [currentPage, setCurrentPage] = useState<number>(0); // 결제 진행 상태 관리
@@ -31,31 +64,7 @@ export default function PayPage() {
               <span className="contentMedium">전화번호</span>
               <span>+82 10 1234 5678</span>
             </div>
-            <div className="py-2">
-              <span className="contentMedium">주소(필수)</span>
-              <div className="flex justify-between mt-2">
-                <div className="flex-grow">
-                  <Input
-                    placeholder="에) 광희동 2가 256"
-                    type="text"
-                    id="address"
-                    name="address"
-                    className="w-full max-w-sm md:max-w-md"
-                    a11yHidden="a11y-hidden"
-                  />
-                  <div className="py-1 "></div>
-                  <Input
-                    placeholder="상세주소"
-                    type="text"
-                    id="detailed-address"
-                    name="detailed-address"
-                    className="w-full max-w-sm md:max-w-md"
-                    a11yHidden="a11y-hidden"
-                  />
-                </div>
-                <button className="w-20 h-12 ml-4 text-white rounded-lg bg-primary">검색</button>
-              </div>
-            </div>
+            <Address />
           </div>
           <div className="flex flex-col gap-[10px] mt-6">
             <p className="contentMedium mb-3">주문한 술</p>
@@ -67,10 +76,7 @@ export default function PayPage() {
             <p className="text-center">결제 금액</p>
             <p className="mt-3 text-center titleMedium text-primary">388,000원</p>
           </div>
-          <Button
-            onClick={() => handleNextClick()}
-            className="w-full py-5 mt-12 mb-9 contentMedium"
-          >
+          <Button onClick={() => {}} className="w-full py-5 mt-12 mb-9 contentMedium">
             {"결제"}
           </Button>
         </main>
