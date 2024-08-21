@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import MyPageButton from "./MyPageButton";
 import MyPageList from "./MyPageList";
 import { useEffect, useState } from "react";
@@ -7,8 +8,9 @@ import { useEffect, useState } from "react";
 export default function MyPage() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/users/4/name`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+  const session = useSession();
+  const url = `${API_SERVER}/users/${session.data?.user?.id}/name`;
+  const token = session.data?.accessToken;
 
   const [name, setName] = useState<string>("");
 
