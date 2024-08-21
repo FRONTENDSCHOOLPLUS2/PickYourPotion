@@ -82,8 +82,14 @@ main {
   clip-path: polygon(0 0, 0 0, 0 0);
 }
 
+/* swiper 커스텀 */
 .swiper#main-is-new-swiper {
   @apply px-[25px];
+}
+
+/* swiper pagination bullet 커스텀*/
+.swiper .swiper-pagination-bullet-active {
+  @apply bg-primary;
 }
 
 #wrapper {

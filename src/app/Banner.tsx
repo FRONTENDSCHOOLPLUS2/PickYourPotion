@@ -4,10 +4,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Soju2bottle from "@/components/icons/Soju2bottle";
 import bannerBG2 from "../../public/images/bg-banner2.jpg";
 import SojuGlass from "@/components/icons/SojuGlass";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css/pagination";
 
 function Banner() {
   return (
-    <Swiper>
+    <Swiper
+      modules={[Autoplay, Pagination]}
+      pagination={true}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      loop={true}
+    >
       <SwiperSlide>
         <div className="relative px-[25px] py-10 bg-ivory overflow-hidden">
           <p className="mb-2 text-black">1분만에 내 취향 술찾기!</p>
