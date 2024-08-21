@@ -46,6 +46,10 @@ body {
   font-size: 20px;
   font-family: "SBAggroM", sans-serif;
 }
+.subTitleLight {
+  font-size: 20px;
+  font-family: "SBAggroL", sans-serif;
+}
 .content {
   font-size: 16px;
   font-family: "SBAggroL", sans-serif;
