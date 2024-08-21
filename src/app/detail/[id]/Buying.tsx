@@ -64,6 +64,7 @@ async function handlePayment(data: ProductDetail) {
 
 export default function Buying({ data }: { data: ProductDetail }) {
   const session = useSession();
+  console.log(session);
   const router = useRouter();
 
   const sessionCheckEvent = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { Submit } from "@/components/Submit";
+import InputError from "@/components/InputError";
 
 export interface FormData {
   content: string;
@@ -67,22 +68,23 @@ export default function ReplyForm() {
   };
 
   return (
-    <form
-      className="border-[0.5px] border-gray flex justify-between mt-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <input
-        className="p-3"
-        placeholder="이번 술은 어떠셨나요?"
-        {...register("content", {
-          required: "내용은 필수입니다.",
-          minLength: {
-            value: 2,
-            message: "2글자 이상 입력해주세요.",
-          },
-        })}
-      />
-      <Submit>전송</Submit>
-    </form>
+    <>
+      <form className="flex justify-between mt-6 " onSubmit={handleSubmit(onSubmit)}>
+        <input
+          className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
+          placeholder="이번 술은 어떠셨나요?"
+          autoComplete="off"
+          {...register("content", {
+            required: "내용은 필수입니다.",
+            minLength: {
+              value: 2,
+              message: "2글자 이상 입력해주세요.",
+            },
+          })}
+        />
+        <Submit>전송</Submit>
+      </form>
+      <InputError target={errors.content} />
+    </>
   );
 }
