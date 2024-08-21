@@ -1,0 +1,34 @@
+meta {
+  name: 상품 구매
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/orders/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsInR5cGUiOiJ1c2VyIiwibmFtZSI6IuuwleyerOybhSIsImxvZ2luVHlwZSI6ImVtYWlsIiwiaWF0IjoxNzIzNjA0Njg5LCJleHAiOjE3MjM2OTEwODksImlzcyI6IkZFU1AifQ.yoUrr4EwdAz_xM45s8rqzPTn-wTNBRP0UFTt_zrOKB8
+}
+
+body:json {
+  {
+    "products": [
+      {
+        "_id": 1,
+        "quantity": 2
+      },
+      {
+        "_id": 2,
+        "quantity": 2
+      }
+    ],
+    "address": {
+      "name": "학교",
+      "value": "서울시 강남구 역삼동 234"
+    }
+  }
+}
