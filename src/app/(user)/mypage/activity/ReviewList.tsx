@@ -10,9 +10,9 @@ import { useSession } from "next-auth/react";
 export default function ReviewList() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const session = useSession();
+  const { data: session, status } = useSession();
   const url = `${API_SERVER}/orders/`;
-  const token = session.data?.accessToken;
+  const token = session?.accessToken;
 
   const [orders, setOrders] = useState<Order[]>([]); // Order 타입 배열로 상태 초기화
   const { showDetail, setShowDetail } = useProductStore((state) => ({
@@ -23,30 +23,32 @@ export default function ReviewList() {
   const router = useRouter();
 
   useEffect(() => {
-    // 주문 내역을 불러오는 함수
-    const getOrderList = async () => {
-      try {
-        const response = await fetch(url, {
-          headers: {
-            "client-id": `${CLIENT_ID}`,
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    // 세션이 로드되었을 때만 fetchUserName 함수 호출
+    if (status === "authenticated") {
+      const getOrderList = async () => {
+        try {
+          const response = await fetch(url, {
+            headers: {
+              "client-id": `${CLIENT_ID}`,
+              Authorization: `Bearer ${token}`,
+            },
+          });
 
-        const result = await response.json();
+          const result = await response.json();
 
-        if (response.ok) {
-          setOrders(result.item);
-        } else {
-          console.log(result.message);
+          if (response.ok) {
+            setOrders(result.item);
+          } else {
+            console.log(result.message);
+          }
+        } catch (error) {
+          console.error("네트워크 오류 발생", error);
         }
-      } catch (error) {
-        console.error("네트워크 오류 발생", error);
-      }
-    };
+      };
 
-    getOrderList();
-  }, [url, CLIENT_ID, token]);
+      getOrderList();
+    }
+  }, [url, CLIENT_ID, session, status]);
   return (
     <div className="pb-10">
       {orders.map((order) =>
