@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import WrittenReviewCard from "./WrittenReviewCard";
 import { Replies } from "./replies";
+import { useSession } from "next-auth/react";
 
 export default function WrittenReviewList() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const session = useSession();
   const url = `${API_SERVER}/replies/`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+  const token = session.data?.accessToken;
 
   const [replies, setReplies] = useState<Replies[]>([]);
 
@@ -22,7 +24,6 @@ export default function WrittenReviewList() {
         });
 
         const result = await response.json();
-        console.log(result);
 
         if (response.ok) {
           setReplies(result.item);

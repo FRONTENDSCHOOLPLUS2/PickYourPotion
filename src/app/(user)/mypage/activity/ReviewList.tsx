@@ -1,16 +1,26 @@
+import { useProductStore } from "@/zustand/Store";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import { Order } from "@/app/order/order";
 import Button from "@/components/Button";
 import OrderDetail from "@/components/OrderDetail";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function ReviewList() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const session = useSession();
   const url = `${API_SERVER}/orders/`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+  const token = session.data?.accessToken;
 
   const [orders, setOrders] = useState<Order[]>([]); // Order 타입 배열로 상태 초기화
+  const { showDetail, setShowDetail } = useProductStore((state) => ({
+    showDetail: state.showDetail,
+    setShowDetail: state.setShowDetail,
+  }));
+
+  const router = useRouter();
 
   useEffect(() => {
     // 주문 내역을 불러오는 함수
@@ -51,11 +61,17 @@ export default function ReviewList() {
                 quantity={product.quantity}
                 className="border round border-gray p-[15px] mb-[10px]"
               />
-              <Link href={`/detail/${product._id}`}>
-                <Button className="rounded-3xl text-xs absolute z-50 right-5 top-1/2 transform -translate-y-1/2">
-                  리뷰 작성
-                </Button>
-              </Link>
+              <Button
+                onClick={() => {
+                  setShowDetail(false);
+                  if (!showDetail) {
+                    router.push(`/detail/${product._id}`);
+                  }
+                }}
+                className="rounded-3xl text-xs absolute z-50 right-5 top-1/2 transform -translate-y-1/2"
+              >
+                리뷰 작성
+              </Button>
             </div>
           ) : null,
         ),
