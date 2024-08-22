@@ -15,14 +15,13 @@ import plus from "../../../../public/images/icons/plus.svg";
 import minus from "../../../../public/images/icons/minus.svg";
 import DegreeBar from "@/components/DegreeBar";
 export default function DetailClient() {
-  let content;
   let { id } = useParams();
-
   const { data } = useQuery({
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
   });
-
+  let content;
+  let category = data?.extra.category[0];
   const { setId, showDetail, setShowDetail, setName, setPrice, setImage, setBrewery, setAlcohol } =
     useProductStore((state) => ({
       setId: state.setId,
@@ -34,7 +33,7 @@ export default function DetailClient() {
       setBrewery: state.setBrewery,
       setAlcohol: state.setAlcohol,
     }));
-
+  console.log(category);
   if (data) {
     if (showDetail) {
       content = <Detail data={data} />;
@@ -42,8 +41,26 @@ export default function DetailClient() {
       content = <Reply data={data} />;
     }
   }
+  switch (category) {
+    case "PC01":
+      category = "막걸리";
+      break;
+    case "PC02":
+      category = "청주/약주";
+      break;
+    case "PC03":
+      category = "증류주";
+      break;
+    case "PC04":
+      category = "과실주";
+      break;
+    case "PC05":
+      category = "기타";
+      break;
+    default:
+      category = "기타";
+  }
 
-  // console.log(data.mainImages[0].path);
   useEffect(() => {
     if (data) {
       setName(data?.name);
@@ -77,14 +94,14 @@ export default function DetailClient() {
         <div className="flex flex-row justify-between px-10 mt-2">
           <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1 ">
             <span className="text-black contentMedium">주종</span>
-            <p className="description text-gray ">{data?.extra.category}</p>
+            <p className="description text-gray ">{category}</p>
           </div>
 
           <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium ">도수</span>
             <p className="description text-gray">{data?.extra.taste.alcohol}도</p>
           </div>
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round ">
+          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium">용량</span>
             <p className="description text-gray">{data?.extra.volume}ml</p>
           </div>
