@@ -1,5 +1,7 @@
 "use server";
 
+import { RequestCertificationResponseCallback } from "./types";
+
 const IMP_API_KEY = process.env.NEXT_PUBLIC_API_V1_REST_API_KEY;
 const IMP_API_SECRET = process.env.NEXT_PUBLIC_API_V1_REST_API_SECRET;
 
@@ -21,7 +23,7 @@ export const getToken = async () => {
 };
 
 // 본인인증 완료 후 실행될 콜백함수
-export const certificationCallback = async (response) => {
+export const certificationCallback: RequestCertificationResponseCallback = async (response) => {
   console.log(response);
   const { success, error_msg } = response;
 
