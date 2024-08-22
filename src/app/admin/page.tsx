@@ -243,7 +243,8 @@ export default function AdminPage() {
         />
         {errors.content && <p className="text-red-500 mt-1">{errors.content.message}</p>}
       </div>
-      <Button type="submit" className="w-full h-16 mb-10 border">
+      {/* 등록한 상품의 디테일로 이동 */}
+      <Button type="submit" className="w-full h-16 mb-10 border subTitleMedium">
         {"상품 등록"}
       </Button>
     </form>

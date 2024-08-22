@@ -4,8 +4,6 @@ import { signIn } from "@/auth";
 import {
   ApiRes,
   ApiResWithValidation,
-  CoreErrorRes,
-  CoreSuccessRes,
   FileRes,
   MultiItem,
   OAuthUser,
@@ -14,8 +12,6 @@ import {
   UserForm,
   UserLoginForm,
 } from "@/types";
-
-import { redirect } from "next/navigation";
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -113,10 +109,11 @@ export async function signInWithGoogle() {
   await signIn("google", { redirectTo: `/` });
 }
 
-// 깃허브 로그인
-export async function signInWithGithub(formData: FormData) {
-  await signIn("github", { redirectTo: "/" });
-}
 export async function signInWithDiscord() {
   await signIn("discord", { redirectTo: `/` });
 }
+
+// // 깃허브 로그인
+// export async function signInWithGithub(formData: FormData) {
+//   await signIn("github", { redirectTo: "/" });
+// }
