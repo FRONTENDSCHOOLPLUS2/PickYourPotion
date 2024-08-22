@@ -88,7 +88,7 @@ main {
 
 /* swiper 커스텀 */
 .swiper#main-is-new-swiper {
-  @apply px-[25px];
+  @apply px-[25px] overflow-visible;
 }
 
 /* swiper pagination bullet 커스텀*/
