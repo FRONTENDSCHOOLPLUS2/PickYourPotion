@@ -1,5 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, SetStateAction } from "react";
-import { SetState } from "zustand";
+import { ChangeEvent } from "react";
 
 interface InputProps {
   width?: string; // tailwind처럼 사용해주세요. ex)w-72
@@ -30,7 +29,7 @@ const Input: React.FC<InputProps> = ({
         {children}
       </label>
       <input
-        className={`border-b border-lightGray py-2 focus:outline-none focus:border-primary ${width} ${className}`}
+        className={`border-b border-darkGray py-2 focus:outline-none focus:border-primary ${width} ${className}`}
         placeholder={placeholder}
         id={id}
         name={name}
