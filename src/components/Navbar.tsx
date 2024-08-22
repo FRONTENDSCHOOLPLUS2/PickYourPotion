@@ -60,7 +60,7 @@ export default function Navbar() {
             }
             onClick={() => setSelectedLink("/mypage")}
           >
-            <span className="">내술상</span>
+            <span className="">마이페이지</span>
           </Link>
         </li>
       </ul>
