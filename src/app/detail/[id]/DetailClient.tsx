@@ -149,9 +149,9 @@ export default function DetailClient() {
             </table>
           </div>
         </div>
-        <div className="flex flex-row px-10 mt-5 round top-shadow ">
+        <div className="flex flex-row justify-center gap-2 px-10 mt-5 round top-shadow">
           <button
-            className={`contentMedium w-full  h-[52px] flex items-center justify-center cursor-pointer  transition-colors round ${
+            className={`contentMedium w-full h-[52px] flex items-center justify-center cursor-pointer  transition-colors  round ${
               showDetail ? "bg-primary text-white " : "bg-whiteGray text-black"
             }`}
             onClick={() => setShowDetail(true)}
@@ -159,7 +159,7 @@ export default function DetailClient() {
             상세설명
           </button>
           <button
-            className={`contentMedium w-full  h-[52px] flex items-center  justify-center cursor-pointer transition-colors round ${
+            className={`contentMedium w-full h-[52px] flex items-center  justify-center cursor-pointer transition-colors round ${
               !showDetail ? "bg-primary text-white" : "bg-whiteGray text-black"
             }`}
             onClick={() => setShowDetail(false)}
