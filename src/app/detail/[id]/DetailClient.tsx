@@ -66,7 +66,6 @@ export default function DetailClient() {
       setId(data?._id);
     }
   }, [data, setName, setPrice, setBrewery]);
-  console.log(data);
 
   return (
     <>
