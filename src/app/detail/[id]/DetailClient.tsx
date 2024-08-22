@@ -23,8 +23,9 @@ export default function DetailClient() {
     queryFn: () => fetchDetail(id as string),
   });
 
-  const { showDetail, setShowDetail, setName, setPrice, quantity, setQuantity, setBrewery } =
+  const { setId, showDetail, setShowDetail, setName, setPrice, quantity, setQuantity, setBrewery } =
     useProductStore((state) => ({
+      setId: state.setId,
       showDetail: state.showDetail,
       setShowDetail: state.setShowDetail,
       setName: state.setName,
@@ -62,6 +63,7 @@ export default function DetailClient() {
       setName(data?.name);
       setPrice(data?.price);
       setBrewery(data?.extra?.brewery);
+      setId(data?._id);
     }
   }, [data, setName, setPrice, setBrewery]);
   console.log(data);
