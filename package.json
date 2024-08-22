@@ -26,6 +26,7 @@
     "swiper": "^11.1.9",
     "tailwind-merge": "^2.4.0",
     "tailwind-scrollbar-hide": "^1.1.7",
+
     "zustand": "^4.5.4"
   },
   "devDependencies": {
