@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import MovingArrow from "@/components/MovingArrow";
 
 declare global {
   interface Window {
@@ -31,6 +32,7 @@ interface MarkerData {
 export default function Page() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [visibleMarkers, setVisibleMarkers] = useState<MarkerData[]>([]);
+  const [mapInfo, setMapInfo] = useState<boolean>(true);
 
   useEffect(() => {
     const loadKakaoMapScript = () => {
@@ -143,6 +145,9 @@ export default function Page() {
       }
     };
 
+    const timer = setTimeout(() => {
+      setMapInfo(false);
+    }, 1500);
     loadKakaoMapScript()
       .then(() => {
         createMap();
@@ -152,6 +157,7 @@ export default function Page() {
       });
 
     return () => {
+      clearTimeout(timer);
       const existingScript = document.querySelector(`script[src*="dapi.kakao.com/v2/maps/sdk.js"]`);
       if (existingScript) {
         document.head.removeChild(existingScript);
@@ -183,8 +189,18 @@ export default function Page() {
   return (
     <>
       <Navbar />
-
-      <div id="map" className="pt-20 w-auto h-[585px]" ref={mapRef}></div>
+      <div className="mt-[70px] h-[585px] mx-5 round overflow-hidden relative">
+        <div
+          id="map"
+          className="w-full h-[590px] absolute  left-0 top-0 z-[100]"
+          ref={mapRef}
+        ></div>
+        {mapInfo === true ? (
+          <div className=" w-full h-[590px] inset-0 absolute z-[1000]  left-0 top-0 bg-black bg-opacity-80  ">
+            <MovingArrow />
+          </div>
+        ) : null}
+      </div>
       <ul className="p-[25px]">
         {visibleMarkers.map((markerData) => (
           <li key={markerData.title} className="mb-3">

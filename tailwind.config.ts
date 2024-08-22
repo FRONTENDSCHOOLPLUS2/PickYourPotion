@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       dropShadow: {
         "custom-light": "0 5px 5px rgba(0, 0, 0, 0.35)",
+        // "custom-dark": "50px 5px 5px rgba(255,255,255, 0.85)",
         // '0 5px 5px rgba(1, 1, 1, 0.55)'와 같은 사용자 정의 그림자
       },
       letterSpacing: {
@@ -46,6 +47,16 @@ const config: Config = {
         size: "10",
       },
       keyframes: {
+        bounce: {
+          "0%, 100%": {
+            transform: "translateY(-55%)",
+            "animation-timing-function": "cubic-bezier(0.8,0,1,1)",
+          },
+          "50%": {
+            transform: "none",
+            "animation-timing-function": "cubic-bezier(0,0,0.2,1)",
+          },
+        },
         wiggle: {
           "0%, 100%": { transform: "rotate(-3deg)", "transform-origin": "center" },
           "50%": { transform: "rotate(3deg)" },
