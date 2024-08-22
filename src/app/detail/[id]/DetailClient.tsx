@@ -23,16 +23,16 @@ export default function DetailClient() {
     queryFn: () => fetchDetail(id as string),
   });
 
-  const { setId, showDetail, setShowDetail, setName, setPrice, quantity, setQuantity, setBrewery } =
+  const { setId, showDetail, setShowDetail, setName, setPrice, setImage, setBrewery, setAlcohol } =
     useProductStore((state) => ({
       setId: state.setId,
       showDetail: state.showDetail,
       setShowDetail: state.setShowDetail,
       setName: state.setName,
       setPrice: state.setPrice,
-      quantity: state.quantity,
-      setQuantity: state.setQuantity,
+      setImage: state.setImage,
       setBrewery: state.setBrewery,
+      setAlcohol: state.setAlcohol,
     }));
 
   if (data) {
@@ -43,29 +43,17 @@ export default function DetailClient() {
     }
   }
 
-  const add = () => {
-    if (quantity > 99) {
-      alert("상품은 100개 이상 구입할 수 없습니다.");
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-  const remove = () => {
-    if (quantity < 2) {
-      alert("0개 이하는 구매할 수 없습니다.");
-    } else {
-      setQuantity(quantity - 1);
-    }
-  };
-
+  // console.log(data.mainImages[0].path);
   useEffect(() => {
     if (data) {
       setName(data?.name);
       setPrice(data?.price);
       setBrewery(data?.extra?.brewery);
       setId(data?._id);
+      setImage(data?.mainImages[0].path);
+      setAlcohol(data?.extra?.taste?.alcohol);
     }
-  }, [data, setName, setPrice, setBrewery]);
+  }, [data]);
 
   return (
     <>
