@@ -11,7 +11,6 @@ interface CartCardProps {
   alcohol?: string;
   quantity: number;
   image: string;
-  productPrice: number;
   setQuantity: (quantity: number) => void;
 }
 
