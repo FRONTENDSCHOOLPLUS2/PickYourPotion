@@ -5,6 +5,7 @@ import AdminSelect from "./AdminSelect";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/Button";
 import { useRef, useState } from "react";
+import { useSession } from "next-auth/react";
 
 interface FormData {
   price: number; // 가격
@@ -28,10 +29,12 @@ interface FormData {
 }
 
 export default function AdminPage() {
+  const { data: session } = useSession();
+
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/seller/products/`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOCKEN;
+  const token = session?.accessToken;
 
   const category = [
     { value: "takjoo", name: "탁주" },
