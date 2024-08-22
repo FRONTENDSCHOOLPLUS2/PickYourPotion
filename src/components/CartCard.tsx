@@ -5,12 +5,13 @@ import Image from "next/image";
 import plus from "../../public/images/icons/plus.svg";
 import minus from "../../public/images/icons/minus.svg";
 interface CartCardProps {
-  name: string;
-  brewery: string;
+  name?: string;
+  brewery?: string;
   price: number;
-  alcohol: string;
+  alcohol?: string;
   quantity: number;
   image: string;
+  productPrice: number;
   setQuantity: (quantity: number) => void;
 }
 
@@ -58,7 +59,7 @@ export default function CartCard({
         height={76}
         className="object-cover rounded-[8px] mr-4"
       />
-      <div className="flex flex-col grow justify-center">
+      <div className="flex flex-col justify-center grow">
         <span className="contentMedium">{name}</span>
         <span className="text-gray text-[12px] mt-[4px]">{brewery}</span>
         <div className="text-[10px] text-primary border-primary mt-[2px] border-[1px] w-[40px] h-[20px] p-1 flex items-center justify-center rounded-xl">
