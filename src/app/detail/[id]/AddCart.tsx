@@ -30,15 +30,16 @@ export default function AddCart({ data }: { data: ProductDetail }) {
   const router = useRouter();
   const token = session.data?.accessToken;
 
-  const sessionCheckEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const sessionCheckEvent = () => {
     if (token) {
       fetchAddCart(data._id, 1, token);
+      alert("장바구니에 상품을 추가했습니다.");
     } else {
-      e.preventDefault();
       alert("장바구니 추가를 하려면 로그인해야 합니다.");
       router.push("/login");
     }
   };
+
   return (
     <button
       className={`contentMedium w-[124px] h-[62px] flex items-center justify-center cursor-pointe bg-whiteGray text-darkGray round`}

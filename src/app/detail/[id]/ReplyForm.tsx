@@ -1,8 +1,10 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Submit } from "@/components/Submit";
+import InputError from "@/components/InputError";
+import { useSession } from "next-auth/react";
 
 export interface FormData {
   content: string;
@@ -34,19 +36,22 @@ export async function addReply(_id: number, formData: FormData, accessToken: str
 }
 
 export default function ReplyForm() {
-  const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
   const queryClient = useQueryClient();
+  const session = useSession();
+  const router = useRouter();
+  const token = session.data?.accessToken;
   let { id } = useParams();
   let _id = Number(id);
   const { mutate } = useMutation({
     mutationFn(formData: FormData) {
-      return addReply(_id, formData, accessToken);
+      return addReply(_id, formData, token);
     },
     onSuccess(resData) {
       if (resData) {
         queryClient.invalidateQueries({
           queryKey: ["detail", id],
         });
+        reset();
       } else {
         console.error(resData.message);
       }
@@ -59,30 +64,37 @@ export default function ReplyForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (formData) => {
     mutate(formData);
+    if (!token) {
+      alert("후기를 등록하려면 로그인해야 합니다.");
+      router.push("/login");
+    } else {
+      alert("후기를 작성했습니다.");
+    }
   };
-
   return (
-    <form
-      className="border-[0.5px] border-gray flex justify-between mt-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <input
-        className="p-3"
-        placeholder="이번 술은 어떠셨나요?"
-        {...register("content", {
-          required: "내용은 필수입니다.",
-          minLength: {
-            value: 2,
-            message: "2글자 이상 입력해주세요.",
-          },
-        })}
-      />
-      <Submit>전송</Submit>
-    </form>
+    <>
+      <form className="flex justify-between mt-6 " onSubmit={handleSubmit(onSubmit)}>
+        <input
+          className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
+          placeholder="이번 술은 어떠셨나요?"
+          autoComplete="off"
+          {...register("content", {
+            required: "내용은 필수입니다.",
+            minLength: {
+              value: 2,
+              message: "2글자 이상 입력해주세요.",
+            },
+          })}
+        />
+        <Submit>전송</Submit>
+      </form>
+      <InputError target={errors.content} />
+    </>
   );
 }

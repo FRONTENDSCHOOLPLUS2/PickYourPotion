@@ -28,8 +28,32 @@ export const userStore = create<UserStore>()(
 interface ProductStore {
   showDetail: boolean;
   setShowDetail: (showDetail: boolean) => void;
+  _id: number;
+  setId: (_id: number) => void;
+  name: string;
+  setName: (name: string) => void;
+  price: number;
+  setPrice: (price: number) => void;
+  image: string;
+  setImage: (image: string) => void;
+  quantity: number;
+  setQuantity: (quantity: number) => void;
+  brewery: string;
+  setBrewery: (brewery: string) => void;
 }
 export const useProductStore = create<ProductStore>((set) => ({
   showDetail: true,
   setShowDetail: (showDetail: boolean) => set({ showDetail }),
+  _id: 0,
+  setId: (_id: number) => set({ _id }),
+  name: "",
+  setName: (name: string) => set({ name }),
+  price: 0,
+  setPrice: (price: number) => set({ price }),
+  image: "",
+  setImage: (image: string) => set({ image }),
+  quantity: 0,
+  setQuantity: (quantity: number) => set({ quantity }),
+  brewery: "",
+  setBrewery: (brewery: string) => set({ brewery }),
 }));
