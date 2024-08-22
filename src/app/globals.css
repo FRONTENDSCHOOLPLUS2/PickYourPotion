@@ -29,6 +29,9 @@
 body {
   font-family: "SBAggroL", sans-serif;
 }
+.opercity-black {
+  background: rgba(9, 9, 9, 0.5);
+}
 
 .title {
   font-size: 25px;
@@ -111,6 +114,7 @@ body {
   -webkit-box-shadow: 0px -42px 30px -33px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px -42px 30px -33px rgba(0, 0, 0, 0.3);
 }
+
 .bottomShadow {
   /* display: block; */
   /* position: relative; */
@@ -120,7 +124,50 @@ body {
   /* width: 100%
   /* content: ""; */
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+.dark-shadow {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.36320465686274506) 24%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+/* 첫 번째 애니메이션: 위로 올라갔다가 아래로 내려오는 애니메이션 */
+@keyframes stretchAndBounceDown {
+  0%,
+  100% {
+    transform: translateY(-5%) scaleY(1);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(5%) scaleY(1.1);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.stretch-bounce-animation-down {
+  animation: stretchAndBounceDown 1s infinite;
+}
+
+/* 두 번째 애니메이션: 아래로 내려갔다가 위로 올라오는 애니메이션 */
+@keyframes stretchAndBounceUp {
+  0%,
+  100% {
+    transform: translateY(5%) scaleY(1.1);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-5%) scaleY(1);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.stretch-bounce-animation-up {
+  animation: stretchAndBounceUp 1s infinite;
 }
