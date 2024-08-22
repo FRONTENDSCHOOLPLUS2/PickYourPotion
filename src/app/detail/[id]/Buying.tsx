@@ -21,7 +21,6 @@ async function handlePayment(data: ProductDetail) {
     redirectUrl: `${API_SERVER}/pay`,
   })
     .then((response) => {
-      console.log(response);
       if (response?.transactionType === "PAYMENT") {
         alert("결제 성공!");
       } else {

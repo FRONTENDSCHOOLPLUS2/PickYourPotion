@@ -32,7 +32,10 @@ const MyPageButton = () => {
   return (
     <ul className="flex mt-12 justify-evenly mx-auto">
       {buttonData.map((item) => (
-        <li key={item.id} className="float-start bg-whiteGray rounded-[10px] px-5 w-[100px]">
+        <li
+          key={item.id}
+          className="float-start bg-whiteGray rounded-[10px] px-5 w-[100px] cursor-pointer"
+        >
           <Link href={item.href} className="flex flex-col items-center py-1 text-darkGray">
             <Image src={item.src} alt={item.alt} width={40} height={40} />
             {item.content}

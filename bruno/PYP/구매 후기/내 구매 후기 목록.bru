@@ -1,0 +1,15 @@
+meta {
+  name: 내 구매 후기 목록
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{URL}}/replies/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

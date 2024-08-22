@@ -5,6 +5,7 @@ import AdminSelect from "./AdminSelect";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/Button";
 import { useRef, useState } from "react";
+import { useSession } from "next-auth/react";
 
 interface FormData {
   price: number; // 가격
@@ -28,10 +29,12 @@ interface FormData {
 }
 
 export default function AdminPage() {
+  const { data: session } = useSession();
+
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/seller/products/`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOCKEN;
+  const token = session?.accessToken;
 
   const category = [
     { value: "takjoo", name: "탁주" },
@@ -240,7 +243,8 @@ export default function AdminPage() {
         />
         {errors.content && <p className="text-red-500 mt-1">{errors.content.message}</p>}
       </div>
-      <Button type="submit" className="w-full h-16 mb-10 border">
+      {/* 등록한 상품의 디테일로 이동 */}
+      <Button type="submit" className="w-full h-16 mb-10 border subTitleMedium">
         {"상품 등록"}
       </Button>
     </form>

@@ -135,7 +135,7 @@ export default async function Home() {
             더보기 &gt;
           </Link>
         </section>
-        <section id="review-list" className="mb-12 px-[25px]">
+        {/* <section id="review-list" className="mb-12 px-[25px]">
           <h2 className="mt-5 mb-6 text-black subTitleMedium">실시간 리뷰</h2>
           <div className="flex flex-wrap justify-between gap-3 review-wrapper">
             <div className="w-[calc(50%-6px)]">
@@ -151,7 +151,7 @@ export default async function Home() {
               <ReviewCardItem />
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
     </>
   );
