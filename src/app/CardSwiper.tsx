@@ -14,6 +14,7 @@ function CardSwiper({ data }: { data: ProductDetail[] }) {
       <div className="relative w-screen py-10 overflow-hidden bg-ivory">
         <Swiper
           id="main-is-new-swiper"
+          className="overflow-visible"
           slidesPerView={1.2}
           spaceBetween={10}
           onProgress={(swiper, progress) => {
