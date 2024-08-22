@@ -1,5 +1,5 @@
 import { ProductDetail } from "@/app/detail/[id]/page";
-import VerticalCard from "@/components/VerticalCard";
+import Card from "@/components/Card";
 
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -17,10 +17,18 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   }
   return resJson.item;
 }
-export default function Page() {
+export default async function Page() {
+  const yakjuProduct = await fetchProductList([["custom", '{ "extra.category": "PC02" }']]);
   return (
-    <div className="flex flex-wrap justify-center gap-4">
-      <VerticalCard />
-    </div>
+    <ul className="flex flex-wrap justify-center gap-4 h-[1000px] overflow-y-auto hide-scrollbar">
+      {yakjuProduct &&
+        yakjuProduct.map((item) => {
+          return (
+            <li key={item._id}>
+              <Card data={item} />
+            </li>
+          );
+        })}
+    </ul>
   );
 }
