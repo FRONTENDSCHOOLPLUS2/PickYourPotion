@@ -15,7 +15,7 @@ const MyPageList: React.FC = () => {
     <ul className="mt-10 mb-24 px-3">
       {list.map((item) => (
         <li
-          className="flex justify-between text-black py-3.5"
+          className="flex justify-between text-black py-3.5 cursor-pointer"
           key={list.indexOf(item)}
           onClick={() => handleItemClick(item)}
         >

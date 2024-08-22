@@ -1,9 +1,11 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [selectedLink, setSelectedLink] = useState<string>("");
+  const { data: session } = useSession(); // 로그인 세션 정보 가져오기
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -50,18 +52,32 @@ export default function Navbar() {
             <span className="">대동술지도</span>
           </Link>
         </li>
-        <li className={selectedLink === "/community" ? "active" : ""}>
-          <Link
-            href="/mypage"
-            className={
-              selectedLink === "/mypage"
-                ? "underline decoration-4 underline-offset-8"
-                : "text-[gray]"
-            }
-            onClick={() => setSelectedLink("/mypage")}
-          >
-            <span className="">마이페이지</span>
-          </Link>
+        <li className={selectedLink === "/mypage" ? "active" : ""}>
+          {session ? (
+            <Link
+              href="/mypage"
+              className={
+                selectedLink === "/mypage"
+                  ? "underline decoration-4 underline-offset-8"
+                  : "text-[gray]"
+              }
+              onClick={() => setSelectedLink("/mypage")}
+            >
+              <span className="">마이페이지</span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className={
+                selectedLink === "/login"
+                  ? "underline decoration-4 underline-offset-8"
+                  : "text-[gray]"
+              }
+              onClick={() => setSelectedLink("/login")}
+            >
+              <span>로그인</span>
+            </Link>
+          )}
         </li>
       </ul>
     </div>

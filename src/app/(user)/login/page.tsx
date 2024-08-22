@@ -5,30 +5,41 @@ import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
 import { signInWithGoogle, signInWithDiscord } from "../../../model/action/userAction";
 export default function Page() {
   return (
-    <div className="max-w-[428px] mt-28 flex flex-col justify-between h-[600px]">
-      <div className="flex flex-col ml-10">
-        <p className="font-medium text-[36px] text-primary ">삐빅!!</p>
-        <div className="text-[25px] ">
-          <p className="text-black">너무 동안이세요!!</p>
-          <p className="mt-1 text-black">실례지만 민증검사 하겠습니다!!</p>
-        </div>
+    <div className="flex flex-col items-center justify-between min-h-screen">
+      <div className="mt-24">
+        <h2 className="text-[50px] font-medium">환영합니다🍶</h2>
+        <p className="text-[25px]">
+          저희와 함께 <span className="text-[32px] text-primary">인생술</span>을 찾아봐요
+        </p>
       </div>
-      <div className="flex flex-col items-center gap-5 contentMedium text-darkGray">
+      <div className="flex flex-col gap-5 contentMedium text-darkGray mb-24">
         <button
           onClick={() => signInWithDiscord()}
-          className="flex w-[377px] h-[60px] justify-center items-center text-white  bg-[#5865F2] rounded-[44px]"
+          className="flex py-3 px-20 justify-center items-center text-white  bg-[#5865F2] rounded-[44px]"
         >
           <div className="flex flex-row items-center justify-center">
-            <Image src={iconDiscord} width={30} height={30} alt="카카오톡 로그인" className="m-3" />
+            <Image
+              src={iconDiscord}
+              width={30}
+              height={30}
+              alt="디스코드 계정으로 로그인"
+              className="m-3"
+            />
             <p className="mt-1">디스코드 계정으로 로그인</p>
           </div>
         </button>
         <button
           onClick={() => signInWithGoogle()}
-          className="flex w-[377px] h-[60px] justify-center items-center border border-darkGray rounded-[44px]"
+          className="flex py-3 px-20 justify-center items-center text-gray bg-white rounded-[44px] border box-border"
         >
-          <div className="flex flex-row items-center justify-center mr-4">
-            <Image src={iconGoogle} width={30} height={30} alt="구글 로그인" className="m-3" />
+          <div className="w-full flex items-center">
+            <Image
+              src={iconGoogle}
+              width={30}
+              height={30}
+              alt="구글 계정으로 로그인"
+              className="m-3"
+            />
             <p className="mt-1">구글 계정으로 로그인</p>
           </div>
         </button>
