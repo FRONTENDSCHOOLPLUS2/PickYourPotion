@@ -12,12 +12,12 @@ export default function Page() {
 
   return (
     <div className="flex flex-col  mx-[25px] mt-9">
-      <div className="subTitleMedium mb-5">담은술</div>
+      <div className="mb-5 subTitleMedium">담은술</div>
       <div className="flex flex-col">
         <div className="h-[500px] overflow-y-auto hide-scrollbar">
-          {dummys.map((dummy, index) => (
+          {/* {dummys.map((dummy, index) => (
             <CartCard key={index} productPrice={dummy.productPrice} />
-          ))}
+          ))} */}
         </div>
         <div className="mt-12">
           <div className="flex content justify-between mb-[28px]">

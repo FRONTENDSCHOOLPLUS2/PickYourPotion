@@ -15,26 +15,25 @@ import plus from "../../../../public/images/icons/plus.svg";
 import minus from "../../../../public/images/icons/minus.svg";
 import DegreeBar from "@/components/DegreeBar";
 export default function DetailClient() {
-  let content;
   let { id } = useParams();
-
   const { data } = useQuery({
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
   });
-
-  const { setId, showDetail, setShowDetail, setName, setPrice, quantity, setQuantity, setBrewery } =
+  let content;
+  let category = data?.extra.category[0];
+  const { setId, showDetail, setShowDetail, setName, setPrice, setImage, setBrewery, setAlcohol } =
     useProductStore((state) => ({
       setId: state.setId,
       showDetail: state.showDetail,
       setShowDetail: state.setShowDetail,
       setName: state.setName,
       setPrice: state.setPrice,
-      quantity: state.quantity,
-      setQuantity: state.setQuantity,
+      setImage: state.setImage,
       setBrewery: state.setBrewery,
+      setAlcohol: state.setAlcohol,
     }));
-
+  console.log(category);
   if (data) {
     if (showDetail) {
       content = <Detail data={data} />;
@@ -42,21 +41,25 @@ export default function DetailClient() {
       content = <Reply data={data} />;
     }
   }
-
-  const add = () => {
-    if (quantity > 99) {
-      alert("상품은 100개 이상 구입할 수 없습니다.");
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-  const remove = () => {
-    if (quantity < 2) {
-      alert("0개 이하는 구매할 수 없습니다.");
-    } else {
-      setQuantity(quantity - 1);
-    }
-  };
+  switch (category) {
+    case "PC01":
+      category = "막걸리";
+      break;
+    case "PC02":
+      category = "청주/약주";
+      break;
+    case "PC03":
+      category = "증류주";
+      break;
+    case "PC04":
+      category = "과실주";
+      break;
+    case "PC05":
+      category = "기타";
+      break;
+    default:
+      category = "기타";
+  }
 
   useEffect(() => {
     if (data) {
@@ -64,8 +67,10 @@ export default function DetailClient() {
       setPrice(data?.price);
       setBrewery(data?.extra?.brewery);
       setId(data?._id);
+      setImage(data?.mainImages[0].path);
+      setAlcohol(data?.extra?.taste?.alcohol);
     }
-  }, [data, setName, setPrice, setBrewery]);
+  }, [data]);
 
   return (
     <>
@@ -89,14 +94,14 @@ export default function DetailClient() {
         <div className="flex flex-row justify-between px-10 mt-2">
           <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1 ">
             <span className="text-black contentMedium">주종</span>
-            <p className="description text-gray ">{data?.extra.category}</p>
+            <p className="description text-gray ">{category}</p>
           </div>
 
           <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium ">도수</span>
             <p className="description text-gray">{data?.extra.taste.alcohol}도</p>
           </div>
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round ">
+          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium">용량</span>
             <p className="description text-gray">{data?.extra.volume}ml</p>
           </div>
@@ -144,9 +149,9 @@ export default function DetailClient() {
             </table>
           </div>
         </div>
-        <div className="flex flex-row px-10 mt-5 round top-shadow ">
+        <div className="flex flex-row justify-center gap-2 px-10 mt-5 round top-shadow">
           <button
-            className={`contentMedium w-full  h-[52px] flex items-center justify-center cursor-pointer  transition-colors round ${
+            className={`contentMedium w-full h-[52px] flex items-center justify-center cursor-pointer  transition-colors  round ${
               showDetail ? "bg-primary text-white " : "bg-whiteGray text-black"
             }`}
             onClick={() => setShowDetail(true)}
@@ -154,7 +159,7 @@ export default function DetailClient() {
             상세설명
           </button>
           <button
-            className={`contentMedium w-full  h-[52px] flex items-center  justify-center cursor-pointer transition-colors round ${
+            className={`contentMedium w-full h-[52px] flex items-center  justify-center cursor-pointer transition-colors round ${
               !showDetail ? "bg-primary text-white" : "bg-whiteGray text-black"
             }`}
             onClick={() => setShowDetail(false)}

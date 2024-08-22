@@ -6,9 +6,10 @@ import MyPageList from "./MyPageList";
 import { useEffect, useState } from "react";
 
 export default function MyPage() {
+  const { data: session, status } = useSession();
+
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const { data: session, status } = useSession();
   const url = `${API_SERVER}/users/${session?.user?.id}/name`;
   const token = session?.accessToken;
 
@@ -49,6 +50,17 @@ export default function MyPage() {
       </div>
       <MyPageButton />
       <MyPageList />
+      {/* {session?.user?.type === "admin" ? (
+        <li
+          className="flex justify-between text-black py-3.5 cursor-pointer px-3"
+          onClick={() => router.push("/admin")}
+        >
+          <span className="pt-1">관리자 페이지</span>
+          <Image src={arrowIcon} alt="화살표 아이콘" width={20} />
+        </li>
+      ) : (
+        ""
+      )} */}
     </main>
   );
 }
