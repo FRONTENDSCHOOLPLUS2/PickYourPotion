@@ -32,7 +32,7 @@ export default function OrderDetail({
         <p className="text-black contentMedium">{name}</p>
         <p className="description text-gray ">{brewery}</p>
         <p className="text-[14px] font-medium">
-          <span className="text-primary">{price}원</span>
+          <span className="text-primary">{price.toLocaleString()}원</span>
           <span> | {quantity}개</span>
         </p>
       </div>
