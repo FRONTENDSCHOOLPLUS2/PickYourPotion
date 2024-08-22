@@ -6,7 +6,7 @@ function CardItemSmall({ data }: { data: ProductDetail }) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center mt-4">
       <Link href={`/detail/${data._id}`}>
         <Image
           src={API_SERVER + data.mainImages[0].path}

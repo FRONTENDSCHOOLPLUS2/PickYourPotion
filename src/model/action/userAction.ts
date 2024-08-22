@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import {
   ApiRes,
   ApiResWithValidation,
@@ -119,4 +119,6 @@ export async function signInWithGithub(formData: FormData) {
 }
 export async function signInWithDiscord() {
   await signIn("discord", { redirectTo: `/` });
+  const data = auth();
+  console.log(data);
 }
