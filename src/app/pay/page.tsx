@@ -12,6 +12,7 @@ import Image from "next/image";
 
 import WelcomeImg from "@/../public/images/welcome.gif";
 import CartCard from "@/components/CartCard";
+import PaymentCompleted from "./PaymentCompleted";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -159,22 +160,7 @@ export default function PayPage() {
           </Button>
         </main>
       ) : (
-        <main className="h-full flex flex-col justify-between items-center text-center text-black titleMedium">
-          <div className="mt-20 ">
-            <p>{session?.user?.name}님,</p>
-            <p className="text-primary">술상이 준비되었습니다!</p>
-            <p className="">빠른 시일 내에 배송해드릴게요!!</p>
-          </div>
-          <Image
-            src={WelcomeImg}
-            alt="주문 성공 시 나오는 술잔이 부딫히는 애니메이션"
-            width={428}
-            height={428}
-          />
-          <Link href={"/"} className="w-full">
-            <Button className="w-full py-5 mb-12 contentMedium">{"확인"}</Button>
-          </Link>
-        </main>
+        <PaymentCompleted />
       )}
     </div>
   );
