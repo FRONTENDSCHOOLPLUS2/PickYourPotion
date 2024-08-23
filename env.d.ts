@@ -1,0 +1,26 @@
+declare namespace NodeJS {
+  interface ProcessEnv {
+    NEXT_PUBLIC_API_SERVER: string;
+    NEXT_PUBLIC_API_NEXT_SERVER: string;
+    NEXT_PUBLIC_CLIENT_ID: string;
+    NEXT_PUBLIC_API_LIST_LIMIT: string;
+    NEXT_PUBLIC_API_DELAY_TIME: string;
+    GOOGLE_CLIENT_ID: string;
+    GOOGLE_CLIENT_SECRET: string;
+    GOOGLE_API_KEY: string;
+    DISCORD_CLIENT_ID: string;
+    DISCORD_CLIENT_SECRET: string;
+    PORTONE_V2_SECRET: string;
+    TOSS_CLIENT_ID: string;
+    TOSS_CLIENT_SECRET: string;
+    NEXT_PUBLIC_INICIS_CERTIFICATION_CHANNEL_KEY: string;
+    NEXT_PUBLIC_TOSS_CLIENT_STORE_ID: string;
+    NEXT_PUBLIC_TOSS_CHANNEL_KEY: string;
+    AUTH_SECRET: string;
+    NEXT_PUBLIC_ACCESS_TOKEN: string;
+    NEXT_PUBLIC_KAKAO_MAP_API_KEY: string;
+    NEXT_PUBLIC_API_V1_IMP_KEY: string;
+    NEXT_PUBLIC_API_V1_REST_API_KEY: string;
+    NEXT_PUBLIC_API_V1_REST_API_SECRET: string;
+  }
+}

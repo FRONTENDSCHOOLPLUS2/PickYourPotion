@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ProductDetail } from "./detail/[id]/page";
 import ReviewCardItem from "@/components/ReviewCardItem";
 import Banner from "./Banner";
+import Footer from "@/components/layout/Footer";
 
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -135,7 +136,7 @@ export default async function Home() {
             더보기 &gt;
           </Link>
         </section>
-        <section id="review-list" className="mb-12 px-[25px]">
+        {/* <section id="review-list" className="mb-12 px-[25px]">
           <h2 className="mt-5 mb-6 text-black subTitleMedium">실시간 리뷰</h2>
           <div className="flex flex-wrap justify-between gap-3 review-wrapper">
             <div className="w-[calc(50%-6px)]">
@@ -151,8 +152,9 @@ export default async function Home() {
               <ReviewCardItem />
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
+      <Footer />
     </>
   );
 }

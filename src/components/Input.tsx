@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 interface InputProps {
   width?: string; // tailwind처럼 사용해주세요. ex)w-72
   placeholder?: string;
@@ -7,6 +9,7 @@ interface InputProps {
   className?: string;
   a11yHidden?: string; // 접근성 숨김 옵션
   children?: string; // 라벨 내용
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   className,
   a11yHidden,
   children,
+  onChange,
 }: InputProps) => {
   return (
     <div className="flex flex-col">
@@ -25,11 +29,12 @@ const Input: React.FC<InputProps> = ({
         {children}
       </label>
       <input
-        className={`border-b border-lightGray py-2 focus:outline-none focus:border-primary ${width} ${className}`}
+        className={`border-b border-darkGray py-2 focus:outline-none focus:border-primary ${width} ${className}`}
         placeholder={placeholder}
         id={id}
         name={name}
         type={type}
+        onChange={onChange}
       />
     </div>
   );

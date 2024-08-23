@@ -2,7 +2,7 @@
 import Image from "next/image";
 import iconLike from "../../../../public/images/icons/icon-like.svg";
 import iconLikeTrue from "../../../../public/images/icons/icon-like-true.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
 import { fetchDetail } from "./page";
@@ -11,25 +11,29 @@ import { useParams } from "next/navigation";
 import Buying from "./Buying";
 import AddCart from "./AddCart";
 import { useProductStore } from "@/zustand/Store";
-
+import plus from "../../../../public/images/icons/plus.svg";
+import minus from "../../../../public/images/icons/minus.svg";
+import DegreeBar from "@/components/DegreeBar";
 export default function DetailClient() {
   let { id } = useParams();
   const { data } = useQuery({
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
   });
-  // const [showDetail, setShowDetail] = useState(true);
-  const { showDetail, setShowDetail } = useProductStore((state) => ({
-    showDetail: state.showDetail,
-    setShowDetail: state.setShowDetail,
-  }));
-  const [like, setLike] = useState(false);
   let content;
-  let likeBtn;
-
-  const handleLike = () => {
-    setLike(!like);
-  };
+  let category = data?.extra.category[0];
+  const { setId, showDetail, setShowDetail, setName, setPrice, setImage, setBrewery, setAlcohol } =
+    useProductStore((state) => ({
+      setId: state.setId,
+      showDetail: state.showDetail,
+      setShowDetail: state.setShowDetail,
+      setName: state.setName,
+      setPrice: state.setPrice,
+      setImage: state.setImage,
+      setBrewery: state.setBrewery,
+      setAlcohol: state.setAlcohol,
+    }));
+  console.log(category);
   if (data) {
     if (showDetail) {
       content = <Detail data={data} />;
@@ -37,61 +41,117 @@ export default function DetailClient() {
       content = <Reply data={data} />;
     }
   }
-
-  if (like) {
-    likeBtn = iconLikeTrue;
-  } else {
-    likeBtn = iconLike;
+  switch (category) {
+    case "PC01":
+      category = "막걸리";
+      break;
+    case "PC02":
+      category = "청주/약주";
+      break;
+    case "PC03":
+      category = "증류주";
+      break;
+    case "PC04":
+      category = "과실주";
+      break;
+    case "PC05":
+      category = "기타";
+      break;
+    default:
+      category = "기타";
   }
+
+  useEffect(() => {
+    if (data) {
+      setName(data?.name);
+      setPrice(data?.price);
+      setBrewery(data?.extra?.brewery);
+      setId(data?._id);
+      setImage(data?.mainImages[0].path);
+      setAlcohol(data?.extra?.taste?.alcohol);
+    }
+  }, [data]);
+
   return (
     <>
       {data && (
-        <div className="justify-center max-w-3xl">
+        <div className="justify-center max-w-3xl ">
           <Image
             src={`https://api.fesp.shop${data?.mainImages[0]?.path}`}
             width={428}
             height={450}
-            alt="막걸리 이미지"
+            alt="술 이미지"
           />
         </div>
       )}
-      <div className="relative px-10 py-8 mt-[-35px]  max-w-[428px] bg-white topRound topShadow">
-        <div className="flex flex-row justify-between">
-          <h1 className="flex items-center title">{data?.name}</h1>
-          <button onClick={handleLike}>
-            <Image src={likeBtn} width={32} height={22} alt="막걸리 이미지" />
-            <p className="flex justify-center description text-darkGray">4472</p>
-          </button>
+      <div className="relative  py-8 mt-[-35px]  max-w-[428px] bg-white topRound topShadow shadow-2xl">
+        <div className="flex flex-col justify-between px-10">
+          <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
+          <h1 className="flex items-center titleMedium">{data?.name}</h1>
+          <p className="mt-1 contentMedium text-ellipsis">{data?.price.toLocaleString()}원</p>
         </div>
-        <p className="content text-darkGray text-ellipsis mt-2.5">{data?.price}원</p>
-        <p className="content text-darkGray text-ellipsis mt-2.5">
-          Lorem Ipsum is simply dummy text of the printing and
-        </p>
-        <p className="content text-darkGray text-ellipsis mt-2.5">복순도가 양조장</p>
 
-        <div className="flex flex-row gap-4 mt-3 ">
-          <div className="w-[82px] h-[64px] flex flex-col items-center justify-center bg-ivory round">
-            <span className="mt-2 text-black contentMedium">주종</span>
-            <p className="description text-gray mt-[-2px]">증류식</p>
-            <p className="description text-gray mt-[-6px]">소주</p>
+        <div className="flex flex-row justify-between px-10 mt-2">
+          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1 ">
+            <span className="text-black contentMedium">주종</span>
+            <p className="description text-gray ">{category}</p>
           </div>
 
-          <div className="w-[82px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
+          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium ">도수</span>
-            <p className="description text-gray">10도</p>
+            <p className="description text-gray">{data?.extra.taste.alcohol}도</p>
           </div>
-          <div className="w-[82px] h-[64px] flex flex-col items-center justify-center bg-ivory round ">
+          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium">용량</span>
-            <p className="description text-gray">1L</p>
-          </div>
-          <div className="w-[82px] h-[64px] flex flex-col items-center justify-center bg-ivory round ">
-            <span className="text-black contentMedium">소비기한</span>
-            <p className="description text-gray">무제한</p>
+            <p className="description text-gray">{data?.extra.volume}ml</p>
           </div>
         </div>
-        <div className="flex flex-row mt-5 round top-shadow bg-whiteGray ">
+        <div className="p-3 px-10 mt-4">
+          <p className="contentMedium t">테이스팅 그래프</p>
+          <div className="px-10 py-6 mt-5 border-2 border-lightGray round bg-[#fbfbfb]">
+            <table className="w-full text-darkGray">
+              <tbody className="">
+                <tr className="mt-10">
+                  <td width="30%">당도</td>
+                  <td height="34px">
+                    <DegreeBar degree={data?.extra.taste.sweet} color="#FF8F4B" />
+                  </td>
+                </tr>
+                <tr className="mt-10">
+                  <td width="30%">산미</td>
+                  <td height="34px" className="mt-1">
+                    <DegreeBar degree={data?.extra.taste.acidity} color="#FF8F4B" />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="30%">바디감</td>
+                  <td height="34px">
+                    <DegreeBar degree={data?.extra.taste.body} color="#FF8F4B" />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="30%">씁쓸함</td>
+                  <td height="34px">
+                    <DegreeBar degree={data?.extra.taste.bitter} color="#FF8F4B" />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="30%">탄산</td>
+                  <td height="34px">
+                    <DegreeBar degree={data?.extra.taste.sparkle} color="#FF8F4B" />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="30%">소비기한</td>
+                  <td height="34px">{data?.extra.useByDate}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="flex flex-row justify-center gap-2 px-10 mt-5 round top-shadow">
           <button
-            className={`contentMedium w-[186px] h-[52px] flex items-center justify-center cursor-pointer  transition-colors round ${
+            className={`contentMedium w-full h-[52px] flex items-center justify-center cursor-pointer  transition-colors  round ${
               showDetail ? "bg-primary text-white " : "bg-whiteGray text-black"
             }`}
             onClick={() => setShowDetail(true)}
@@ -99,7 +159,7 @@ export default function DetailClient() {
             상세설명
           </button>
           <button
-            className={`contentMedium w-[186px] h-[52px] flex items-center  justify-center cursor-pointer transition-colors round ${
+            className={`contentMedium w-full h-[52px] flex items-center  justify-center cursor-pointer transition-colors round ${
               !showDetail ? "bg-primary text-white" : "bg-whiteGray text-black"
             }`}
             onClick={() => setShowDetail(false)}
@@ -108,9 +168,9 @@ export default function DetailClient() {
           </button>
         </div>
 
-        {content}
-        <div className="sticky bottom-0 flex flex-row gap-3 mt-5 mb-5 bg-white left-6 round">
-          <AddCart />
+        <div>{content}</div>
+        <div className="sticky flex flex-row gap-3 px-10 mt-5 left-6 round bottom-[1px] bottomShadow">
+          <AddCart data={data} />
           <Buying data={data} />
         </div>
       </div>

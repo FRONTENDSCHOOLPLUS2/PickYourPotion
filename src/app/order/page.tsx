@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import OrderList from "./OrderList";
 import { Order } from "./order";
+import { useSession } from "next-auth/react";
 
 interface GroupedOrders {
   date: string;
@@ -12,8 +13,9 @@ interface GroupedOrders {
 export default function OrderPage() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const session = useSession();
   const url = `${API_SERVER}/orders/`;
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+  const token = session.data?.accessToken;
 
   const [groupedOrders, setGroupedOrders] = useState<GroupedOrders[]>([]); // 날짜별로 그룹화 된 주문내역을 상태로 관리
 

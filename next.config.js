@@ -20,6 +20,14 @@ module.exports = {
   images: {
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+      {
         protocol: "https",
         hostname: "api.fesp.shop",
         pathname: "/files/**",

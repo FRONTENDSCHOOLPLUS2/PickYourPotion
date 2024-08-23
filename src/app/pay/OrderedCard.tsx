@@ -1,20 +1,30 @@
 import Image from "next/image";
 
 import OrderImage from "@/../public/community-dummy-small.png";
+import { useProductStore } from "@/zustand/Store";
 
 const OrderedCard: React.FC = () => {
+  const { name, price, image, brewery, quantity } = useProductStore((state) => ({
+    name: state.name,
+    price: state.price,
+    image: state.image,
+    brewery: state.brewery,
+    quantity: state.quantity,
+  }));
+
   return (
-    <div className="flex justify-between border border-gray rounded-xl px-2 py-4">
+    <div className="flex justify-between px-2 py-4 border border-gray rounded-xl">
       <div className="flex">
         <Image src={OrderImage} alt="" />
-        <div className="description text-gray ml-6">
-          <h2 className="contentMedium text-black">로렘입숨 생막걸리</h2>
-          <p>17도</p>
-          <p>입생로랑 양조장</p>
+        <div className="ml-6 description text-gray">
+          <h2 className="text-black contentMedium">{name}</h2>
+          <p>{brewery}</p>
         </div>
       </div>
       <div className="flex items-end">
-        <p className="text-black text-[14px]">6500원/1개</p>
+        <p className="text-black text-[14px]">
+          {price}원/{quantity}개
+        </p>
       </div>
     </div>
   );
