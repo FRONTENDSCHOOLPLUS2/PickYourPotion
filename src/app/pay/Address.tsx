@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Script from "next/script";
+import { useEffect } from "react";
 
 declare global {
   interface Window {
@@ -12,16 +13,30 @@ interface Address {
   zonecode: string;
 }
 
-export default function Address() {
+export default function Address({
+  setAddressFilled,
+}: {
+  setAddressFilled: (filled: boolean) => void;
+}) {
   const onClickAddr = () => {
     new window.daum.Postcode({
       oncomplete: function (data: Address) {
-        (document.getElementById("addr") as HTMLInputElement).value = data.address;
-        (document.getElementById("zipNo") as HTMLInputElement).value = data.zonecode;
+        const addrInput = document.getElementById("addr") as HTMLInputElement;
+        const zipNoInput = document.getElementById("zipNo") as HTMLInputElement;
+
+        addrInput.value = data.address;
+        zipNoInput.value = data.zonecode;
+
+        setAddressFilled(true);
         document.getElementById("addrDetail")?.focus();
       },
     }).open();
   };
+
+  useEffect(() => {
+    setAddressFilled(false); // 컴포넌트가 마운트될 때 주소 입력 상태 초기화
+  }, [setAddressFilled]);
+
   return (
     <div className="py-2">
       <span className="contentMedium">주소(필수)</span>
