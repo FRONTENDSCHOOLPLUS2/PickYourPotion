@@ -54,7 +54,6 @@ export default function OrderPage() {
           }));
 
           setGroupedOrders(groupedArray);
-          console.log("주문 내역", groupedOrders);
         } else {
           console.log(result.message);
         }
@@ -64,8 +63,6 @@ export default function OrderPage() {
     };
 
     getOrderList();
-    console.log("주문 내역2", groupedOrders);
-    console.log(groupedOrders.length === 0);
   }, [url, token, CLIENT_ID]);
 
   return (
