@@ -1,9 +1,8 @@
 "use server";
 
-import { Router } from "next/router";
-import { RequestCertificationResponseCallback } from "./types";
 import { auth } from "@/auth";
-import { redirect, useRouter } from "next/navigation";
+import { RequestCertificationResponseCallback } from "@/types/iamportExtends";
+import { redirect } from "next/navigation";
 
 const IMP_API_KEY = process.env.NEXT_PUBLIC_API_V1_REST_API_KEY;
 const IMP_API_SECRET = process.env.NEXT_PUBLIC_API_V1_REST_API_SECRET;
