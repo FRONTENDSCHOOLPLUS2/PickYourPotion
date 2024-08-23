@@ -12,7 +12,6 @@ export default function Header() {
         <Link href="/">
           <Image className="" src={gnb} alt="검색 아이콘" width={40} height={40} />
         </Link>
-        <span className="ml-8 font-medium text-[20px] text-center">지금 페이지</span>
         <div className="flex flex-row">
           <Link href="/search">
             <Image className="" src={search} alt="검색 아이콘" width={40} height={40} />

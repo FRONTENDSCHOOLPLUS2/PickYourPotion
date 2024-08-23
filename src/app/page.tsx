@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ProductDetail } from "./detail/[id]/page";
 import ReviewCardItem from "@/components/ReviewCardItem";
 import Banner from "./Banner";
+import Footer from "@/components/layout/Footer";
 
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -153,6 +154,7 @@ export default async function Home() {
           </div>
         </section> */}
       </main>
+      <Footer />
     </>
   );
 }
