@@ -2,10 +2,11 @@
 
 import Button from "@/components/Button";
 import { certificationCallback, getUserInfo } from "./action";
-import { ExtendedIamport } from "./types";
+
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import { LinkButton } from "@/components/LinkButton";
+import { ExtendedIamport } from "@/types/iamportExtends";
 
 const V1_IMP_KEY = process.env.NEXT_PUBLIC_API_V1_IMP_KEY;
 
@@ -20,25 +21,27 @@ function Adult({ searchParams }: SearchParamProps) {
   const confirmFailed = searchParams?.confirmFailed;
 
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session, status } = useSession();
   const userId = session?.user?.id;
 
-  const isLoggedIn = async () => {
+  const checkLoggedIn = async () => {
+    // 로그인 유무 확인
     if (status === "authenticated") {
       // 회원 정보 불러와서 성인인증 유무 확인
       const userInfo = await getUserInfo(userId!);
       if (userInfo.item.extra.isAdult) {
         // 로그인이 되어있고 성인인증도 돼있을 때
-        alert("술 구매 가능!");
         router.push("/pay");
       } else {
         // 로그인은 되어있지만 성인인증이 되지 않았을 때
-        // url의 request값이 true면 모달 띄우기
+        // url의 request값이 true면 모달 띄우기(stateless modal)
         router.push("/adult?request=true");
       }
     } else {
       // 로그인이 안 돼있을 때
       alert("로그인 후 이용하실 수 있습니다.");
+      router.push("/login");
     }
   };
 
@@ -54,6 +57,8 @@ function Adult({ searchParams }: SearchParamProps) {
     // 본인인증 데이터
     IMP.certification(
       {
+        // m_redirect_url: "/" + pathname,
+        popup: true,
         pg: "inicis_unified",
       },
       certificationCallback,
@@ -63,32 +68,62 @@ function Adult({ searchParams }: SearchParamProps) {
   return (
     <>
       <h1>성인인증 테스트 페이지</h1>
-      <Button onClick={isLoggedIn}>구매하기</Button>
+      <Button onClick={checkLoggedIn}>구매하기</Button>
       <Button onClick={onCertification}>성인인증하기</Button>
       {request && (
-        <>
-          <div className="bg-primary">
-            성인인증 해주십시오!!!
-            <Button onClick={onCertification}>성인인증하기</Button>
-            <Link href="/adult">모달 없애기</Link>
+        <div
+          className={`fixed w-screen h-screen flex justify-center items-center ${request ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}
+          // onClick={() => router.back()}
+        >
+          <div className="flex flex-col justify-center items-center w-3/5 px-5 py-8 rounded-2xl bg-white text-center">
+            <p className="text-primary font-bold">잠시만요!</p>
+            구매 전 최초 1회
+            <br />
+            성인인증이 필요해요.
+            <div className="flex justify-center align-top mt-3 gap-2 w-full">
+              <Button
+                onClick={() => {
+                  router.back();
+                  onCertification();
+                }}
+                className="grow"
+              >
+                인증하기
+              </Button>
+              <Button onClick={() => router.back()} className="grow" color="disabled">
+                취소
+              </Button>
+            </div>
           </div>
-        </>
+        </div>
       )}
       {confirmSuccess && (
-        <>
-          <div>
-            성인인증이 완료되었습니다. 상품을 구매해주세요.
-            <Link href="/adult">구매하러 가기</Link>
+        <div
+          className={`fixed w-screen h-screen flex justify-center items-center ${confirmSuccess ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}
+        >
+          <div className="flex flex-col justify-center items-center w-3/5 px-5 py-8 rounded-2xl bg-white text-center">
+            성인인증이 완료되었습니다
+            <br />
+            상품을 구매해주세요.
+            <Button onClick={() => router.back()} className="w-1/2 mt-3">
+              구매하러 가기
+            </Button>
           </div>
-        </>
+        </div>
       )}
       {confirmFailed && (
-        <>
-          <div>
-            성인부터 구매할 수 있는 상품입니다. 다음 기회에 봬요.
-            <Link href={"/"}>홈으로</Link>
+        <div
+          className={`fixed w-screen h-screen flex justify-center items-center ${confirmFailed ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}
+        >
+          <div className="flex flex-col justify-center items-center w-3/5 px-5 py-8 rounded-2xl bg-white text-center">
+            성인부터 구매할 수 있는 상품입니다.
+            <br />
+            다음 기회에 봬요!
+            <LinkButton href="/" className="w-1/2 mt-3">
+              홈으로
+            </LinkButton>
           </div>
-        </>
+        </div>
       )}
     </>
   );
