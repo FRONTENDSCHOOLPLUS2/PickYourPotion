@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import plus from "../../public/images/icons/plus.svg";
 import minus from "../../public/images/icons/minus.svg";
-interface CartCardProps {
+export interface CartCardProps {
   name?: string;
   brewery?: string;
   price: number;

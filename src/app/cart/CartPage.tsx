@@ -1,22 +1,29 @@
 "use client";
 import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
-import { useProductStore } from "@/zustand/Store";
+import { useState } from "react";
 
-export default function CartPage({ cartData }) {
-  const { _id, name, brewery, alcohol, price, quantity, setQuantity, image } = useProductStore(
-    (state) => ({
-      _id: state._id,
-      name: state.name,
-      brewery: state.brewery,
-      alcohol: state.alcohol,
-      price: state.price,
-      quantity: state.quantity,
-      setQuantity: state.setQuantity,
-      image: state.image,
-    }),
-  );
-  console.log(cartData);
+interface CartPageProps {
+  cartData: {
+    product: {
+      name: string;
+      extra: {
+        brewery: string;
+        taste: {
+          alcohol: string;
+        };
+      };
+      price: number;
+      image: {
+        path: string;
+      };
+    };
+    quantity: number;
+  }[];
+}
+
+export default function CartPage({ cartData }: CartPageProps) {
+  const [quantity, setQuantity] = useState<number>(0);
 
   return (
     <div className="flex flex-col  mx-[25px] mt-9">
@@ -33,7 +40,7 @@ export default function CartPage({ cartData }) {
                 alcohol={item.product.extra.taste.alcohol}
                 quantity={item.quantity}
                 image={item.product.image.path}
-                // setQuantity={setQuantity}
+                setQuantity={setQuantity}
               />
             ))
           ) : (
