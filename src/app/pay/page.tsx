@@ -12,7 +12,8 @@ import Image from "next/image";
 
 import WelcomeImg from "@/../public/images/welcome.gif";
 import CartCard from "@/components/CartCard";
-import PaymentCompleted from "./PaymentCompleted";
+import PaymentCompleted from "./complete/page";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -100,7 +101,7 @@ export default function PayPage() {
         currency: "CURRENCY_KRW",
         channelKey: CHANNEL_KEY,
         payMethod: "CARD",
-        redirectUrl: `${API_SERVER}/pay`,
+        redirectUrl: `http://localhost:3000/pay/payments`,
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {
@@ -140,7 +141,7 @@ export default function PayPage() {
             <Address />
           </div>
           <div className="flex flex-col gap-[10px] mt-6">
-            <p className="contentMedium mb-3">주문한 술</p>
+            <p className="mb-3 contentMedium">주문한 술</p>
             <CartCard
               name={name}
               brewery={brewery}
