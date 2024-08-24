@@ -22,7 +22,7 @@ export default function Category() {
     { href: "/market/liquor", label: "증류주", src: liquor, alt: "증류주아이콘" },
   ];
   return (
-    <div className="flex mt-[65px] bg-whiteGray w-full h-[94px] justify-center items-center border-solid border-t-2 border-t-zinc-200 mb-3">
+    <div className="flex mt-[65px] bg-whiteGray w-full h-[94px] justify-center items-center mb-3">
       <ul className="flex flex-row gap-2.5 px-[12px]">
         {links.map((link, index) => (
           <li key={index} onClick={() => handleClick(index)}>
