@@ -13,7 +13,6 @@ export default function Buying({ data }: { data: ProductDetail }) {
   const session = useSession();
   const router = useRouter();
   const token = session.data?.accessToken;
-  console.log(token);
 
   const sessionCheckEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (token) {

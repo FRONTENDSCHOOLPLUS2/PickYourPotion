@@ -11,7 +11,7 @@ function CardItemSmall({ data }: { data: ProductDetail }) {
         <Image
           src={API_SERVER + data.mainImages[0].path}
           alt={data.name}
-          className="rounded-lg"
+          className="rounded-lg w-[120px] h-[120px]"
           width={120}
           height={120}
         />

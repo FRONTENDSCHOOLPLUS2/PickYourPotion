@@ -46,7 +46,7 @@ export default function Card({ data }: { data: ProductDetail }) {
           alt={data.name}
           width={182}
           height={180}
-          className="round mb-3"
+          className="round mb-3 w-[182px] h-[180px]"
         />
         <span className="contentMedium text-[black]">{data.name}</span>
         <span className="description text-[gray]">{data.extra.brewery}</span>
