@@ -45,6 +45,7 @@ export default function PayPage() {
     }),
   );
   const data = { _id, name, price, quantity, brewery };
+  console.log(_id);
 
   const [currentPage, setCurrentPage] = useState<number>(0);
 
@@ -61,21 +62,10 @@ export default function PayPage() {
           "client-id": `${CLIENT_ID}`,
         },
         body: JSON.stringify({
-          user_id: session?.user?.id,
           products: [
             {
               _id: data._id,
-              name: data.name,
-              image: {
-                path: `/files/06-PickYourPotion/meoncheondugeonju.jpeg`,
-                name: "meoncheondugeonju.jpeg",
-                originalname: "meoncheondugeonju.jpeg",
-              },
               quantity: data.quantity,
-              price: data.price,
-              extra: {
-                brewery: data.brewery,
-              },
             },
           ],
         }),
@@ -101,7 +91,7 @@ export default function PayPage() {
         currency: "CURRENCY_KRW",
         channelKey: CHANNEL_KEY,
         payMethod: "CARD",
-        redirectUrl: `http://localhost:3000/pay/payments`,
+        redirectUrl: `http://localhost:3000/pay/payments?productId=${data._id}&quantity=${data.quantity}`,
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {

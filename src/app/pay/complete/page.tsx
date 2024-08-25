@@ -17,7 +17,7 @@ export default function Page() {
       </div>
       <Image
         src={WelcomeGif}
-        alt="주문 성공 시 나오는 술잔이 부딫히는 애니메이션"
+        alt="주문 성공 시 나오는 술잔이 부딪히는 애니메이션"
         width={428}
         height={428}
       />
