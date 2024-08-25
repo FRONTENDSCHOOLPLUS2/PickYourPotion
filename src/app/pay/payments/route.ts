@@ -6,16 +6,12 @@ export async function GET(request: Request) {
   const transactionType = searchParams.get("transactionType");
   const txId = searchParams.get("txId");
   const session = await auth();
-  console.log("!!session :", session);
-  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const productId = Number(searchParams.get("productId"));
   const quantity = Number(searchParams.get("quantity"));
   const code = searchParams.get("code");
-
-  console.log("typeof", typeof productId);
-  console.log(productId);
-  console.log("quantity", quantity);
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
 
   try {
     const PORTONE_API_SECRET = process.env.PORTONE_V2_SECRET;
@@ -31,21 +27,20 @@ export async function GET(request: Request) {
     console.log("Payment Status:", payment.status);
 
     if (payment.status === "FAILED") {
-      console.log("실패~");
-      return new Response("Payment failed", { status: 400 });
+      return new Response("Payment failed: 결제 실패", { status: 400 });
     } else if (payment.status === "PAID") {
       await fetchOrder();
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "http://localhost:3000/pay/complete",
+          Location: `${DOMAIN}/pay/complete`,
         },
       });
     } else if (code === "FAILURE_TYPE_PG") {
       return new Response(null, {
         status: 400,
         headers: {
-          Location: `http://localhost:3000/detail/${productId}`,
+          Location: `${DOMAIN}/detail/${productId}`,
         },
       });
     }
@@ -74,11 +69,11 @@ export async function GET(request: Request) {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error("서버 응답 오류:", errorText);
+        // const errorText = await response.text();
+        // console.error("서버 응답 오류:", errorText);
         throw new Error("주문 정보 전송에 실패했습니다.");
       }
-      console.log("주문 정보 전송 성공");
+      // console.log("주문 정보 전송 성공");
     } catch (error: any) {
       console.error("오류 발생:", error.message);
     }

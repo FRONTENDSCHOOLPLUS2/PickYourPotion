@@ -13,6 +13,7 @@ import PaymentCompleted from "./complete/page";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
 const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
@@ -86,7 +87,7 @@ export default function PayPage() {
         currency: "CURRENCY_KRW",
         channelKey: CHANNEL_KEY,
         payMethod: "CARD",
-        redirectUrl: `http://localhost:3000/pay/payments?productId=${data._id}&quantity=${data.quantity}`,
+        redirectUrl: `${DOMAIN}/pay/payments?productId=${data._id}&quantity=${data.quantity}`,
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {
