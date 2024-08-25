@@ -21,7 +21,7 @@ export const LinkButton = ({
     <Link
       href={href}
       className={twMerge(
-        `${btnColor[color]} inline-block w-full px-4 py-2 box-border text-center rounded-lg focus:outline-none duration-300`,
+        `${btnColor[color]} inline-block px-4 py-2 box-border text-center rounded-lg focus:outline-none duration-300`,
         className,
       )}
       {...rest}

@@ -39,7 +39,7 @@ export default function WrittenReviewList() {
     }
   }, [url, CLIENT_ID, session, status]);
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-5 mb-10">
       {replies.map((reply) => (
         <WrittenReviewCard
           key={reply._id}

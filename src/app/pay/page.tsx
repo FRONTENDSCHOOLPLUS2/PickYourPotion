@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import OrderedCard from "./OrderedCard";
-import Button from "@/components/Button";
-import Link from "next/link";
 import PortOne from "@portone/browser-sdk/v2";
 import Address from "./Address";
+import { useEffect, useState } from "react";
 import { useProductStore } from "@/zustand/Store";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 
-import WelcomeImg from "@/../public/images/welcome.gif";
+import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
+import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -20,17 +17,13 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
 const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
 
-interface Data {
-  _id: number;
-  name: string;
-  brewery: string;
-  price: number;
-  quantity: number;
-}
-
 export default function PayPage() {
   const { data: session } = useSession();
   const token = session?.accessToken;
+
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [addressFilled, setAddressFilled] = useState<boolean>(false); // 주소 입력 상태 관리
+  const [isMounted, setIsMounted] = useState<boolean>(false); // 컴포넌트가 마운트되었는지 확인
 
   const { _id, name, brewery, alcohol, price, quantity, setQuantity, image } = useProductStore(
     (state) => ({
@@ -44,13 +37,15 @@ export default function PayPage() {
       image: state.image,
     }),
   );
-  const data = { _id, name, price, quantity, brewery };
-  console.log(_id);
 
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const data = { _id, name, price, quantity, brewery };
 
   const totalAmount = price * (quantity ?? 1);
   const formattedAmount = new Intl.NumberFormat("ko-KR").format(totalAmount);
+
+  useEffect(() => {
+    setIsMounted(true); // 컴포넌트가 마운트된 후에만 렌더링
+  }, []);
 
   const fetchOrder = async () => {
     try {
@@ -100,7 +95,7 @@ export default function PayPage() {
         // 결제 성공 시 주문 정보 서버로 전송 후 페이지 전환
         if (token) {
           await fetchOrder();
-          setCurrentPage(1); // 결제 성공 시 페이지 전환
+          setCurrentPage(1);
         } else {
           console.error("토큰이 없습니다.");
         }
@@ -110,12 +105,13 @@ export default function PayPage() {
     }
   };
 
+  if (!isMounted) {
+    return null; // 클라이언트에서 마운트되기 전에는 아무것도 렌더링하지 않음
+  }
+
   return (
     <div className="h-screen">
-      <div
-        className={`fixed top-14 h-[6px] bg-primary transition-width duration-700 ease-in-out`}
-        style={{ width: currentPage === 1 ? "100%" : "50%" }}
-      ></div>
+      <ProgressBar currentPage={currentPage} />
       {currentPage === 0 ? (
         <main>
           <div className="text-black mt-9">
@@ -128,10 +124,10 @@ export default function PayPage() {
               <span className="contentMedium">전화번호</span>
               <span>+82 10 1234 5678</span>
             </div>
-            <Address />
+            <Address setAddressFilled={setAddressFilled} />
           </div>
           <div className="flex flex-col gap-[10px] mt-6">
-            <p className="mb-3 contentMedium">주문한 술</p>
+            <p className="contentMedium mb-3">담은 술</p>
             <CartCard
               name={name}
               brewery={brewery}
@@ -146,9 +142,21 @@ export default function PayPage() {
             <p className="text-center">결제 금액</p>
             <p className="mt-3 text-center titleMedium text-primary">{formattedAmount}원</p>
           </div>
-          <Button onClick={handlePayment} className="w-full py-5 mt-12 mb-9 contentMedium">
-            {"결제"}
-          </Button>
+          {addressFilled ? (
+            <Button onClick={handlePayment} className={`w-full py-5 mt-12 mb-9 contentMedium`}>
+              {"결제"}
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                alert("주소를 입력해주세요.");
+              }}
+              className={`w-full py-5 mt-12 mb-9 contentMedium cursor-not-allowed`}
+              color="disabled"
+            >
+              {"결제"}
+            </Button>
+          )}
         </main>
       ) : (
         <PaymentCompleted />
