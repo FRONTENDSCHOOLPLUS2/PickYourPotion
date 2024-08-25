@@ -27,17 +27,15 @@ async function fetchAllData() {
 export default function Page() {
   const [searchText, setSearchText] = useState("");
   const [result, setResult] = useState<any[]>([]);
-  const debounceValue = useDebounce(searchText, 100);
+  const debounceValue = useDebounce(searchText, 2000);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (searchText === "") {
-          // 검색어가 비어 있을 때 전체 데이터를 가져옵니다.
           const fetchedResult = await fetchAllData();
           setResult(fetchedResult);
         } else {
-          // 검색어가 있을 때는 검색 결과만 가져옵니다.
           const fetchedResult = await fetchSearch(debounceValue);
           setResult(fetchedResult);
         }

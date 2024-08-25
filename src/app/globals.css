@@ -171,3 +171,7 @@ body {
 .stretch-bounce-animation-up {
   animation: stretchAndBounceUp 1s infinite;
 }
+.image-style {
+  width: 428px;
+  height: auto;
+}

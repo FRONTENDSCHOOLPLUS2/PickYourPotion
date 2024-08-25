@@ -14,10 +14,23 @@ export default function Header() {
         </Link>
         <div className="flex flex-row">
           <Link href="/search">
-            <Image className="" src={search} alt="검색 아이콘" width={40} height={40} />
+            <Image
+              className="w-[40px] h-[40px]"
+              src={search}
+              alt="검색 아이콘"
+              width={40}
+              height={40}
+              priority
+            />
           </Link>
           <Link href="/cart">
-            <Image className="" src={cart} alt="장바구니 아이콘" width={40} height={30} />
+            <Image
+              className="w-[40px] h-[40px]"
+              src={cart}
+              alt="장바구니 아이콘"
+              width={40}
+              height={40}
+            />
           </Link>
         </div>
       </div>
