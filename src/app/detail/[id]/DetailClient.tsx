@@ -81,11 +81,11 @@ export default function DetailClient() {
             height={450}
             alt="술 이미지"
             priority={true}
-            className="w-[430px] h-[450px]"
+            className="w-screen h-[450px] object-contain"
           />
         </div>
       )}
-      <div className=" relative  py-8 mt-[-35px]  max-w-[428px] bg-white topRound topShadow shadow-2xl">
+      <div className=" relative  py-8 mt-[-35px]   bg-white topRound topShadow shadow-2xl">
         <div className="flex flex-col justify-between px-10">
           <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
           <h1 className="flex items-center titleMedium">{data?.name}</h1>
@@ -170,7 +170,7 @@ export default function DetailClient() {
         </div>
 
         <div>{content}</div>
-        <div className="sticky flex flex-row gap-3 px-10 mt-5 left-6 round bottom-[1px] bottomShadow">
+        <div className="flex justify-center sticky gap-3 px-10 mt-5 left-6 round bottom-[1px] bottomShadow">
           <AddCart data={data} />
           <Buying data={data} />
         </div>
