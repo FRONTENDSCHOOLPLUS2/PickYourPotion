@@ -8,7 +8,7 @@ import gnb from "../../../public/images/icons/icon-gnb.svg";
 export default function Header() {
   return (
     <>
-      <div className="flex flex-row items-center justify-between h-14 fixed top-0 w-screen px-2 z-50 bg-white shadow-sm">
+      <div className="flex flex-row items-center justify-between h-14 fixed top-0 w-screen px-2 z-20 bg-white shadow-sm">
         <Link href="/">
           <Image className="" src={gnb} alt="검색 아이콘" width={40} height={40} />
         </Link>

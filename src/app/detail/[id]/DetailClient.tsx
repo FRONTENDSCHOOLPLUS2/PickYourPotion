@@ -170,7 +170,7 @@ export default function DetailClient() {
       </div>
       <div className="sticky bottom-0 z-20 flex justify-center gap-3 px-10 py-4 mt-5 bg-white left-6 bottomShadow">
         <AddCart data={data} />
-        <Buying data={data} />
+        <Buying />
       </div>
     </>
   );
