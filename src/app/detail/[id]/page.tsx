@@ -54,6 +54,7 @@ export interface ProductDetail {
   path: string;
   replies: ProductReplies[];
   extra: Extra;
+  quantity?: number;
 }
 export async function fetchDetail(_id: string, delay?: number) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
