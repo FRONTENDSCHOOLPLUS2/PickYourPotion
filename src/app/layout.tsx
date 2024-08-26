@@ -27,6 +27,7 @@ export default async function RootLayout({
   };
 
   const orderList = await getOrderList();
+  console.log(orderList);
 
   return (
     <>
@@ -44,7 +45,7 @@ export default async function RootLayout({
           <SessionProvider>
             <TanstackProvider>
               <ToastContainer />
-              <ChannelTalkManager order={orderList.item[0]} />
+              <ChannelTalkManager order={orderList.ok === 1 && orderList?.item[0]} />
               {children}
             </TanstackProvider>
           </SessionProvider>
