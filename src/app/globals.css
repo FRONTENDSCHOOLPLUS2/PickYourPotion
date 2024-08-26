@@ -127,7 +127,7 @@ body {
 .bottomShadow {
   /* display: block; */
   /* position: relative; */
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0, #fff 100%);
   /* margin-top: -150px; */
   height: 100px;
   /* width: 100%

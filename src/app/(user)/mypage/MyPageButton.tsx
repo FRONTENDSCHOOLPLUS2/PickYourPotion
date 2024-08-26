@@ -37,7 +37,14 @@ const MyPageButton = () => {
           className="float-start bg-whiteGray rounded-[10px] px-3 w-[90px] cursor-pointer"
         >
           <Link href={item.href} className="flex flex-col items-center py-1 text-darkGray">
-            <Image src={item.src} alt={item.alt} width={40} height={40} />
+            <Image
+              src={item.src}
+              alt={item.alt}
+              width={40}
+              height={40}
+              className="w-[40px] h-[40px]"
+              priority={true}
+            />
             {item.content}
           </Link>
         </li>

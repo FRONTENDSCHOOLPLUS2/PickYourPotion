@@ -8,10 +8,12 @@ import { useSession } from "next-auth/react";
 
 import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
-import PaymentCompleted from "./PaymentCompleted";
 import ProgressBar from "./ProgressBar";
+import PaymentCompleted from "./complete/page";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
 const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
@@ -56,21 +58,10 @@ export default function PayPage() {
           "client-id": `${CLIENT_ID}`,
         },
         body: JSON.stringify({
-          user_id: session?.user?.id,
           products: [
             {
               _id: data._id,
-              name: data.name,
-              image: {
-                path: `/files/06-PickYourPotion/meoncheondugeonju.jpeg`,
-                name: "meoncheondugeonju.jpeg",
-                originalname: "meoncheondugeonju.jpeg",
-              },
               quantity: data.quantity,
-              price: data.price,
-              extra: {
-                brewery: data.brewery,
-              },
             },
           ],
         }),
@@ -96,7 +87,7 @@ export default function PayPage() {
         currency: "CURRENCY_KRW",
         channelKey: CHANNEL_KEY,
         payMethod: "CARD",
-        redirectUrl: `${API_SERVER}/pay`,
+        redirectUrl: `${DOMAIN}/pay/payments?productId=${data._id}&quantity=${data.quantity}`,
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {

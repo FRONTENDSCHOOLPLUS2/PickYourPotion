@@ -33,7 +33,6 @@ export default function DetailClient() {
       setBrewery: state.setBrewery,
       setAlcohol: state.setAlcohol,
     }));
-  console.log(category);
   if (data) {
     if (showDetail) {
       content = <Detail data={data} />;
@@ -76,15 +75,19 @@ export default function DetailClient() {
     <>
       {data && (
         <div className="flex justify-center items-center">
+
           <Image
             src={`https://api.fesp.shop${data?.mainImages[0]?.path}`}
-            width={428}
+            width={430}
             height={450}
             layout="responsive"
             alt="술 이미지"
+            priority={true}
+            className="w-screen h-[450px] object-contain"
           />
         </div>
       )}
+
       <div className="relative  py-8 mt-[-35px]  max-w-full bg-white topRound topShadow shadow-2xl">
         <div className="flex flex-col justify-between px-10">
           <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
@@ -170,7 +173,7 @@ export default function DetailClient() {
         </div>
 
         <div>{content}</div>
-        <div className="sticky flex flex-row gap-3 px-10 mt-5 left-6 round bottom-[1px] bottomShadow">
+        <div className="flex justify-center sticky gap-3 px-10 mt-5 left-6 round bottom-[1px] bottomShadow">
           <AddCart data={data} />
           <Buying data={data} />
         </div>
