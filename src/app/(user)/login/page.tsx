@@ -1,8 +1,11 @@
 "use client";
+
+import { signInWithGoogle, signInWithDiscord } from "../../../model/action/userAction";
 import Image from "next/image";
+
 import iconGoogle from "../../../../public/images/icons/icon-google.svg";
 import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
-import { signInWithGoogle, signInWithDiscord } from "../../../model/action/userAction";
+
 export default function Page() {
   return (
     <main className="flex flex-col items-center justify-between min-h-screen">
