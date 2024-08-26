@@ -46,7 +46,7 @@ export default function Address({
   }, [setAddressFilled]);
 
   return (
-    <div className="py-2">
+    <div>
       <span className="contentMedium">주소(필수)</span>
       <div className="flex justify-between mt-10">
         <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" />
