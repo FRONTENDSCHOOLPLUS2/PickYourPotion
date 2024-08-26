@@ -10,7 +10,7 @@ import { fetchSearch } from "./fetchSearch";
 async function fetchAllData() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/products`;
+  const url = `${API_SERVER}/products/?limit=5`;
   const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export default function Page() {
     <div className="flex flex-col mx-[25px] mt-14">
       <div className="text-[36px] text-darkGray mb-10">
         <p>
-          <span className="text-primary font-medium">어떤 술</span>을
+          <span className="font-medium text-primary">어떤 술</span>을
         </p>
         <p>원하시나요?</p>
       </div>
@@ -64,11 +64,11 @@ export default function Page() {
           placeholder="검색어를 입력해주세요."
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button className="absolute right-1 top-1/2 transform -translate-y-1/2">
+        <button className="absolute transform -translate-y-1/2 right-1 top-1/2">
           <Image src={searchIcon} width={35} height={35} alt="돋보기 버튼" />
         </button>
       </div>
-      <div className="mt-8">{list.length > 0 && list}</div>
+      <div className="my-8">{list.length > 0 && list}</div>
     </div>
   );
 }

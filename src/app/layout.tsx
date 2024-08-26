@@ -2,6 +2,8 @@ import TanstackProvider from "@/provider/TanstackProvider";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import { SessionProvider } from "next-auth/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ChannelTalkManager from "./ChannelTalkManager";
 import { auth } from "@/auth";
 
@@ -41,6 +43,7 @@ export default async function RootLayout({
           <Header />
           <SessionProvider>
             <TanstackProvider>
+              <ToastContainer />
               <ChannelTalkManager order={orderList.item[0]} />
               {children}
             </TanstackProvider>
