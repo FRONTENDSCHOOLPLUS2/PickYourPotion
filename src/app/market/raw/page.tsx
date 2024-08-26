@@ -18,11 +18,9 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   return resJson.item;
 }
 export default async function Page() {
-  const takjuProduct = await fetchProductList([
-    ["custom", '{ "extra.category": "PC01" }'],
-  ]);
+  const takjuProduct = await fetchProductList([["custom", '{ "extra.category": "PC01" }']]);
   return (
-    <ul className="flex flex-wrap justify-center gap-4 h-[1000px] overflow-y-auto hide-scrollbar">
+    <ul className="flex flex-wrap justify-between px-6">
       {takjuProduct &&
         takjuProduct.map((item) => {
           return (

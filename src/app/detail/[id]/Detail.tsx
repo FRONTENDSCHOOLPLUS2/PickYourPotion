@@ -11,6 +11,7 @@ export default function Detail({ data }: { data: ProductDetail }) {
           height={500}
           alt="상세 설명"
           key={index}
+          layout="responsive"
           className=" object-contain"
         />
       </div>

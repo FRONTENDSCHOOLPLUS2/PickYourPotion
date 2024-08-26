@@ -34,7 +34,7 @@ const MyPageButton = () => {
       {buttonData.map((item) => (
         <li
           key={item.id}
-          className="float-start bg-whiteGray rounded-[10px] px-5 w-[100px] cursor-pointer"
+          className="float-start bg-whiteGray rounded-[10px] px-3 w-[90px] cursor-pointer"
         >
           <Link href={item.href} className="flex flex-col items-center py-1 text-darkGray">
             <Image

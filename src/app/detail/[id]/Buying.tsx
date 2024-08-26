@@ -11,6 +11,7 @@ const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
 export default function Buying({ data }: { data: ProductDetail }) {
   const session = useSession();
+  console.log(session);
   const router = useRouter();
   const token = session.data?.accessToken;
 
