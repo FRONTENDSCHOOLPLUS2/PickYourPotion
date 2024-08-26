@@ -5,11 +5,14 @@ import Address from "./Address";
 import { useEffect, useState } from "react";
 import { useProductStore } from "@/zustand/Store";
 import { useSession } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
 
+import { errorToast } from "@/toast/errorToast";
 import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
 import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
+import { infoToast } from "@/toast/infoToast";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -67,7 +70,7 @@ export default function PayPage() {
         throw new Error("주문 정보 전송에 실패했습니다.");
       }
     } catch (error: any) {
-      console.error("오류 발생:", error.message);
+      errorToast(error.message);
     }
   };
 
@@ -168,9 +171,7 @@ export default function PayPage() {
             </Button>
           ) : (
             <Button
-              onClick={() => {
-                alert("주소를 입력해주세요.");
-              }}
+              onClick={() => infoToast("주소를 입력해 주세요.")}
               className={`w-full py-5 mt-12 mb-9 contentMedium cursor-not-allowed`}
               color="disabled"
             >
@@ -181,6 +182,7 @@ export default function PayPage() {
       ) : (
         <PaymentCompleted />
       )}
+      <ToastContainer position="top-center" limit={1} autoClose={3000} closeButton={false} />
     </div>
   );
 }
