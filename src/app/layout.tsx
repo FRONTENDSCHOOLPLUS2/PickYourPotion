@@ -27,7 +27,6 @@ export default async function RootLayout({
   };
 
   const orderList = await getOrderList();
-  console.log(orderList);
 
   return (
     <>
