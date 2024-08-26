@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import iconLike from "../../../../public/images/icons/icon-like.svg";
-import iconLikeTrue from "../../../../public/images/icons/icon-like-true.svg";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
 import { fetchDetail } from "./page";
@@ -11,8 +9,6 @@ import { useParams } from "next/navigation";
 import Buying from "./Buying";
 import AddCart from "./AddCart";
 import { useProductStore } from "@/zustand/Store";
-import plus from "../../../../public/images/icons/plus.svg";
-import minus from "../../../../public/images/icons/minus.svg";
 import DegreeBar from "@/components/DegreeBar";
 export default function DetailClient() {
   let { id } = useParams();
@@ -74,16 +70,14 @@ export default function DetailClient() {
   return (
     <>
       {data && (
-        <div className="flex justify-center items-center">
-
+        <div className="flex items-center justify-center">
           <Image
             src={`https://api.fesp.shop${data?.mainImages[0]?.path}`}
             width={430}
             height={450}
-            layout="responsive"
             alt="술 이미지"
             priority={true}
-            className="w-screen h-[450px] object-contain"
+            className="object-contain w-full h-auto"
           />
         </div>
       )}

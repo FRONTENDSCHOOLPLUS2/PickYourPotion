@@ -16,7 +16,7 @@ const MyPageList: React.FC = () => {
   const list = ["취소/환불 내역", "회원 정보", "1:1 쳇봇 상담", "고객센터", "로그아웃"];
 
   return (
-    <ul className="mt-10 mb-24 px-3">
+    <ul className="px-3 mt-10 mb-24">
       {list.map((item) => (
         <li
           className="flex justify-between text-black py-3.5 cursor-pointer"
@@ -29,8 +29,6 @@ const MyPageList: React.FC = () => {
             alt="화살표 아이콘"
             width={20}
             height={28}
-            // placeholder={arrowIcon}
-            // blurDataURL={arrowIcon}
             className="w-[20px] h-[28px]"
           />
         </li>
