@@ -2,6 +2,8 @@ import TanstackProvider from "@/provider/TanstackProvider";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import { SessionProvider } from "next-auth/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({
   children,
@@ -22,7 +24,10 @@ export default function RootLayout({
         <body className="pt-14">
           <Header />
           <SessionProvider>
-            <TanstackProvider>{children}</TanstackProvider>
+            <TanstackProvider>
+              <ToastContainer />
+              {children}
+            </TanstackProvider>
           </SessionProvider>
         </body>
       </html>
