@@ -9,7 +9,7 @@ function CardItemSmall({ data }: { data: ProductDetail }) {
     <div className="flex items-center mt-4">
       <Link href={`/detail/${data._id}`}>
         <Image
-          src={API_SERVER + data.mainImages[0].path}
+          src={API_SERVER + data.mainImages[0]?.path}
           alt={data.name}
           className="rounded-lg w-[120px] h-[120px]"
           width={120}
