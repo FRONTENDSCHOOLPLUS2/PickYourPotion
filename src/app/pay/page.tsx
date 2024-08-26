@@ -5,7 +5,6 @@ import Address from "./Address";
 import { useEffect, useState } from "react";
 import { useProductStore } from "@/zustand/Store";
 import { useSession } from "next-auth/react";
-import { ToastContainer, toast } from "react-toastify";
 
 import { errorToast } from "@/toast/errorToast";
 import Button from "@/components/Button";
@@ -90,7 +89,7 @@ export default function PayPage() {
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {
-        alert("결제 실패: " + response?.message);
+        errorToast("결제 실패: " + response?.message);
       } else {
         // 결제 성공 시 주문 정보 서버로 전송 후 페이지 전환
         if (token) {
@@ -101,7 +100,7 @@ export default function PayPage() {
         }
       }
     } catch (error: any) {
-      alert("결제 중 오류가 발생했습니다: " + error.message);
+      errorToast("결제 중 오류가 발생했습니다.");
     }
   };
 
@@ -182,7 +181,6 @@ export default function PayPage() {
       ) : (
         <PaymentCompleted />
       )}
-      <ToastContainer position="top-center" limit={1} autoClose={3000} closeButton={false} />
     </div>
   );
 }
