@@ -22,5 +22,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_API_V1_IMP_KEY: string;
     NEXT_PUBLIC_API_V1_REST_API_KEY: string;
     NEXT_PUBLIC_API_V1_REST_API_SECRET: string;
+    NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY: string;
   }
 }
