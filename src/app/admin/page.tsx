@@ -20,11 +20,22 @@ interface FormData {
   }[]; // 상품 설명 이미지
   show?: boolean; // 상품 노출 여부
   extra?: {
+    inherence: "potion";
+    taste: {
+      sweet: string; // 당도
+      acidity: string; // 산미
+      body: string; // 바디감
+      bitter: string; // 씁슬함
+      sparkle: string; // 탄산
+      tannin: string;
+      alcohol: string; // 도수
+    };
     brewery: string; // 양조장
     category: string; // 주종
     degree: number; // 도수
     capacity: string; // 용량(숫자)
     capacityUnit: string; // 용량(단위)
+    useByDate: string; // 소비기한
   };
 }
 
@@ -196,14 +207,16 @@ export default function AdminPage() {
       {/* 도수 */}
       <div>
         <AdminInput
-          id="degree"
+          id="alcohol"
           type="number"
           labelChildren="도수"
-          register={register("extra.degree", { required: "도수를 입력해주세요." })}
+          register={register("extra.taste.alcohol", { required: "도수를 입력해주세요." })}
         >
           {"%"}
         </AdminInput>
-        {errors.extra?.degree && <p className="text-red-500 mt-1">{errors.extra.degree.message}</p>}
+        {errors.extra?.taste?.alcohol && (
+          <p className="text-red-500 mt-1">{errors.extra.taste.alcohol.message}</p>
+        )}
       </div>
       {/* 용량 */}
       <div>
@@ -225,6 +238,78 @@ export default function AdminPage() {
         </div>
         {errors.extra?.capacity && (
           <p className="text-red-500 mt-1">{errors.extra.capacity.message}</p>
+        )}
+      </div>
+      {/* 당도 */}
+      <div>
+        <AdminInput
+          id="extra.taste.sweet"
+          type="text"
+          labelChildren="당도"
+          register={register("extra.taste.sweet", { required: "당도를 입력해주세요." })}
+        />
+        {errors.extra?.taste?.sweet && (
+          <p className="text-red-500 mt-1">{errors.extra?.taste.sweet.message}</p>
+        )}
+      </div>
+      {/* 산미 */}
+      <div>
+        <AdminInput
+          id="extra.taste.acidity"
+          type="text"
+          labelChildren="산미"
+          register={register("extra.taste.acidity", { required: "산미를 입력해주세요." })}
+        />
+        {errors.extra?.taste?.acidity && (
+          <p className="text-red-500 mt-1">{errors.extra?.taste.acidity.message}</p>
+        )}
+      </div>
+      {/* 바디감 */}
+      <div>
+        <AdminInput
+          id="extra.taste.body"
+          type="text"
+          labelChildren="바디감"
+          register={register("extra.taste.body", { required: "바디감을 입력해주세요." })}
+        />
+        {errors.extra?.taste?.body && (
+          <p className="text-red-500 mt-1">{errors.extra?.taste?.body.message}</p>
+        )}
+      </div>
+      {/* 씁슬함 */}
+      <div>
+        <AdminInput
+          id="extra.taste.bitter"
+          type="text"
+          labelChildren="씁슬함"
+          register={register("extra.taste.bitter", { required: "씁슬함을 입력해주세요." })}
+        />
+        {errors.extra?.taste?.bitter && (
+          <p className="text-red-500 mt-1">{errors.extra?.taste.bitter.message}</p>
+        )}
+      </div>
+      {/* 탄산 */}
+      <div>
+        <AdminInput
+          id="extra.taste.sparkle"
+          type="text"
+          labelChildren="탄산"
+          register={register("extra.taste.sparkle", { required: "탄산을 입력해주세요." })}
+        />
+        {errors.extra?.taste?.sparkle && (
+          <p className="text-red-500 mt-1">{errors.extra?.taste.sparkle.message}</p>
+        )}
+      </div>
+      {/* 소비기한 */}
+      <div>
+        <AdminInput
+          id="extra.useByDate"
+          type="text"
+          labelChildren="소비기한"
+          register={register("extra.useByDate", { required: "소비기한을 입력해주세요." })}
+        />
+        {errors.extra?.useByDate && (
+          <p className="text-red-500 mt-1">{errors.extra?.useByDate.message}</p>
         )}
       </div>
       {/* 상세설명 */}
