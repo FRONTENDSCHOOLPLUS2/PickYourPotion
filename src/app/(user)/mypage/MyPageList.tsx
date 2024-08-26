@@ -24,14 +24,29 @@ const MyPageList: React.FC = () => {
           onClick={() => handleItemClick(item)}
         >
           <span className="pt-1">{item}</span>
-          <Image src={arrowIcon} alt="화살표 아이콘" width={20} />
+          <Image
+            src={arrowIcon}
+            alt="화살표 아이콘"
+            width={20}
+            height={28}
+            // placeholder={arrowIcon}
+            // blurDataURL={arrowIcon}
+            className="w-[20px] h-[28px]"
+          />
         </li>
       ))}
       {session?.user?.type === "admin" && (
         <li className="flex justify-between text-black py-3.5 cursor-pointer">
           <Link href="/admin" className="flex justify-between w-full">
             <span className="pt-1">관리자 페이지</span>
-            <Image src={arrowIcon} alt="화살표 아이콘" width={20} />
+            <Image
+              src={arrowIcon}
+              alt="화살표 아이콘"
+              width={20}
+              height={20}
+              className="w-[20px] h-[20px]"
+              priority={true}
+            />
           </Link>
         </li>
       )}

@@ -16,7 +16,8 @@ export default function WrittenReviewDetail({ product, content }: WrittenReviewD
         alt={product.name}
         width={112}
         height={112}
-        className="round"
+        className="round w-[112px] h-[112px]"
+        priority={true}
       />
       <div className="flex flex-col justify-between pt-1 w-full">
         <h2 className="subTitleMedium text-black">{product.name}</h2>

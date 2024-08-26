@@ -20,7 +20,7 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 export default async function Page() {
   const wineProduct = await fetchProductList([["custom", '{ "extra.category": "PC04" }']]);
   return (
-    <ul className="flex flex-wrap justify-center gap-4 h-[1000px] overflow-y-auto hide-scrollbar">
+    <ul className="flex flex-wrap justify-between px-6">
       {wineProduct &&
         wineProduct.map((item) => {
           return (
