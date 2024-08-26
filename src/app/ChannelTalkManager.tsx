@@ -39,7 +39,7 @@ function ChannelTalkManager({ order }: { order: Order | null }) {
     return () => {
       window.ChannelIO?.("shutdown");
     };
-  }, []);
+  }, [session.status]);
   return <></>;
 }
 
