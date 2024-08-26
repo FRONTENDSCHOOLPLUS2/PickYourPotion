@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <ul className="flex flex-row items-end  bg-white mb-1 justify-between px-4 pb-2 w-full h-[66px] fixed z-50 subTitleMedium">
+      <ul className="flex flex-row items-end  bg-white mb-1 justify-between pb-2  w-screen h-[66px] fixed z-50 navTitleMedium px-2">
         <li className={selectedLink === "/" ? "active" : ""}>
           <Link
             href="/"

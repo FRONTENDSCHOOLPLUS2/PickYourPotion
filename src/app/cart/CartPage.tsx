@@ -29,7 +29,7 @@ export default function CartPage({ cartData }: CartPageProps) {
     <div className="flex flex-col  mx-[25px] mt-9">
       <div className="mb-5 subTitleMedium">담은술</div>
       <div className="flex flex-col">
-        <div className="h-[500px] overflow-y-auto hide-scrollbar">
+        <div className="h-[400px] overflow-y-auto hide-scrollbar">
           {cartData ? (
             cartData.map((item, index) => (
               <CartCard
@@ -60,7 +60,7 @@ export default function CartPage({ cartData }: CartPageProps) {
             <span>총 결제 금액</span>
             <span className="text-primary contentMedium">53,000원</span>
           </div>
-          <Button color={"fill"} className="w-[378px] h-[62px] subTitle">
+          <Button color={"fill"} className="w-full h-[62px] subTitle px-[25px] mb-[24px]">
             총 53,000원 결제하기
           </Button>
         </div>

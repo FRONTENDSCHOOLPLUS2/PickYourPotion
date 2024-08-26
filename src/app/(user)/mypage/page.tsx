@@ -43,24 +43,13 @@ export default function MyPage() {
   }, [status, session]);
 
   return (
-    <main className="px-10">
+    <main className="px-[25px]">
       <div className="px-3">
         <h1 className="mt-[114px] text-2xl font-medium">{`${name}님`}</h1>
         <p className="text-2xl font-medium">안녕하세요👋🏻</p>
       </div>
       <MyPageButton />
       <MyPageList />
-      {/* {session?.user?.type === "admin" ? (
-        <li
-          className="flex justify-between text-black py-3.5 cursor-pointer px-3"
-          onClick={() => router.push("/admin")}
-        >
-          <span className="pt-1">관리자 페이지</span>
-          <Image src={arrowIcon} alt="화살표 아이콘" width={20} />
-        </li>
-      ) : (
-        ""
-      )} */}
     </main>
   );
 }

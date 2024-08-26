@@ -11,6 +11,7 @@ export default function Detail({ data }: { data: ProductDetail }) {
           height={500}
           alt="test"
           key={index}
+          layout="responsive"
         />
       </div>
     );

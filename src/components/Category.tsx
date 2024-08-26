@@ -22,17 +22,17 @@ export default function Category() {
     { href: "/market/liquor", label: "증류주", src: liquor, alt: "증류주아이콘" },
   ];
   return (
-    <div className="flex mt-[65px] bg-whiteGray w-full h-[94px] justify-center items-center border-solid border-t-2 border-t-zinc-200 mb-3">
+    <div className="flex mt-[65px] bg-whiteGray w-full h-[86px] justify-center items-center border-solid border-t-2 border-t-zinc-200 mb-3">
       <ul className="flex flex-row gap-2.5 px-[12px]">
         {links.map((link, index) => (
           <li key={index} onClick={() => handleClick(index)}>
             <Link
               href={link.href}
-              className={`cursor-pointer ${activeIndex === index ? "bg-primary" : "bg-white"} flex flex-raw items-center justify-center w-[94px] h-[54px] round`}
+              className={`cursor-pointer ${activeIndex === index ? "bg-primary" : "bg-white"} flex flex-raw items-center justify-center w-[84px] h-[54px] round`}
             >
               <Image src={link.src} alt={link.alt} width={40} height={40} />
               <span
-                className={`cursor-pointer ${activeIndex === index ? "text-white" : "text-[gray]"} text-sm mt-1 ml-1`}
+                className={`cursor-pointer ${activeIndex === index ? "text-white" : "text-[gray]"} text-sm mt-1`}
               >
                 {link.label}
               </span>

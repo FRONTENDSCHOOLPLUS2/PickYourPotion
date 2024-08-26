@@ -75,16 +75,17 @@ export default function DetailClient() {
   return (
     <>
       {data && (
-        <div className="justify-center max-w-3xl ">
+        <div className="flex justify-center items-center">
           <Image
             src={`https://api.fesp.shop${data?.mainImages[0]?.path}`}
             width={428}
             height={450}
+            layout="responsive"
             alt="술 이미지"
           />
         </div>
       )}
-      <div className="relative  py-8 mt-[-35px]  max-w-[428px] bg-white topRound topShadow shadow-2xl">
+      <div className="relative  py-8 mt-[-35px]  max-w-full bg-white topRound topShadow shadow-2xl">
         <div className="flex flex-col justify-between px-10">
           <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
           <h1 className="flex items-center titleMedium">{data?.name}</h1>
