@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -18,6 +18,8 @@ export default function Address({
 }: {
   setAddressFilled: (filled: boolean) => void;
 }) {
+  const [addrDetail, setAddrDetail] = useState<string>("");
+
   const onClickAddr = () => {
     new window.daum.Postcode({
       oncomplete: function (data: Address) {
@@ -26,11 +28,17 @@ export default function Address({
 
         addrInput.value = data.address;
         zipNoInput.value = data.zonecode;
-
-        setAddressFilled(true);
         document.getElementById("addrDetail")?.focus();
+
+        setAddressFilled(!!addrDetail);
       },
     }).open();
+  };
+
+  const handleAddrDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setAddrDetail(value);
+    setAddressFilled(!!value);
   };
 
   useEffect(() => {
@@ -59,6 +67,14 @@ export default function Address({
               placeholder="주소"
               readOnly
               onClick={onClickAddr}
+              className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
+            />
+            <input
+              id="addrDetail"
+              type="text"
+              placeholder="상세주소"
+              value={addrDetail}
+              onChange={handleAddrDetailChange}
               className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
             />
           </div>
