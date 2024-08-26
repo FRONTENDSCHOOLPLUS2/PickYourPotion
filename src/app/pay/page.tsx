@@ -10,7 +10,6 @@ import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
 import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
-import { useRouter, useSearchParams } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -41,8 +40,8 @@ export default function PayPage() {
 
   const data = { _id, name, price, quantity, brewery };
 
-  const totalAmount = price * (quantity ?? 1);
-  const formattedAmount = new Intl.NumberFormat("ko-KR").format(totalAmount);
+  // const totalAmount = price * (quantity ?? 1);
+  // const formattedAmount = new Intl.NumberFormat("ko-KR").format(totalAmount);
 
   useEffect(() => {
     setIsMounted(true); // 컴포넌트가 마운트된 후에만 렌더링
@@ -141,7 +140,9 @@ export default function PayPage() {
           </div>
           <div className="mt-10 subTitleMedium">
             <p className="text-center">결제 금액</p>
-            <p className="mt-3 text-center titleMedium text-primary">{formattedAmount}원</p>
+            <p className="mt-3 text-center titleMedium text-primary">
+              {(price * quantity).toLocaleString()}원
+            </p>
           </div>
           {addressFilled ? (
             <Button onClick={handlePayment} className={`w-full py-5 mt-12 mb-9 contentMedium`}>
