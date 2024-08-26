@@ -48,8 +48,8 @@ const config: Config = {
       },
       keyframes: {
         zoomIn: {
-          '0%': { transform: 'scale(0)' },
-          '100%': { transform: 'scale(1)' },
+          "0%": { transform: "scale(0)" },
+          "100%": { transform: "scale(1)" },
         },
         bounce: {
           "0%, 100%": {
@@ -162,8 +162,7 @@ const config: Config = {
         "cheers-glass": "cheers-glass 1.5s ease-in-out infinite",
         "cheers-glass-reverse": "cheers-glass-reverse 1.5s ease-in-out infinite",
         blink: "blink 1.5s ease-in-out infinite",
-                zoomIn: 'zoomIn 0.5s ease-in-out',
-
+        zoomIn: "zoomIn 0.5s ease-in-out",
       },
     },
   },

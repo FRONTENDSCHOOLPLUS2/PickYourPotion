@@ -75,8 +75,10 @@ export async function fetchDetail(_id: string, delay?: number) {
 
 export default function Page() {
   return (
-    <div className="flex flex-col ">
-      <DetailClient />
+    <div className="flex flex-col h-screen">
+      <div className="flex-grow ">
+        <DetailClient />
+      </div>
     </div>
   );
 }
