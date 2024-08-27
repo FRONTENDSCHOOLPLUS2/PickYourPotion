@@ -48,8 +48,8 @@ export default function Address({
   return (
     <div>
       <span className="contentMedium">주소(필수)</span>
-      <div className="flex justify-between mt-10">
-        <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" />
+      <div className="flex justify-between mt-5">
+        <Script src="//t1.daumcdn.net/mapjsapi/bundle/potcode/prod/postcode.v2.js" />
 
         <div className="w-full mr-5">
           <div className="flex flex-col gap-4 content">

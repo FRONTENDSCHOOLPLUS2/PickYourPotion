@@ -5,14 +5,13 @@ import Address from "./Address";
 import { useEffect, useState } from "react";
 import { useProductStore } from "@/zustand/Store";
 import { useSession } from "next-auth/react";
-import { ToastContainer, toast } from "react-toastify";
 
 import { errorToast } from "@/toast/errorToast";
 import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
 import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
-import { infoToast } from "@/toast/infoToast";
+import { InfoToast } from "@/toast/InfoToast";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -90,7 +89,7 @@ export default function PayPage() {
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {
-        alert("결제 실패: " + response?.message);
+        errorToast("결제 실패: " + response?.message);
       } else {
         // 결제 성공 시 주문 정보 서버로 전송 후 페이지 전환
         if (token) {
@@ -101,7 +100,7 @@ export default function PayPage() {
         }
       }
     } catch (error: any) {
-      alert("결제 중 오류가 발생했습니다: " + error.message);
+      errorToast("결제 중 오류가 발생했습니다.");
     }
   };
 
@@ -134,7 +133,7 @@ export default function PayPage() {
               <Address setAddressFilled={setAddressFilled} />
             </div>
           </div>
-          <div className="flex flex-col gap-[10px] mt-10">
+          <div className="flex flex-col gap-5 mt-10">
             <h2 className="contentMedium">담은 술</h2>
             <CartCard
               name={name}
@@ -171,7 +170,7 @@ export default function PayPage() {
             </Button>
           ) : (
             <Button
-              onClick={() => infoToast("주소를 입력해 주세요.")}
+              onClick={() => InfoToast("주소를 입력해 주세요.")}
               className={`w-full py-5 mt-12 mb-9 contentMedium cursor-not-allowed`}
               color="disabled"
             >
@@ -182,7 +181,6 @@ export default function PayPage() {
       ) : (
         <PaymentCompleted />
       )}
-      <ToastContainer position="top-center" limit={1} autoClose={3000} closeButton={false} />
     </div>
   );
 }

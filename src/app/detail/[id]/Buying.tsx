@@ -4,6 +4,7 @@ import { certificationCallback, getUserInfo } from "@/app/adult/action";
 import Button from "@/components/Button";
 import { ExtendedIamport } from "@/types/iamportExtends";
 import { LinkButton } from "@/components/LinkButton";
+import { errorToast } from "@/toast/errorToast";
 
 const V1_IMP_KEY = process.env.NEXT_PUBLIC_API_V1_IMP_KEY;
 
@@ -31,7 +32,7 @@ export default function Buying() {
       }
     } else {
       e.preventDefault();
-      alert("로그인 후 이용하실 수 있습니다.");
+      errorToast("구매를 하려면 로그인해야 합니다.");
       router.push("/login");
     }
   };
