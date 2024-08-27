@@ -1,17 +1,64 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 import plus from "../../public/images/icons/plus.svg";
 import minus from "../../public/images/icons/minus.svg";
-interface CartCardProps {
+import itemdelete from "../../public/images/icons/icon-trash.svg";
+
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+export interface CartCardProps {
   name?: string;
   brewery?: string;
   price: number;
   alcohol?: string;
   quantity: number;
   image: string;
-  setQuantity: (quantity: number) => void;
+  _id: number;
+  handleQuantityChange: (quantity: number) => void;
+}
+
+export async function fetchChangeCart(_id: number, quantity: number, accessToken: string) {
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const url = `${API_SERVER}/carts/${_id}`;
+  const res = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      "client-id": `${CLIENT_ID}`,
+    },
+    body: JSON.stringify({
+      quantity: quantity,
+    }),
+  });
+  const resJson = await res.json();
+  if (!resJson.ok) {
+    throw new Error("error");
+  }
+  return resJson.item;
+}
+export async function fetchDeleteCartCard(_id: number, accessToken: string) {
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const url = `${API_SERVER}/carts/${_id}`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+
+      "client-id": `${CLIENT_ID}`,
+    },
+  });
+  const resJson = await res.json();
+  if (!resJson.ok) {
+    throw new Error("error");
+  }
+  return resJson.item;
 }
 
 export default function CartCard({
@@ -19,60 +66,77 @@ export default function CartCard({
   brewery,
   price,
   alcohol,
-  quantity,
+  quantity: initialQuantity,
   image,
-  setQuantity,
+  _id,
+  handleQuantityChange,
 }: CartCardProps) {
-  const [count, setCount] = useState(quantity);
+  const session = useSession();
+  const router = useRouter();
+  const token = session.data?.accessToken;
 
-  useEffect(() => {
-    setCount(quantity);
-  }, [quantity]);
+  // 상태를 초기 수량으로 설정
+  const [quantity, setQuantity] = useState(initialQuantity);
 
-  useEffect(() => {
-    setQuantity(count);
-  }, [count, setQuantity]);
+  const productTotalPrice = quantity * price;
 
-  const add = () => {
-    if (count > 99) {
-      alert("상품은 100개 이상 구입할 수 없습니다.");
-    } else {
-      setCount((prev) => prev + 1);
+  const handleAddClick = async (count: number) => {
+    if (!token) {
+      alert("장바구니 추가를 하려면 로그인해야 합니다.");
+      return router.push("/login");
     }
-  };
 
-  const remove = () => {
-    if (count < 2) {
-      alert("0개 이하로 가면 장바구니 목록에서 없어지는 방식");
-    } else {
-      setCount((prev) => prev - 1);
+    const newQuantity = quantity + count;
+
+    try {
+      if (newQuantity === 0) {
+        await fetchDeleteCartCard(_id, token);
+        handleQuantityChange(newQuantity);
+        setQuantity(newQuantity);
+      } else {
+        await fetchChangeCart(_id, newQuantity, token);
+        setQuantity(newQuantity);
+        handleQuantityChange(newQuantity);
+      }
+    } catch (error) {
+      alert("수량을 변경하는 중 오류가 발생했습니다.");
     }
   };
 
   return (
-    <div className="flex justify-between p-[10px] border-lightGray rounded-[10px] border-[1px] mb-5">
-      <Image
-        src={`https://api.fesp.shop${image}`}
-        alt="장바구니 아이템"
-        width={76}
-        height={76}
-        className="object-cover rounded-[8px] mr-4"
-      />
-      <div className="flex flex-col justify-center grow">
-        <span className="contentMedium">{name}</span>
-        <span className="text-gray text-[12px] mt-[4px]">{brewery}</span>
-        <div className="text-[10px] text-primary border-primary mt-[2px] border-[1px] w-[40px] h-[20px] p-1 flex items-center justify-center rounded-xl">
-          {alcohol}도
+    <>
+      {quantity !== 0 && (
+        <div className="flex items-center justify-between p-[10px] border-lightGray rounded-[10px] border-[1px] mb-5">
+          <Image
+            src={`https://api.fesp.shop${image}`}
+            alt="장바구니 아이템"
+            width={76}
+            height={76}
+            className="rounded-[8px] w-[76px] h-[76px] object-cover mr-3"
+          />
+          <div className="flex flex-col justify-center grow w-auto gap-[2px]">
+            <span className="contentMedium text-ellipsis line-clamp-1">{name}</span>
+            <span className="text-gray text-[12px] text-ellipsis line-clamp-1">{brewery}</span>
+            <div className="text-[10px] text-primary border-primary mt-[2px] border-[1px] w-[40px] h-[20px] p-1 flex items-center justify-center rounded-xl">
+              {alcohol}도
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-between py-2 ml-2 w-auto relative">
+            <div className="flex flex-row items-center w-[85px] justify-between my-2">
+              {quantity > 1 ? (
+                <Image src={minus} alt="마이너스 아이콘" onClick={() => handleAddClick(-1)} />
+              ) : (
+                <Image src={itemdelete} alt="삭제 아이콘" onClick={() => handleAddClick(-1)} />
+              )}
+              <span className="contentMedium">{quantity}</span>
+              <Image src={plus} alt="플러스 아이콘" onClick={() => handleAddClick(1)} />
+            </div>
+            <span className="contentMedium tracking-5percent-tight">
+              {productTotalPrice.toLocaleString()} 원
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-between py-2">
-        <div className="flex flex-row items-center w-[85px] justify-between">
-          <Image src={minus} alt="마이너스 아이콘" onClick={remove} />
-          <span className="contentMedium">{count}</span>
-          <Image src={plus} alt="플러스 아이콘" onClick={add} />
-        </div>
-        <span className="contentMedium">{(count * price).toLocaleString()}원</span>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

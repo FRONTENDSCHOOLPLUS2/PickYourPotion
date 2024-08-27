@@ -18,15 +18,13 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   return resJson.item;
 }
 export default async function Page() {
-  const spiritProduct = await fetchProductList([
-    ["custom", '{ "extra.category": "PC03" }'],
-  ]);
+  const spiritProduct = await fetchProductList([["custom", '{ "extra.category": "PC03" }']]);
   return (
-    <ul className="flex flex-wrap justify-center gap-4 h-[1000px] overflow-y-auto hide-scrollbar">
+    <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
       {spiritProduct &&
         spiritProduct.map((item) => {
           return (
-            <li key={item._id}>
+            <li key={item._id} className="w-[calc(50%-8px)]">
               <Card data={item} />
             </li>
           );

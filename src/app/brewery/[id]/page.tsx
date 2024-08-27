@@ -69,9 +69,9 @@ export default function Page({ params }: { params: { id: number } }) {
           className="absolute object-cover w-full h-full"
         />
         <div className="dark-shadow absolute w-full h-40 bottom-0"></div>
-        <div className="absolute bottom-11 left-7 pl-200 ">
+        <div className="absolute bottom-11 left-5 pl-200 ">
           <div className="flex flex-col">
-            <span className="text-white drop-shadow-custom-light text-[38px] font-bold tracking-5percent-tight">
+            <span className="text-white drop-shadow-custom-light text-[38px] font-medium tracking-5percent-tight">
               {brewery.title}
             </span>
             <span className="text-white drop-shadow-custom-light mt-[-6px]">
@@ -80,7 +80,7 @@ export default function Page({ params }: { params: { id: number } }) {
           </div>
         </div>
       </div>
-      <div className="relative px-8 py-[52px] mt-[-35px]  max-w-[428px] bg-white topRound">
+      <div className="relative px-6 py-[52px] mt-[-35px] max-w-full bg-white topRound">
         <div className="flex flex-row justify-between">
           <h1 className="flex items-center titleMedium">양조장 소개</h1>
         </div>
@@ -92,38 +92,42 @@ export default function Page({ params }: { params: { id: number } }) {
             <tr className="mt-1">
               <td className="pr-1 black">대표술</td>
               <td>:</td>
-              <td className="pl-1 text-slate-900 content tracking-5percent-tight">
+              <td className="pl-1 text-slate-900 contentMini tracking-5percent-tight">
                 {brewery.main}
               </td>
             </tr>
             <tr className="mt-1">
               <td className=" pr-1 black">전화번호</td>
               <td>:</td>
-              <td className="pl-1 text-slate-900 content tracking-5percent-tight">
+              <td className="pl-1 text-slate-900 contentMini tracking-5percent-tight">
                 {brewery.phone}
               </td>
             </tr>
           </tbody>
         </table>
-        <ul className="flex flex-row justify-between mt-5">
-          <li className="flex border round py-3 px-4 ">
-            <Link href={brewery.location} className="flex flex-row items-center justify-center">
-              <Image src={location} alt="" width={24} height={24} className="p-1" />
+
+        <ul className="flex flex-row  mt-5 gap-2">
+          <li className="flex border round py-3 px-3  w-1/3 justify-center">
+            <Link
+              href={`https://map.kakao.com/?q=${brewery.location}`}
+              className="flex flex-row items-center justify-center"
+            >
+              <Image src={location} alt="지도로 보기" height={24} className="p-1" />
               <span className="flex text-[14px] ml-1">지도보기</span>
             </Link>
           </li>
-          <li className="flex border round py-3 px-4 ">
+          <li className="flex border round py-3 px-3  w-1/3 justify-center">
             <Link href={brewery.link} className="flex  items-center justify-center">
-              <Image src={globe} alt="" width={24} height={24} className="p-1" />
+              <Image src={globe} alt="홈페이지로 이동하기" height={24} className="p-1" />
               <span className="flex text-[14px] ml-1">홈페이지</span>
             </Link>
           </li>
-          <li className="flex border round py-3 px-4 items-center justify-center">
+          <li className="flex border round py-3 px-3 w-1/3 justify-center">
             <Link
               href={`tel:${brewery.phone}`}
               className="flex flex-row items-center justify-center"
             >
-              <Image src={teller} alt="" width={24} height={24} className="p-1" />
+              <Image src={teller} alt="전화걸기" height={24} className="p-1" />
               <span className="flex text-[14px] ml-1">전화걸기</span>
             </Link>
           </li>
@@ -134,10 +138,10 @@ export default function Page({ params }: { params: { id: number } }) {
               <li key={subIndex} className="flex flex-col mt-3">
                 <div className="border w-full py-6 px-7 rounded-[20px]">
                   <span className="subTitleMedium">{act.title}</span>
-                  <p className="text-sm mt-3 leading-lineHeight tracking-5percent-tight">
+                  <p className="text-sm mt-3 text-ellipsis line-clamp-1 tracking-5percent-tight">
                     {act.description}
                   </p>
-                  <span className="flex justify-end mt-3 contentMedium">{act.price}원</span>
+                  <span className="flex justify-end mt-3 contentMedium">{act.price}</span>
                 </div>
               </li>
             ))

@@ -26,7 +26,8 @@ export default function OrderDetail({
         alt={image.name}
         width={75}
         height={75}
-        className="round"
+        className="round w-[75px] h-[75px]"
+        priority={true}
       />
       <div className="ml-3">
         <p className="text-black contentMedium">{name}</p>

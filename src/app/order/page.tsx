@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import OrderList from "./OrderList";
 import { Order } from "./order";
 import { useSession } from "next-auth/react";
+import Empty from "./Empty";
 
 interface GroupedOrders {
   date: string;
@@ -62,13 +63,17 @@ export default function OrderPage() {
     };
 
     getOrderList();
-  }, [url, CLIENT_ID, token]);
+  }, [url, token, CLIENT_ID]);
 
   return (
     <main className="flex flex-col gap-10 mt-10">
-      {groupedOrders.map((grouped) => (
-        <OrderList key={grouped.date} date={grouped.date} orders={grouped.orders} />
-      ))}
+      {groupedOrders.length === 0 ? (
+        <Empty />
+      ) : (
+        groupedOrders.map((grouped) => (
+          <OrderList key={grouped.date} date={grouped.date} orders={grouped.orders} />
+        ))
+      )}
     </main>
   );
 }

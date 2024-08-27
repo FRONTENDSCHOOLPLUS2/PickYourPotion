@@ -3,10 +3,17 @@ import CardItemSmall from "./CardItemSmall";
 import CardSwiper from "./CardSwiper";
 import Navbar from "@/components/Navbar";
 import { ProductDetail } from "./detail/[id]/page";
-import ReviewCardItem from "@/components/ReviewCardItem";
 import Banner from "./Banner";
 import Footer from "@/components/layout/Footer";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "조지주 상품 페이지",
+  openGraph: {
+    title: "조지주 상품",
+    description: "조지주 상품 페이지",
+    url: "/",
+  },
+};
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -47,7 +54,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <main className="px-0">
+      <main className="px-0 pt-16 bg-white">
         <CardSwiper data={newProduct} />
         <section id="product-best" className="mb-12 px-[25px]">
           <h2 className="mt-5 mb-6 text-black subTitleMedium">베스트 상품</h2>

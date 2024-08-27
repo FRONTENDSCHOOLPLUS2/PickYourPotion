@@ -1,42 +1,38 @@
-import Button from "@/components/Button";
-import CartCard from "@/components/CartCard";
+"use client";
+import { useSession } from "next-auth/react";
+import CartPage from "./CartPage";
+import { useState, useEffect } from "react";
 
+async function fetchCart(token: string | null) {
+  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const url = `${API_SERVER}/carts`;
+  const res = await fetch(url, {
+    headers: {
+      "client-id": `${CLIENT_ID}`,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const resJson = await res.json();
+  if (!resJson.ok) {
+    throw new Error("error");
+  }
+  return resJson.item;
+}
 export default function Page() {
-  const dummys = [
-    { productPrice: 20000 },
-    { productPrice: 30000 },
-    { productPrice: 2200 },
-    { productPrice: 8900 },
-    { productPrice: 400000 },
-  ];
+  const session = useSession();
+  const [cartData, setCartData] = useState([]);
 
-  return (
-    <div className="flex flex-col  mx-[25px] mt-9">
-      <div className="mb-5 subTitleMedium">담은술</div>
-      <div className="flex flex-col">
-        <div className="h-[500px] overflow-y-auto hide-scrollbar">
-          {/* {dummys.map((dummy, index) => (
-            <CartCard key={index} productPrice={dummy.productPrice} />
-          ))} */}
-        </div>
-        <div className="mt-12">
-          <div className="flex content justify-between mb-[28px]">
-            <span>총 상품 금액</span>
-            <span>50,000원</span>
-          </div>
-          <div className="flex content justify-between mb-[28px]">
-            <span>배송비</span>
-            <span>3,000원</span>
-          </div>
-          <div className="flex content justify-between mb-[28px]">
-            <span>총 결제 금액</span>
-            <span className="text-primary contentMedium">53,000원</span>
-          </div>
-          <Button color={"fill"} className="w-[378px] h-[62px] subTitle">
-            총 53,000원 결제하기
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
+  useEffect(() => {
+    const token = session?.data?.accessToken;
+    const getCartData = async () => {
+      if (token) {
+        const data = await fetchCart(token);
+        setCartData(data);
+      }
+    };
+    getCartData();
+  }, [session.data]);
+
+  return <CartPage cartData={cartData} />;
 }

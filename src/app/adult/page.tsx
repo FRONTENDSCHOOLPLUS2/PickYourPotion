@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import { certificationCallback, getUserInfo } from "./action";
 
 import { useSession } from "next-auth/react";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { LinkButton } from "@/components/LinkButton";
 import { ExtendedIamport } from "@/types/iamportExtends";
 
@@ -21,7 +21,6 @@ function Adult({ searchParams }: SearchParamProps) {
   const confirmFailed = searchParams?.confirmFailed;
 
   const router = useRouter();
-  const pathname = usePathname();
   const { data: session, status } = useSession();
   const userId = session?.user?.id;
 
@@ -75,7 +74,7 @@ function Adult({ searchParams }: SearchParamProps) {
           className={`fixed w-screen h-screen flex justify-center items-center ${request ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}
           // onClick={() => router.back()}
         >
-          <div className="flex flex-col justify-center items-center w-3/5 px-5 py-8 rounded-2xl bg-white text-center">
+          <div className="flex flex-col justify-center items-center w-4/5 px-5 py-8 rounded-2xl bg-white text-center text-black">
             <p className="text-primary font-bold">잠시만요!</p>
             구매 전 최초 1회
             <br />
@@ -101,11 +100,11 @@ function Adult({ searchParams }: SearchParamProps) {
         <div
           className={`fixed w-screen h-screen flex justify-center items-center ${confirmSuccess ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}
         >
-          <div className="flex flex-col justify-center items-center w-3/5 px-5 py-8 rounded-2xl bg-white text-center">
+          <div className="flex flex-col justify-center items-center w-4/5 px-5 py-8 rounded-2xl bg-white text-center text-black">
             성인인증이 완료되었습니다
             <br />
             상품을 구매해주세요.
-            <Button onClick={() => router.back()} className="w-1/2 mt-3">
+            <Button onClick={() => router.back()} className="w-full mt-3">
               구매하러 가기
             </Button>
           </div>
@@ -115,11 +114,11 @@ function Adult({ searchParams }: SearchParamProps) {
         <div
           className={`fixed w-screen h-screen flex justify-center items-center ${confirmFailed ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}
         >
-          <div className="flex flex-col justify-center items-center w-3/5 px-5 py-8 rounded-2xl bg-white text-center">
+          <div className="flex flex-col justify-center items-center w-4/5 px-5 py-8 rounded-2xl bg-white text-center text-black">
             성인부터 구매할 수 있는 상품입니다.
             <br />
             다음 기회에 봬요!
-            <LinkButton href="/" className="w-1/2 mt-3">
+            <LinkButton href="/" className="w-full mt-3">
               홈으로
             </LinkButton>
           </div>
