@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import cart from "../../../public/images/icons/icon-cart.svg";
 import search from "../../../public/images/icons/icon-search.svg";
-import gnb from "../../../public/images/icons/icon-gnb.svg";
+import logo from "../../../public/images/LOGO.png";
 
 export default function Header() {
   return (

@@ -104,35 +104,39 @@ export default function CartCard({
   };
 
   return (
-    <div className="flex items-center justify-between p-[10px] border-lightGray rounded-[10px] border-[1px] mb-5">
-      <Image
-        src={`https://api.fesp.shop${image}`}
-        alt="장바구니 아이템"
-        width={76}
-        height={76}
-        className="rounded-[8px] w-[76px] h-[76px] object-cover mr-3"
-      />
-      <div className="flex flex-col justify-center grow w-auto gap-[2px]">
-        <span className="contentMedium text-ellipsis line-clamp-1">{name}</span>
-        <span className="text-gray text-[12px] text-ellipsis line-clamp-1">{brewery}</span>
-        <div className="text-[10px] text-primary border-primary mt-[2px] border-[1px] w-[40px] h-[20px] p-1 flex items-center justify-center rounded-xl">
-          {alcohol}도
+    <>
+      {quantity !== 0 && (
+        <div className="flex items-center justify-between p-[10px] border-lightGray rounded-[10px] border-[1px] mb-5">
+          <Image
+            src={`https://api.fesp.shop${image}`}
+            alt="장바구니 아이템"
+            width={76}
+            height={76}
+            className="rounded-[8px] w-[76px] h-[76px] object-cover mr-3"
+          />
+          <div className="flex flex-col justify-center grow w-auto gap-[2px]">
+            <span className="contentMedium text-ellipsis line-clamp-1">{name}</span>
+            <span className="text-gray text-[12px] text-ellipsis line-clamp-1">{brewery}</span>
+            <div className="text-[10px] text-primary border-primary mt-[2px] border-[1px] w-[40px] h-[20px] p-1 flex items-center justify-center rounded-xl">
+              {alcohol}도
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-between py-2 ml-2 w-auto relative">
+            <div className="flex flex-row items-center w-[85px] justify-between my-2">
+              {quantity > 1 ? (
+                <Image src={minus} alt="마이너스 아이콘" onClick={() => handleAddClick(-1)} />
+              ) : (
+                <Image src={itemdelete} alt="삭제 아이콘" onClick={() => handleAddClick(-1)} />
+              )}
+              <span className="contentMedium">{quantity}</span>
+              <Image src={plus} alt="플러스 아이콘" onClick={() => handleAddClick(1)} />
+            </div>
+            <span className="contentMedium tracking-5percent-tight">
+              {productTotalPrice.toLocaleString()} 원
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-between py-2 ml-2 w-auto relative">
-        <div className="flex flex-row items-center w-[85px] justify-between my-2">
-          {quantity > 1 ? (
-            <Image src={minus} alt="마이너스 아이콘" onClick={() => handleAddClick(-1)} />
-          ) : (
-            <Image src={itemdelete} alt="삭제 아이콘" onClick={() => handleAddClick(-1)} />
-          )}
-          <span className="contentMedium">{quantity}</span>
-          <Image src={plus} alt="플러스 아이콘" onClick={() => handleAddClick(1)} />
-        </div>
-        <span className="contentMedium tracking-5percent-tight">
-          {productTotalPrice.toLocaleString()} 원
-        </span>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
