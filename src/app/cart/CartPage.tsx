@@ -128,20 +128,25 @@ export default function CartPage({ cartData }: CartPageProps) {
         <>
           <div className="flex flex-col">
             <div className="h-[400px] overflow-y-auto hide-scrollbar">
-              {cartData.length !== 0 &&
-                cartData.map((item, index: number) => (
-                  <CartCard
-                    key={index}
-                    name={item.product.name}
-                    brewery={item.product.extra.brewery}
-                    price={item.product.price}
-                    alcohol={item.product.extra.taste.alcohol}
-                    quantity={item.quantity}
-                    image={item.product.image.path}
-                    handleQuantityChange={handleQuantityChange} // 수량 변경 시 핸들러 호출
-                    _id={item._id}
-                  />
-                ))}
+              {Array.from(new Set(cartData.map((item) => item._id))).map((id) => {
+                const item = cartData.find((cartItem) => cartItem._id === id);
+                if (item) {
+                  return (
+                    <CartCard
+                      key={id}
+                      name={item.product.name}
+                      brewery={item.product.extra.brewery}
+                      price={item.product.price}
+                      alcohol={item.product.extra.taste.alcohol}
+                      quantity={item.quantity}
+                      image={item.product.image.path}
+                      handleQuantityChange={handleQuantityChange}
+                      _id={item._id}
+                    />
+                  );
+                }
+                return null;
+              })}
             </div>
             <div className="mt-12">
               <div className="flex content justify-between mb-[28px]">
