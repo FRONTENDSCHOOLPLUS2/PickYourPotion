@@ -27,18 +27,18 @@ export default function PayPage() {
   const [addressFilled, setAddressFilled] = useState<boolean>(false); // 주소 입력 상태 관리
   const [isMounted, setIsMounted] = useState<boolean>(false); // 컴포넌트가 마운트되었는지 확인
 
-  const { _id, name, brewery, alcohol, price, quantity, setQuantity, image } = useProductStore(
-    (state) => ({
+  const { _id, name, brewery, alcohol, price, quantity, handleQuantityChange, image } =
+    useProductStore((state) => ({
       _id: state._id,
       name: state.name,
       brewery: state.brewery,
       alcohol: state.alcohol,
       price: state.price,
       quantity: state.quantity,
-      setQuantity: state.setQuantity,
+      // setQuantity: state.setQuantity,
+      handleQuantityChange: state.setQuantity,
       image: state.image,
-    }),
-  );
+    }));
 
   const data = { _id, name, price, quantity, brewery };
 
@@ -136,13 +136,14 @@ export default function PayPage() {
           <div className="flex flex-col gap-5 mt-10">
             <h2 className="contentMedium">담은 술</h2>
             <CartCard
+              _id={_id}
               name={name}
               brewery={brewery}
               price={price}
               alcohol={alcohol}
               quantity={quantity}
               image={image}
-              setQuantity={setQuantity}
+              handleQuantityChange={handleQuantityChange}
             />
           </div>
           <h2 className="contentMedium mt-5">결제 정보</h2>

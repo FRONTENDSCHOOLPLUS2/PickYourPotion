@@ -1,7 +1,7 @@
 import DetailClient from "./DetailClient";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "상품 상세",
   openGraph: {
     title: "상품 상세",

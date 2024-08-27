@@ -1,9 +1,9 @@
 "use client";
 import { useSession } from "next-auth/react";
 import CartPage from "./CartPage";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-export async function fetchCart(token: string | null) {
+async function fetchCart(token: string | null) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/carts`;

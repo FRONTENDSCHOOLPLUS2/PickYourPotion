@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect, useCallback } from "react";
 
 export interface CartPageProps {
-  _id: number;
+  // _id: number;
   cartData: {
     _id: number;
     product: {
