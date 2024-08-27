@@ -105,25 +105,29 @@ export default function Page({ params }: { params: { id: number } }) {
             </tr>
           </tbody>
         </table>
-        <ul className="flex flex-row justify-between mt-5">
-          <li className="flex border round py-3 px-3">
-            <Link href={brewery.location} className="flex flex-row items-center justify-center">
-              <Image src={location} alt="" width={24} height={24} className="p-1" />
+
+        <ul className="flex flex-row  mt-5 gap-2">
+          <li className="flex border round py-3 px-3  w-1/3 justify-center">
+            <Link
+              href={`https://map.kakao.com/?q=${brewery.location}`}
+              className="flex flex-row items-center justify-center"
+            >
+              <Image src={location} alt="지도로 보기" height={24} className="p-1" />
               <span className="flex text-[14px] ml-1">지도보기</span>
             </Link>
           </li>
-          <li className="flex border round py-3 px-3">
+          <li className="flex border round py-3 px-3  w-1/3 justify-center">
             <Link href={brewery.link} className="flex  items-center justify-center">
-              <Image src={globe} alt="" width={24} height={24} className="p-1" />
+              <Image src={globe} alt="홈페이지로 이동하기" height={24} className="p-1" />
               <span className="flex text-[14px] ml-1">홈페이지</span>
             </Link>
           </li>
-          <li className="flex border round py-3 px-3">
+          <li className="flex border round py-3 px-3 w-1/3 justify-center">
             <Link
               href={`tel:${brewery.phone}`}
               className="flex flex-row items-center justify-center"
             >
-              <Image src={teller} alt="" width={24} height={24} className="p-1" />
+              <Image src={teller} alt="전화걸기" height={24} className="p-1" />
               <span className="flex text-[14px] ml-1">전화걸기</span>
             </Link>
           </li>

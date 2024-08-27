@@ -61,14 +61,16 @@ export default async function RootLayout({
           <script src="https://cdn.iamport.kr/v1/iamport.js" defer />
         </head>
         <body className="pt-14">
-          <Header />
-          <SessionProvider>
-            <TanstackProvider>
-              <ToastContainer />
-              <ChannelTalkManager order={orderList.ok === 1 && orderList?.item[0]} />
-              {children}
-            </TanstackProvider>
-          </SessionProvider>
+          <div className="">
+            <Header />
+            <SessionProvider>
+              <TanstackProvider>
+                <ToastContainer />
+                <ChannelTalkManager order={orderList.ok === 1 && orderList?.item[0]} />
+                {children}
+              </TanstackProvider>
+            </SessionProvider>
+          </div>
         </body>
       </html>
     </>

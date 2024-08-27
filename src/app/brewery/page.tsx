@@ -199,7 +199,9 @@ export default function Page() {
       </div>
       <div className="p-[25px] flex flex-col items-center justify-center">
         {visibleMarkers.length === 0 ? (
-          <p className="text-center text-gray-500 animate-zoomIn subTitleMedium">지도를 움직여 보세요 :)</p>
+          <p className="text-center text-gray-500 animate-zoomIn subTitleMedium">
+            지도를 움직여 보세요 :)
+          </p>
         ) : (
           <ul className="w-full">
             {visibleMarkers.map((markerData) => (
