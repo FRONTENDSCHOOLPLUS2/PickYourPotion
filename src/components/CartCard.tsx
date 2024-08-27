@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import plus from "../../public/images/icons/plus.svg";
 import minus from "../../public/images/icons/minus.svg";
+import itemdelete from "../../public/images/icons/icon-trash.svg";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -39,7 +41,7 @@ export async function fetchChangeCart(_id: number, quantity: number, accessToken
   }
   return resJson.item;
 }
-export async function fetchRemoveCartCard(_id: number, quantity: number, accessToken: string) {
+export async function fetchDeleteCartCard(_id: number, accessToken: string) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/carts/${_id}`;
@@ -48,11 +50,9 @@ export async function fetchRemoveCartCard(_id: number, quantity: number, accessT
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
+
       "client-id": `${CLIENT_ID}`,
     },
-    body: JSON.stringify({
-      quantity: quantity,
-    }),
   });
   const resJson = await res.json();
   if (!resJson.ok) {
@@ -89,14 +89,19 @@ export default function CartCard({
     const newQuantity = quantity + count;
 
     try {
-      await fetchChangeCart(_id, newQuantity, token);
-      setQuantity(newQuantity); // 상태를 바로 업데이트하여 UI 반영
-      handleQuantityChange(newQuantity); // 상위 컴포넌트에 상태 반영
+      if (newQuantity === 0) {
+        await fetchDeleteCartCard(_id, token);
+        handleQuantityChange(newQuantity);
+        setQuantity(newQuantity);
+      } else {
+        await fetchChangeCart(_id, newQuantity, token);
+        setQuantity(newQuantity);
+        handleQuantityChange(newQuantity);
+      }
     } catch (error) {
       alert("수량을 변경하는 중 오류가 발생했습니다.");
     }
   };
-  //서버에 먼저 업데이트 해주고 클라이언트에 보이도록
 
   return (
     <div className="flex items-center justify-between p-[10px] border-lightGray rounded-[10px] border-[1px] mb-5">
@@ -114,9 +119,13 @@ export default function CartCard({
           {alcohol}도
         </div>
       </div>
-      <div className="flex flex-col items-center justify-between py-2 ml-2 w-auto">
-        <div className="flex flex-row items-center w-[85px] justify-between">
-          <Image src={minus} alt="마이너스 아이콘" onClick={() => handleAddClick(-1)} />
+      <div className="flex flex-col items-center justify-between py-2 ml-2 w-auto relative">
+        <div className="flex flex-row items-center w-[85px] justify-between my-2">
+          {quantity > 1 ? (
+            <Image src={minus} alt="마이너스 아이콘" onClick={() => handleAddClick(-1)} />
+          ) : (
+            <Image src={itemdelete} alt="삭제 아이콘" onClick={() => handleAddClick(-1)} />
+          )}
           <span className="contentMedium">{quantity}</span>
           <Image src={plus} alt="플러스 아이콘" onClick={() => handleAddClick(1)} />
         </div>
