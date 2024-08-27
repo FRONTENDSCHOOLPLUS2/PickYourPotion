@@ -19,7 +19,6 @@ function Adult({ searchParams }: SearchParamProps) {
   const request = searchParams?.request;
   const confirmSuccess = searchParams?.confirmSuccess;
   const confirmFailed = searchParams?.confirmFailed;
-  console.log(searchParams);
 
   const router = useRouter();
   const { data: session, status } = useSession();
