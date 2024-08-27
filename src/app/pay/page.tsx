@@ -11,7 +11,7 @@ import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
 import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
-import { InfoToast } from "@/toast/infoToast";
+import { InfoToast } from "@/toast/InfoToast";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -133,7 +133,7 @@ export default function PayPage() {
               <Address setAddressFilled={setAddressFilled} />
             </div>
           </div>
-          <div className="flex flex-col gap-[10px] mt-10">
+          <div className="flex flex-col gap-5 mt-10">
             <h2 className="contentMedium">담은 술</h2>
             <CartCard
               name={name}
