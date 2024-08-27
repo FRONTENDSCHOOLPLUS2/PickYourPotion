@@ -47,7 +47,7 @@ export default function Page() {
     fetchData();
   }, [debounceValue, searchText]);
 
-  const list = result.map((data) => <CardItemSmall key={data._id} data={data} />);
+  const list = result?.map((data) => <CardItemSmall key={data._id} data={data} />);
 
   return (
     <div className="flex flex-col mx-[25px] mt-14">
