@@ -3,7 +3,6 @@ import Image from "next/image";
 
 export default function Detail({ data }: { data: ProductDetail }) {
   const contentImg = data.extra?.detailImage.map((item, index) => {
-    console.log(data._id);
     return (
       <div className="flex justify-center mt-3 " key={data?._id}>
         <Image
