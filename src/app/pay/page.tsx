@@ -11,7 +11,7 @@ import Button from "@/components/Button";
 import CartCard from "@/components/CartCard";
 import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
-import { infoToast } from "@/toast/infoToast";
+import { InfoToast } from "@/toast/infoToast";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -170,7 +170,7 @@ export default function PayPage() {
             </Button>
           ) : (
             <Button
-              onClick={() => infoToast("주소를 입력해 주세요.")}
+              onClick={() => InfoToast("주소를 입력해 주세요.")}
               className={`w-full py-5 mt-12 mb-9 contentMedium cursor-not-allowed`}
               color="disabled"
             >
