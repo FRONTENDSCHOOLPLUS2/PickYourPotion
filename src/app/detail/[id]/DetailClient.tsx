@@ -89,17 +89,17 @@ export default function DetailClient() {
           <p className="mt-1 contentMedium text-ellipsis">{data?.price.toLocaleString()}원</p>
         </div>
 
-        <div className="flex flex-row justify-between px-10 mt-2">
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1 ">
+        <div className="flex flex-row justify-between px-10 mt-2 gap-2">
+          <div className="flex flex-col w-1/3 py-3 px-6 items-center justify-center bg-ivory round gap-1 ">
             <span className="text-black contentMedium">주종</span>
             <p className="description text-gray ">{category}</p>
           </div>
 
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
+          <div className="flex flex-col py-3 px-6 w-1/3 items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium ">도수</span>
             <p className="description text-gray">{data?.extra.taste.alcohol}도</p>
           </div>
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
+          <div className="flex flex-col py-3 px-6 w-1/3 items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium">용량</span>
             <p className="description text-gray">{data?.extra.volume}ml</p>
           </div>
