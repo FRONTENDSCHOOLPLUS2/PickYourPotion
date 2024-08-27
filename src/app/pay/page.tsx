@@ -119,7 +119,7 @@ export default function PayPage() {
       <ProgressBar currentPage={currentPage} />
       {currentPage === 0 ? (
         <main className="text-black">
-          <h2 className="contentMedium mt-10">개인 정보</h2>
+          <h2 className="mt-10 contentMedium">개인 정보</h2>
           <div className="flex flex-col gap-3 mt-5">
             <div className="flex justify-between content">
               <p className="text-darkGray">이름</p>
@@ -146,7 +146,7 @@ export default function PayPage() {
               handleQuantityChange={handleQuantityChange}
             />
           </div>
-          <h2 className="contentMedium mt-5">결제 정보</h2>
+          <h2 className="mt-5 contentMedium">결제 정보</h2>
           <div className="flex flex-col gap-3 mt-5">
             <div className="flex justify-between content">
               <p className="text-darkGray">상품금액</p>
