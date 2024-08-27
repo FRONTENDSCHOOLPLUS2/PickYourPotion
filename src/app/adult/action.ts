@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { RequestCertificationResponseCallback } from "@/types/iamportExtends";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
 const IMP_API_KEY = process.env.NEXT_PUBLIC_API_V1_REST_API_KEY;
 const IMP_API_SECRET = process.env.NEXT_PUBLIC_API_V1_REST_API_SECRET;
@@ -86,10 +86,10 @@ export const certificationCallback: RequestCertificationResponseCallback = async
       const userExtraInfo = userInfo.item.extra;
       updateUserIsAdult(userId, userExtraInfo, userAccessToken!);
       // stateless 모달 출력
-      redirect("adult/?confirmSuccess=true");
+      redirect("?confirmSuccess=true", RedirectType.push);
     } else {
       // 사용자가 성인이 아닐 경우 -> 성인만 구매할 수 있는 상품입니다 모달 출력
-      redirect("adult/?confirmFailed=true");
+      redirect("?confirmFailed=true", RedirectType.push);
     }
   } else {
     console.error(`본인인증 실패! : ${error_msg}`);

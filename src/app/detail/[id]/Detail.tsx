@@ -4,14 +4,15 @@ import Image from "next/image";
 export default function Detail({ data }: { data: ProductDetail }) {
   const contentImg = data.extra?.detailImage.map((item, index) => {
     return (
-      <div className="flex justify-center mt-3 " key={data?._id}>
+      <div className="flex justify-center mt-3 " key={index}>
         <Image
           src={`https://api.fesp.shop${item?.path}`}
           width="0"
           height="0"
           sizes="100vw"
+          priority
           className="w-full h-auto "
-          alt="상세 설명"
+          alt={item.name}
         />
       </div>
     );
