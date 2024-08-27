@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ProductDetail } from "./page";
 import { errorToast } from "@/toast/errorToast";
+import { InfoToast } from "@/toast/InfoToast";
 
 export async function fetchAddCart(_id: number, quantity: number, accessToken: string) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -34,7 +35,7 @@ export default function AddCart({ data }: { data: ProductDetail }) {
   const sessionCheckEvent = () => {
     if (token) {
       fetchAddCart(data._id, 1, token);
-      errorToast("장바구니에 상품을 추가했습니다.");
+      InfoToast("장바구니에 상품을 추가했습니다.");
     } else {
       errorToast("장바구니 추가를 하려면 로그인해야 합니다.");
       router.push("/login");

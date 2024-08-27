@@ -32,7 +32,7 @@ export default function Buying() {
       }
     } else {
       e.preventDefault();
-      errorToast("구매를 하려면 로그인해야 합니다.");
+      errorToast("로그인 후 이용하실 수 있습니다.");
       router.push("/login");
     }
   };

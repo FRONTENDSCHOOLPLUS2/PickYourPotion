@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { fetchAddCart } from "@/app/detail/[id]/AddCart";
 import Link from "next/link";
+import { InfoToast } from "@/toast/InfoToast";
+import { errorToast } from "@/toast/errorToast";
 
 function ProductCard({ data }: { data: ProductDetail }) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -15,9 +17,9 @@ function ProductCard({ data }: { data: ProductDetail }) {
   const sessionCheckEvent = () => {
     if (token) {
       fetchAddCart(data._id, 1, token);
-      alert("장바구니에 상품을 추가했습니다.");
+      InfoToast("장바구니에 상품을 추가했습니다.");
     } else {
-      alert("장바구니 추가를 하려면 로그인해야 합니다.");
+      errorToast("로그인 후 이용하실 수 있습니다.");
       router.push("/login");
     }
   };
