@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import { certificationCallback, getUserInfo } from "../adult/action";
+import Image from "next/image";
+import empty from "../../../public/images/empty.png";
 
 export interface CartPageProps {
   // _id: number;
@@ -122,48 +124,61 @@ export default function CartPage({ cartData }: CartPageProps) {
   return (
     <div className="flex flex-col  mx-[25px] mt-9">
       <div className="mb-5 subTitleMedium">담은술</div>
-      <div className="flex flex-col">
-        <div className="h-[400px] overflow-y-auto hide-scrollbar">
-          {cartData ? (
-            cartData.map((item, index: number) => (
-              <CartCard
-                key={index}
-                name={item.product.name}
-                brewery={item.product.extra.brewery}
-                price={item.product.price}
-                alcohol={item.product.extra.taste.alcohol}
-                quantity={item.quantity}
-                image={item.product.image.path}
-                handleQuantityChange={handleQuantityChange} // 수량 변경 시 핸들러 호출
-                _id={item._id}
-              />
-            ))
-          ) : (
-            <div>장바구니가 비어 있습니다.</div> // 데이터가 비었을 때의 처리
-          )}
-        </div>
-        <div className="mt-12">
-          <div className="flex content justify-between mb-[28px]">
-            <span>총 상품 금액</span>
-            <span>{products.toLocaleString()}원</span>
+      {cartData.length !== 0 ? (
+        <>
+          <div className="flex flex-col">
+            <div className="h-[400px] overflow-y-auto hide-scrollbar">
+              {cartData.length !== 0 &&
+                cartData.map((item, index: number) => (
+                  <CartCard
+                    key={index}
+                    name={item.product.name}
+                    brewery={item.product.extra.brewery}
+                    price={item.product.price}
+                    alcohol={item.product.extra.taste.alcohol}
+                    quantity={item.quantity}
+                    image={item.product.image.path}
+                    handleQuantityChange={handleQuantityChange} // 수량 변경 시 핸들러 호출
+                    _id={item._id}
+                  />
+                ))}
+            </div>
+            <div className="mt-12">
+              <div className="flex content justify-between mb-[28px]">
+                <span>총 상품 금액</span>
+                <span>{products.toLocaleString()}원</span>
+              </div>
+              <div className="flex content justify-between mb-[28px]">
+                <span>배송비</span>
+                {products > 30000 ? (
+                  <span>무료</span>
+                ) : (
+                  <span>{shippingFees.toLocaleString()}원</span>
+                )}
+              </div>
+              <div className="flex content justify-between mb-[28px]">
+                <span>총 결제 금액</span>
+                <span className="text-primary contentMedium">{totalCost.toLocaleString()}원</span>
+              </div>
+              <Button
+                onClick={handlePayment}
+                color={"fill"}
+                className="w-full h-[62px] subTitle px-[25px] mb-[24px]"
+              >
+                총 {totalCost.toLocaleString()}원 결제하기
+              </Button>
+            </div>
           </div>
-          <div className="flex content justify-between mb-[28px]">
-            <span>배송비</span>
-            {products > 30000 ? <span>무료</span> : <span>{shippingFees.toLocaleString()}원</span>}
-          </div>
-          <div className="flex content justify-between mb-[28px]">
-            <span>총 결제 금액</span>
-            <span className="text-primary contentMedium">{totalCost.toLocaleString()}원</span>
-          </div>
-          <Button
-            onClick={handlePayment}
-            color={"fill"}
-            className="w-full h-[62px] subTitle px-[25px] mb-[24px]"
-          >
-            총 {totalCost.toLocaleString()}원 결제하기
-          </Button>
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <Image src={empty} width={322} height={348} alt="데이터가 비어있습니다." />
+          <LinkButton href="/" color={"fill"} className="mt-8">
+            술담으러 돌아가기
+          </LinkButton>
+        </>
+      )}
+
       {request && (
         <div
           className={`fixed top-0 left-0 z-[100] w-screen h-screen flex justify-center items-center ${request ? "opacity-100" : "opacity-0"} bg-black bg-opacity-50`}

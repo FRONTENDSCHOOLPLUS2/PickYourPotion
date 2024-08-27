@@ -20,11 +20,11 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 export default async function Page() {
   const takjuProduct = await fetchProductList([["custom", '{ "extra.category": "PC01" }']]);
   return (
-    <ul className="flex flex-wrap justify-start">
+    <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
       {takjuProduct &&
         takjuProduct.map((item) => {
           return (
-            <li key={item._id} className="w-[calc(45%)]">
+            <li key={item._id} className="w-[calc(50%-8px)]">
               <Card data={item} />
             </li>
           );
