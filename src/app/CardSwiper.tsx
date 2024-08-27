@@ -10,7 +10,7 @@ function CardSwiper({ data }: { data: ProductDetail[] }) {
   const [hideElement, setHideElement] = useState(false);
 
   return (
-    <div className="relative w-[428px] py-10 overflow-hidden bg-ivory">
+    <div className="relative w-full py-10 overflow-hidden bg-ivory">
       <Swiper
         id="main-is-new-swiper"
         className="overflow-visible"

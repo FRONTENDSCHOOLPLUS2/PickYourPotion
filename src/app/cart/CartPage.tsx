@@ -172,8 +172,14 @@ export default function CartPage({ cartData }: CartPageProps) {
         </>
       ) : (
         <>
-          <Image src={empty} width={322} height={348} alt="데이터가 비어있습니다." />
-          <LinkButton href="/" color={"fill"} className="mt-8">
+          <Image
+            src={empty}
+            width={322}
+            height={348}
+            alt="데이터가 비어있습니다."
+            className="mx-auto pt-5"
+          />
+          <LinkButton href="/" color={"fill"} className="mt-8 py-4">
             술담으러 돌아가기
           </LinkButton>
         </>

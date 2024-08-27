@@ -13,7 +13,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <ul className="flex w-[428px] flex-row items-end fixed z-50 mb-1 justify-between px-4 pb-3 h-[66px] border-b bg-white border-b-zinc-200 navTitleMedium">
+    <ul className="flex w-full flex-row items-end fixed z-50 mb-1 justify-between px-4 pb-3 h-[66px] border-b bg-white border-b-zinc-200 navTitleMedium">
       <li className={selectedLink === "/" ? "active" : ""}>
         <Link
           href="/"

@@ -60,8 +60,8 @@ export default async function RootLayout({
           ></script>
           <script src="https://cdn.iamport.kr/v1/iamport.js" defer />
         </head>
-        <body className="pt-14 bg-primary">
-          <div className="max-w-[428px] bg-white mx-auto">
+        <body className="pt-14">
+          <div className="">
             <Header />
             <SessionProvider>
               <TanstackProvider>
