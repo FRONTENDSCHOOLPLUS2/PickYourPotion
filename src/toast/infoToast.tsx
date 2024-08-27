@@ -2,7 +2,7 @@ import { Bounce, toast } from "react-toastify";
 import "./infoToast.css";
 import { FiInfo } from "react-icons/fi"; // 예시로 react-icons를 사용
 
-export const infoToast = (str: string) => {
+export const InfoToast = (str: string) => {
   return toast.info(str, {
     position: "top-center",
     autoClose: 2000,
