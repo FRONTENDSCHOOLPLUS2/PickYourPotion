@@ -26,6 +26,15 @@ export async function GET(request: Request) {
     const payment = await paymentResponse.json();
     console.log("Payment Status:", payment.status);
 
+    if (code === "FAILURE_TYPE_PG") {
+      return new Response("Payment failed: 결제를 취소하였습니다.", {
+        status: 302,
+        headers: {
+          Location: `${DOMAIN}/detail/${productId}`,
+        },
+      });
+    }
+
     if (payment.status === "FAILED") {
       return new Response("Payment failed: 결제 실패", { status: 400 });
     } else if (payment.status === "PAID") {
@@ -36,7 +45,7 @@ export async function GET(request: Request) {
           Location: `${DOMAIN}/pay/complete`,
         },
       });
-    } else if (code === "FAILURE_TYPE_PG") {
+    } else {
       return new Response(null, {
         status: 400,
         headers: {
