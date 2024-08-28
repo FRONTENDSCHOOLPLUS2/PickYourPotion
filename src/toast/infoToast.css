@@ -1,0 +1,12 @@
+.info-toast-custom {
+  background-color: white !important;
+  margin: 10px !important;
+}
+
+.info-progress {
+  background-color: #f29963 !important;
+}
+
+.info-toast-custom .Toastify__toast-icon {
+  color: #f29963 !important; /* 아이콘 색상 변경 */
+}

@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import iconLike from "../../../../public/images/icons/icon-like.svg";
-import iconLikeTrue from "../../../../public/images/icons/icon-like-true.svg";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
 import { fetchDetail } from "./page";
@@ -11,8 +9,6 @@ import { useParams } from "next/navigation";
 import Buying from "./Buying";
 import AddCart from "./AddCart";
 import { useProductStore } from "@/zustand/Store";
-import plus from "../../../../public/images/icons/plus.svg";
-import minus from "../../../../public/images/icons/minus.svg";
 import DegreeBar from "@/components/DegreeBar";
 export default function DetailClient() {
   let { id } = useParams();
@@ -33,7 +29,6 @@ export default function DetailClient() {
       setBrewery: state.setBrewery,
       setAlcohol: state.setAlcohol,
     }));
-  console.log(category);
   if (data) {
     if (showDetail) {
       content = <Detail data={data} />;
@@ -75,33 +70,36 @@ export default function DetailClient() {
   return (
     <>
       {data && (
-        <div className="justify-center max-w-3xl ">
+        <div className="flex items-center justify-center">
           <Image
             src={`https://api.fesp.shop${data?.mainImages[0]?.path}`}
-            width={428}
+            width={430}
             height={450}
             alt="술 이미지"
+            priority={true}
+            className="object-contain w-full h-auto"
           />
         </div>
       )}
-      <div className="relative  py-8 mt-[-35px]  max-w-[428px] bg-white topRound topShadow shadow-2xl">
+
+      <div className="relative py-8 mt-[-35px] max-w-full bg-white topRound topShadow shadow-2xl">
         <div className="flex flex-col justify-between px-10">
           <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
           <h1 className="flex items-center titleMedium">{data?.name}</h1>
           <p className="mt-1 contentMedium text-ellipsis">{data?.price.toLocaleString()}원</p>
         </div>
 
-        <div className="flex flex-row justify-between px-10 mt-2">
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1 ">
+        <div className="flex flex-row justify-between px-10 mt-2 gap-2">
+          <div className="flex flex-col w-1/3 py-3 px-6 items-center justify-center bg-ivory round gap-1 ">
             <span className="text-black contentMedium">주종</span>
             <p className="description text-gray ">{category}</p>
           </div>
 
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
+          <div className="flex flex-col py-3 px-6 w-1/3 items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium ">도수</span>
             <p className="description text-gray">{data?.extra.taste.alcohol}도</p>
           </div>
-          <div className="w-[105px] h-[64px] flex flex-col items-center justify-center bg-ivory round gap-1">
+          <div className="flex flex-col py-3 px-6 w-1/3 items-center justify-center bg-ivory round gap-1">
             <span className="text-black contentMedium">용량</span>
             <p className="description text-gray">{data?.extra.volume}ml</p>
           </div>
@@ -169,10 +167,10 @@ export default function DetailClient() {
         </div>
 
         <div>{content}</div>
-        <div className="sticky flex flex-row gap-3 px-10 mt-5 left-6 round bottom-[1px] bottomShadow">
-          <AddCart data={data} />
-          <Buying data={data} />
-        </div>
+      </div>
+      <div className="sticky bottom-0 z-20 flex justify-center gap-3 px-10 py-4 mt-5 bg-white left-6 bottomShadow">
+        <AddCart data={data} />
+        <Buying />
       </div>
     </>
   );

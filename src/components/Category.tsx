@@ -28,11 +28,11 @@ export default function Category() {
           <li key={index} onClick={() => handleClick(index)}>
             <Link
               href={link.href}
-              className={`cursor-pointer ${activeIndex === index ? "bg-primary" : "bg-white"} flex flex-raw items-center justify-center w-[94px] h-[54px] round`}
+              className={`cursor-pointer ${activeIndex === index ? "bg-primary" : "bg-white"} flex flex-raw items-center justify-center w-[84px] h-[54px] round`}
             >
               <Image src={link.src} alt={link.alt} width={40} height={40} />
               <span
-                className={`cursor-pointer ${activeIndex === index ? "text-white" : "text-[gray]"} text-sm mt-1 ml-1`}
+                className={`cursor-pointer ${activeIndex === index ? "text-white" : "text-[gray]"} text-sm mt-1`}
               >
                 {link.label}
               </span>

@@ -1,3 +1,4 @@
+import NoReply from "./NoReply";
 import { ProductDetail } from "./page";
 import ReplyForm from "./ReplyForm";
 import ReplyItem from "./ReplyItem";
@@ -7,7 +8,7 @@ export default function Reply({ data }: { data: ProductDetail }) {
   return (
     <div className="px-10">
       <ReplyForm />
-      {list}
+      {list.length > 0 ? list : <NoReply />}
     </div>
   );
 }

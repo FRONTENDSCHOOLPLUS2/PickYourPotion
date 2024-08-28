@@ -6,12 +6,15 @@ import { useEffect, useState } from "react";
 import { useProductStore } from "@/zustand/Store";
 import { useSession } from "next-auth/react";
 
+import { errorToast } from "@/toast/errorToast";
 import Button from "@/components/Button";
-import CartCard from "@/components/CartCard";
-import PaymentCompleted from "./PaymentCompleted";
 import ProgressBar from "./ProgressBar";
+import PaymentCompleted from "./complete/page";
+import { InfoToast } from "@/toast/InfoToast";
+import OrderCard from "./OrderCard";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
 const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
@@ -37,14 +40,26 @@ export default function PayPage() {
     }),
   );
 
-  const data = { _id, name, price, quantity, brewery };
+  const [totalPrice, setTotalPrice] = useState<number>(price * quantity);
+  const [shippingFees, setShippingFees] = useState<number>(0);
 
-  const totalAmount = price * (quantity ?? 1);
-  const formattedAmount = new Intl.NumberFormat("ko-KR").format(totalAmount);
+  const data = { _id, name, price, quantity, brewery };
 
   useEffect(() => {
     setIsMounted(true); // 컴포넌트가 마운트된 후에만 렌더링
   }, []);
+
+  useEffect(() => {
+    // 수량 변경 시 총 상품 금액과 배송비를 재계산
+    const newTotalPrice = price * quantity;
+    setTotalPrice(newTotalPrice);
+
+    if (newTotalPrice < 30000) {
+      setShippingFees(3000);
+    } else {
+      setShippingFees(0);
+    }
+  }, [price, quantity]); // price 또는 quantity가 변경될 때마다 계산
 
   const fetchOrder = async () => {
     try {
@@ -56,21 +71,10 @@ export default function PayPage() {
           "client-id": `${CLIENT_ID}`,
         },
         body: JSON.stringify({
-          user_id: session?.user?.id,
           products: [
             {
               _id: data._id,
-              name: data.name,
-              image: {
-                path: `/files/06-PickYourPotion/meoncheondugeonju.jpeg`,
-                name: "meoncheondugeonju.jpeg",
-                originalname: "meoncheondugeonju.jpeg",
-              },
               quantity: data.quantity,
-              price: data.price,
-              extra: {
-                brewery: data.brewery,
-              },
             },
           ],
         }),
@@ -80,27 +84,25 @@ export default function PayPage() {
         throw new Error("주문 정보 전송에 실패했습니다.");
       }
     } catch (error: any) {
-      console.error("오류 발생:", error.message);
+      errorToast(error.message);
     }
   };
 
   const handlePayment = async () => {
-    const totalAmount = data.price * (data.quantity ?? 1);
-
     try {
       const response = await PortOne.requestPayment({
         storeId: STORE_ID,
         paymentId: `payment-${crypto.randomUUID()}`,
         orderName: data.name,
-        totalAmount: totalAmount,
+        totalAmount: totalPrice + shippingFees,
         currency: "CURRENCY_KRW",
         channelKey: CHANNEL_KEY,
         payMethod: "CARD",
-        redirectUrl: `${API_SERVER}/pay`,
+        redirectUrl: `${DOMAIN}/pay/payments?productId=${data._id}&quantity=${data.quantity}`,
       });
 
       if (response?.code === "FAILURE_TYPE_PG") {
-        alert("결제 실패: " + response?.message);
+        errorToast("결제 실패: " + response?.message);
       } else {
         // 결제 성공 시 주문 정보 서버로 전송 후 페이지 전환
         if (token) {
@@ -111,7 +113,7 @@ export default function PayPage() {
         }
       }
     } catch (error: any) {
-      alert("결제 중 오류가 발생했습니다: " + error.message);
+      errorToast("결제 중 오류가 발생했습니다.");
     }
   };
 
@@ -123,22 +125,24 @@ export default function PayPage() {
     <div className="h-screen">
       <ProgressBar currentPage={currentPage} />
       {currentPage === 0 ? (
-        <main>
-          <div className="text-black mt-9">
-            <p className="text-center subTitleMedium mb-14">개인정보</p>
-            <div className="flex justify-between py-2">
-              <span className="contentMedium">이름</span>
-              <span>{session?.user?.name}</span>
+        <main className="text-black">
+          <h2 className="mt-10 contentMedium">개인 정보</h2>
+          <div className="flex flex-col gap-3 mt-5">
+            <div className="flex justify-between content">
+              <p className="text-darkGray">이름</p>
+              <p>{session?.user?.name}</p>
             </div>
-            <div className="flex justify-between py-2">
-              <span className="contentMedium">전화번호</span>
-              <span>+82 10 1234 5678</span>
+            <div className="flex justify-between content">
+              <p className="text-darkGray">전화번호</p>
+              <p>+82 10 1234 5678</p>
             </div>
-            <Address setAddressFilled={setAddressFilled} />
+            <div className="mt-10">
+              <Address setAddressFilled={setAddressFilled} />
+            </div>
           </div>
-          <div className="flex flex-col gap-[10px] mt-6">
-            <p className="contentMedium mb-3">담은 술</p>
-            <CartCard
+          <div className="flex flex-col gap-5 mt-10">
+            <h2 className="contentMedium">담은 술</h2>
+            <OrderCard
               name={name}
               brewery={brewery}
               price={price}
@@ -148,23 +152,36 @@ export default function PayPage() {
               setQuantity={setQuantity}
             />
           </div>
-          <div className="mt-10 subTitleMedium">
-            <p className="text-center">결제 금액</p>
-            <p className="mt-3 text-center titleMedium text-primary">{formattedAmount}원</p>
+          <h2 className="mt-5 contentMedium">결제 정보</h2>
+          <div className="flex flex-col gap-3 mt-5">
+            <div className="flex justify-between content">
+              <p className="text-darkGray">상품금액</p>
+              <p>{totalPrice.toLocaleString()}원</p>
+            </div>
+            <div className="flex justify-between content">
+              <p className="text-darkGray">배송비</p>
+              <p>{shippingFees.toLocaleString()}원</p>
+            </div>
+            <div className="flex justify-between content">
+              <p className="text-darkGray">결제방법</p>
+              <p>토스페이</p>
+            </div>
+            <div className="flex justify-between content">
+              <p className="text-darkGray">결제금액</p>
+              <p className="text-primary">{(totalPrice + shippingFees).toLocaleString()}원</p>
+            </div>
           </div>
           {addressFilled ? (
             <Button onClick={handlePayment} className={`w-full py-5 mt-12 mb-9 contentMedium`}>
-              {"결제"}
+              {`${(totalPrice + shippingFees).toLocaleString()}원 결제`}
             </Button>
           ) : (
             <Button
-              onClick={() => {
-                alert("주소를 입력해주세요.");
-              }}
+              onClick={() => InfoToast("주소를 입력해 주세요.")}
               className={`w-full py-5 mt-12 mb-9 contentMedium cursor-not-allowed`}
               color="disabled"
             >
-              {"결제"}
+              {`${(totalPrice + shippingFees).toLocaleString()}원 결제`}
             </Button>
           )}
         </main>

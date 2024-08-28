@@ -1,4 +1,14 @@
 import DetailClient from "./DetailClient";
+import { Metadata } from "next";
+
+const metadata: Metadata = {
+  title: "상품 상세",
+  openGraph: {
+    title: "상품 상세",
+    description: "상품 상세 페이지",
+    url: "/detail",
+  },
+};
 
 export interface User {
   name: string;
@@ -54,11 +64,11 @@ export interface ProductDetail {
   path: string;
   replies: ProductReplies[];
   extra: Extra;
+  quantity?: number;
 }
 export async function fetchDetail(_id: string, delay?: number) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  // 경우에 따라 delay 매개변수를 받아 delay 파라미터 설정
   const delayTime = delay ? "/?delay=" + delay : "";
   const url = `${API_SERVER}/products/${_id}${delayTime}`;
   const res = await fetch(url, {
@@ -75,8 +85,10 @@ export async function fetchDetail(_id: string, delay?: number) {
 
 export default function Page() {
   return (
-    <div className="flex flex-col ">
-      <DetailClient />
+    <div className="flex flex-col h-screen">
+      <div className="flex-grow ">
+        <DetailClient />
+      </div>
     </div>
   );
 }

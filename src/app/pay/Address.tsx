@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -18,19 +18,32 @@ export default function Address({
 }: {
   setAddressFilled: (filled: boolean) => void;
 }) {
+  const [addrDetail, setAddrDetail] = useState<string>("");
+  const [isScriptLoaded, setIsScriptLoaded] = useState<boolean>(false);
+
   const onClickAddr = () => {
-    new window.daum.Postcode({
-      oncomplete: function (data: Address) {
-        const addrInput = document.getElementById("addr") as HTMLInputElement;
-        const zipNoInput = document.getElementById("zipNo") as HTMLInputElement;
+    if (isScriptLoaded && window.daum?.Postcode) {
+      new window.daum.Postcode({
+        oncomplete: function (data: Address) {
+          const addrInput = document.getElementById("addr") as HTMLInputElement;
+          const zipNoInput = document.getElementById("zipNo") as HTMLInputElement;
 
-        addrInput.value = data.address;
-        zipNoInput.value = data.zonecode;
+          addrInput.value = data.address;
+          zipNoInput.value = data.zonecode;
+          document.getElementById("addrDetail")?.focus();
 
-        setAddressFilled(true);
-        document.getElementById("addrDetail")?.focus();
-      },
-    }).open();
+          setAddressFilled(!!addrDetail);
+        },
+      }).open();
+    } else {
+      console.error("Daum Postcode script is not loaded yet.");
+    }
+  };
+
+  const handleAddrDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setAddrDetail(value);
+    setAddressFilled(!!value);
   };
 
   useEffect(() => {
@@ -38,10 +51,13 @@ export default function Address({
   }, [setAddressFilled]);
 
   return (
-    <div className="py-2">
+    <div>
       <span className="contentMedium">주소(필수)</span>
-      <div className="flex justify-between mt-10">
-        <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" />
+      <div className="flex justify-between mt-5">
+        <Script
+          src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+          onLoad={() => setIsScriptLoaded(true)}
+        />
 
         <div className="w-full mr-5">
           <div className="flex flex-col gap-4 content">
@@ -59,6 +75,14 @@ export default function Address({
               placeholder="주소"
               readOnly
               onClick={onClickAddr}
+              className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
+            />
+            <input
+              id="addrDetail"
+              type="text"
+              placeholder="상세주소"
+              value={addrDetail}
+              onChange={handleAddrDetailChange}
               className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
             />
           </div>
