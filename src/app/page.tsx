@@ -33,7 +33,11 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 
 export default async function Home() {
   const bestProduct = await fetchProductList([["custom", '{ "extra.isBest": true }']]);
-  const newProduct = await fetchProductList([["custom", '{ "extra.isNew": true }']]);
+  const newSortProduct = await fetchProductList([
+    ["sort", '{ "createdAt": -1 }'],
+    ["limit", "5"],
+  ]);
+  // const newProduct = await fetchProductList([["custom", '{ "extra.isNew": true }']]);
   const takjuProduct = await fetchProductList([
     ["custom", '{ "extra.category": "PC01" }'],
     ["limit", "3"],
@@ -55,7 +59,7 @@ export default async function Home() {
     <>
       <Navbar />
       <main className="px-0 pt-16 bg-white">
-        <CardSwiper data={newProduct} />
+        <CardSwiper data={newSortProduct} />
         <section id="product-best" className="mb-12 px-[25px]">
           <h2 className="mt-5 mb-6 text-black subTitleMedium">베스트 상품</h2>
           <ul className="mb-3 [&>*:last-child]:mb-0 ">
