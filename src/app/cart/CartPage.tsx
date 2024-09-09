@@ -63,7 +63,7 @@ export default function CartPage({ cartData, total }: CartPageProps) {
         console.error("Error fetching cost data:", error);
       }
     }
-  }, [token]);
+  }, [token, cartItems]);
 
   // url의 request값을 받아와 변수에 저장
   const request = useSearchParams().get("request");
