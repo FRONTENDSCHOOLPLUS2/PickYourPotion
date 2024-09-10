@@ -41,7 +41,7 @@ export default function Header() {
           </Link>
         </div>
       </div>
-      <ul className="flex flex-row items-end justify-between px-4 pb-3 w-[inherit] h-16 border-b bg-white border-b-zinc-200 navTitleMedium">
+      <ul className="flex flex-row items-end justify-between px-4 pb-3 w-[inherit] h-12 border-b bg-white border-b-zinc-200 navTitleMedium">
         <li>
           <Link
             href="/"
