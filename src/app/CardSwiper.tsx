@@ -14,7 +14,7 @@ function CardSwiper({ data }: { data: ProductDetail[] }) {
       <Swiper
         id="main-is-new-swiper"
         className="overflow-visible"
-        slidesPerView={1.2}
+        slidesPerView={1.4}
         spaceBetween={10}
         onProgress={(swiper, progress) => {
           if (progress > 0.9) {
@@ -23,19 +23,19 @@ function CardSwiper({ data }: { data: ProductDetail[] }) {
             setHideElement(false);
           }
         }}
-        breakpoints={{
-          420: {
-            slidesPerView: 1.3,
-          },
-          640: {
-            slidesPerView: 2.5,
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-          },
-        }}
+        // breakpoints={{
+        //   420: {
+        //     slidesPerView: 1.3,
+        //   },
+        //   640: {
+        //     slidesPerView: 2.5,
+        //     spaceBetween: 20,
+        //   },
+        //   1024: {
+        //     slidesPerView: 4,
+        //     spaceBetween: 20,
+        //   },
+        // }}
       >
         {data &&
           data.map((item) => {

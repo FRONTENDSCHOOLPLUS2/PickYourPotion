@@ -25,7 +25,7 @@ function ProductCard({ data }: { data: ProductDetail }) {
   };
 
   return (
-    <div className="flex flex-col w-[260px] bg-white p-[10px] relative shadow-lg rounded-2xl">
+    <div className="flex flex-col bg-white p-[10px] relative shadow-lg rounded-2xl">
       <Link href={`/detail/${data._id}`}>
         <div className="relative h-[324px] rounded-xl">
           <Image
