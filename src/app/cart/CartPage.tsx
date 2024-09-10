@@ -66,26 +66,22 @@ export default function CartPage({ cartData, total }: CartPageProps) {
     }
   }, [token]);
 
-  // url의 request값을 받아와 변수에 저장
   const request = useSearchParams().get("request");
   const confirmSuccess = useSearchParams().get("confirmSuccess");
   const confirmFailed = useSearchParams().get("confirmFailed");
 
   const V1_IMP_KEY = process.env.NEXT_PUBLIC_API_V1_IMP_KEY;
 
-  // 본인인증 창 호출 함수
   const onCertification = () => {
     if (!session) return;
+
     if (!window.IMP) return;
 
-    // 가맹점 식별하기
     const IMP = window.IMP as unknown as ExtendedIamport;
     IMP.init(V1_IMP_KEY);
 
-    // 본인인증 데이터
     IMP.certification(
       {
-        // m_redirect_url: "/" + pathname,
         popup: true,
         pg: "inicis_unified",
       },
@@ -101,16 +97,11 @@ export default function CartPage({ cartData, total }: CartPageProps) {
     fetchCartData();
   };
 
-  // 결제하기 버튼 누를 때 실행 될 함수
   const handlePayment = async () => {
-    // 회원 정보 불러와서 성인인증 유무 확인
     const userInfo = await getUserInfo(session.data?.user?.id!);
     if (userInfo.item.extra.isAdult) {
-      // 로그인이 되어있고 성인인증도 돼있을 때
       router.push("/cart/pay");
     } else {
-      // 로그인은 되어있지만 성인인증이 되지 않았을 때
-      // url의 request값이 true면 모달 띄우기(stateless modal)
       router.push(`?request=true`);
     }
   };

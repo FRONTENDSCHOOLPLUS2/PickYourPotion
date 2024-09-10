@@ -3,8 +3,6 @@ import { auth } from "@/auth";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const paymentId = searchParams.get("paymentId");
-  const transactionType = searchParams.get("transactionType");
-  const txId = searchParams.get("txId");
   const session = await auth();
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
