@@ -1,12 +1,19 @@
 "use client";
 
-import { signInWithGoogle, signInWithDiscord } from "../../../model/action/userAction";
+import {
+  signInWithGoogle,
+  signInWithDiscord,
+  signInWithCredentials,
+} from "../../../model/action/userAction";
 import Image from "next/image";
 
 import iconGoogle from "../../../../public/images/icons/icon-google.svg";
 import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
-
+import iconLogo from "../../../../public/images/pic-mbti-start.png";
 export default function Page() {
+  const exEmail = process.env.NEXT_PUBLIC_EX_LOGIN_EMAIL;
+  const exPassword = process.env.NEXT_PUBLIC_EX_LOGIN_PASSWORD;
+
   return (
     <main className="flex flex-col items-center justify-between min-h-screen">
       <div className="mt-24">
@@ -16,6 +23,21 @@ export default function Page() {
         </p>
       </div>
       <div className="w-full flex flex-col gap-5 contentMedium text-darkGray mb-24">
+        <button
+          onClick={() => signInWithCredentials(exEmail, exPassword)}
+          className="flex py-3 px-10 justify-center items-center text-white  bg-primary rounded-[44px]"
+        >
+          <div className="flex flex-row items-center justify-center">
+            <Image
+              src={iconLogo}
+              width={30}
+              height={30}
+              alt="체험 계정으로 로그인"
+              className="m-3"
+            />
+            <p className="mt-1">체험용 계정으로 로그인</p>
+          </div>
+        </button>
         <button
           onClick={() => signInWithDiscord()}
           className="flex py-3 px-10 justify-center items-center text-white  bg-[#5865F2] rounded-[44px]"

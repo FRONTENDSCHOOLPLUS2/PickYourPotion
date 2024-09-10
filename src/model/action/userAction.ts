@@ -26,7 +26,6 @@ export async function signup(
     password: formData.get("password"),
     image: "",
   };
-
   // 이미지 먼저 업로드
   const attach = formData.get("attach") as File;
 
@@ -112,8 +111,13 @@ export async function signInWithGoogle() {
 export async function signInWithDiscord() {
   await signIn("discord", { redirectTo: `/` });
 }
-
-// // 깃허브 로그인
-// export async function signInWithGithub(formData: FormData) {
-//   await signIn("github", { redirectTo: "/" });
-// }
+export async function signInWithCredentials(
+  email: string | undefined,
+  password: string | undefined,
+) {
+  const result = await signIn("credentials", {
+    redirectTo: `/`,
+    email: email,
+    password: password,
+  });
+}
