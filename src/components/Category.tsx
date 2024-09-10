@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "@/app/loading";
 
 import raw from "../../public/images/icons/icon-takju.png";
 import refined from "../../public/images/icons/icon-chungju.png";
@@ -10,9 +11,19 @@ import liquor from "../../public/images/icons/icon-wungryuju.png";
 
 export default function Category() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const savedIndex = localStorage.getItem("activeIndex");
+    if (savedIndex) {
+      setActiveIndex(Number(savedIndex));
+    }
+    setIsLoading(false); // 로딩 완료 후 렌더링
+  }, []);
 
   const handleClick = (index: number) => {
     setActiveIndex(index);
+    localStorage.setItem("activeIndex", index.toString());
   };
 
   const links = [
@@ -21,6 +32,11 @@ export default function Category() {
     { href: "/market/fruit", label: "과실주", src: fruit, alt: "과실주아이콘" },
     { href: "/market/liquor", label: "증류주", src: liquor, alt: "증류주아이콘" },
   ];
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex mt-[65px] bg-whiteGray w-full h-[94px] justify-center items-center mb-3">
       <ul className="flex flex-row gap-2.5 px-[12px]">
