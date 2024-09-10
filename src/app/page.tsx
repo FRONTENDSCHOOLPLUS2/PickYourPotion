@@ -1,19 +1,20 @@
 import Link from "next/link";
 import CardItemSmall from "./CardItemSmall";
 import CardSwiper from "./CardSwiper";
-import Navbar from "@/components/Navbar";
 import { ProductDetail } from "./detail/[id]/page";
 import Banner from "./Banner";
 import Footer from "@/components/layout/Footer";
 import { Metadata } from "next";
+
 export const metadata: Metadata = {
-  title: "조지주 상품 페이지",
+  title: "조지주 메인",
   openGraph: {
-    title: "조지주 상품",
-    description: "조지주 상품 페이지",
+    title: "전통주 쇼핑몰 조지주",
+    description: "당신이 원하는 술을 가질 수 있는 쇼핑몰, 조지주",
     url: "/",
   },
 };
+
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -32,7 +33,10 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 }
 
 export default async function Home() {
-  const bestProduct = await fetchProductList([["custom", '{ "extra.isBest": true }']]);
+  const bestProduct = await fetchProductList([
+    ["sort", '{"buyQuantity": -1}'],
+    ["limit", "5"],
+  ]);
   const newSortProduct = await fetchProductList([
     ["sort", '{ "createdAt": -1 }'],
     ["limit", "5"],
@@ -57,8 +61,7 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar />
-      <main className="px-0 pt-16 bg-white">
+      <main className="px-0 bg-white">
         <CardSwiper data={newSortProduct} />
         <section id="product-best" className="mb-12 px-[25px]">
           <h2 className="mt-5 mb-6 text-black subTitleMedium">베스트 상품</h2>
