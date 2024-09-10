@@ -120,7 +120,7 @@ export default function ReplyForm() {
     });
   });
 
-  const result = orderId.find((number) => number === id);
+  const result = orderId.find((v) => v.toString() === id);
 
   return (
     <>

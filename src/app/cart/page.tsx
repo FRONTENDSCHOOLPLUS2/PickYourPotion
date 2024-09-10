@@ -19,7 +19,6 @@ export async function fetchGetCart(token: string | undefined) {
 }
 export default async function Page() {
   const session = await auth();
-
   const cartData = await fetchGetCart(session?.accessToken);
 
   return <CartPage cartData={cartData.item} total={cartData.cost} />;

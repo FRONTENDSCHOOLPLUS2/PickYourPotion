@@ -96,8 +96,6 @@ export default function CartCard({
         setQuantity(newQuantity);
       } else {
         const updatedItem = await fetchChangeCart(_id, newQuantity, token);
-        const refetchCart = await fetchGetCart(token);
-        console.log(refetchCart);
         setQuantity(updatedItem.quantity);
         handleQuantityChange(updatedItem.quantity);
       }

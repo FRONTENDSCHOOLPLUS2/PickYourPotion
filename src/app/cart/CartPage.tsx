@@ -15,6 +15,7 @@ export interface CartPageProps {
   cartData: {
     _id: number;
     product: {
+      _id: number;
       name: string;
       extra: {
         brewery: string;
@@ -63,7 +64,7 @@ export default function CartPage({ cartData, total }: CartPageProps) {
         console.error("Error fetching cost data:", error);
       }
     }
-  }, [token, cartItems]);
+  }, [token]);
 
   // url의 request값을 받아와 변수에 저장
   const request = useSearchParams().get("request");
@@ -94,7 +95,7 @@ export default function CartPage({ cartData, total }: CartPageProps) {
 
   useEffect(() => {
     fetchCartData();
-  }, [fetchCartData, total]);
+  }, [fetchCartData]);
 
   const handleQuantityChange = () => {
     fetchCartData();
@@ -106,7 +107,7 @@ export default function CartPage({ cartData, total }: CartPageProps) {
     const userInfo = await getUserInfo(session.data?.user?.id!);
     if (userInfo.item.extra.isAdult) {
       // 로그인이 되어있고 성인인증도 돼있을 때
-      router.push("/pay");
+      router.push("/cart/pay");
     } else {
       // 로그인은 되어있지만 성인인증이 되지 않았을 때
       // url의 request값이 true면 모달 띄우기(stateless modal)
