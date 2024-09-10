@@ -125,9 +125,9 @@ body {
 }
 
 .bottomShadow {
-  box-shadow: 0px -13px 20px 14px rgba(255, 255, 255, 0.74);
-  -webkit-box-shadow: 0px -13px 20px 14px rgba(255, 255, 255, 0.74);
-  -moz-box-shadow: 0px -13px 20px 14px rgba(255, 255, 255, 0.74);
+  box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
+  -webkit-box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
+  -moz-box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
