@@ -17,7 +17,7 @@ export default function Header() {
     <header className="sticky top-0 z-[100]">
       <div className="flex flex-row items-center justify-between py-3 w-[inherit] px-2 bg-white">
         <Link href="/">
-          <Image className="" src={logo} alt="검색 아이콘" width={40} height={40} />
+          <Image src={logo} alt="조지주 홈으로" width={40} height={25} />
         </Link>
         <div className="flex flex-row">
           <Link href="/search">
