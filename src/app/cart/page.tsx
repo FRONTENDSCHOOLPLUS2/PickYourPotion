@@ -1,9 +1,7 @@
-"use client";
-import { useSession } from "next-auth/react";
 import CartPage from "./CartPage";
-import { useState, useEffect } from "react";
+import { auth } from "@/auth";
 
-async function fetchCart(token: string | null) {
+export async function fetchGetCart(token: string | undefined) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
   const url = `${API_SERVER}/carts`;
@@ -15,24 +13,13 @@ async function fetchCart(token: string | null) {
   });
   const resJson = await res.json();
   if (!resJson.ok) {
-    throw new Error("error");
+    console.error(Error);
   }
-  return resJson.item;
+  return resJson;
 }
-export default function Page() {
-  const session = useSession();
-  const [cartData, setCartData] = useState([]);
+export default async function Page() {
+  const session = await auth();
+  const cartData = await fetchGetCart(session?.accessToken);
 
-  useEffect(() => {
-    const token = session?.data?.accessToken;
-    const getCartData = async () => {
-      if (token) {
-        const data = await fetchCart(token);
-        setCartData(data);
-      }
-    };
-    getCartData();
-  }, [session.data]);
-
-  return <CartPage cartData={cartData} />;
+  return <CartPage cartData={cartData.item} total={cartData.cost} />;
 }

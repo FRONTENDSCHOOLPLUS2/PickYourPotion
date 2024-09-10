@@ -8,6 +8,7 @@ import itemdelete from "../../public/images/icons/icon-trash.svg";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { fetchGetCart } from "@/app/cart/page";
 
 export interface CartCardProps {
   name?: string;
@@ -94,9 +95,9 @@ export default function CartCard({
         handleQuantityChange(newQuantity);
         setQuantity(newQuantity);
       } else {
-        await fetchChangeCart(_id, newQuantity, token);
-        setQuantity(newQuantity);
-        handleQuantityChange(newQuantity);
+        const updatedItem = await fetchChangeCart(_id, newQuantity, token);
+        setQuantity(updatedItem.quantity);
+        handleQuantityChange(updatedItem.quantity);
       }
     } catch (error) {
       alert("수량을 변경하는 중 오류가 발생했습니다.");
