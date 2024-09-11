@@ -4,7 +4,8 @@ import PayPage from "./PayPage";
 
 export default async function page() {
   const session = await auth();
+  const token = session?.accessToken;
   const cartData = await fetchGetCart(session?.accessToken);
 
-  return <PayPage cartData={cartData.item} total={cartData.cost} />;
+  return <PayPage item={cartData.item} token={token} />;
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import MovingArrow from "@/components/MovingArrow";
 
@@ -188,7 +187,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
       <div className="mt-[70px] h-[400px] mx-5 round overflow-hidden relative">
         <div id="map" className="w-full h-[590px] absolute  left-0 top-0 z-[40]" ref={mapRef}></div>
         {mapInfo === true ? (
