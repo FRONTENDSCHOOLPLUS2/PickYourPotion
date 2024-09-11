@@ -14,7 +14,10 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-[100]">
+    // landing, admin 페이지에선 Header 숨김처리
+    <header
+      className={`${(pathname.includes("landing") || pathname.includes("admin")) && "hidden"} sticky top-0 z-[100]`}
+    >
       <div className="flex flex-row items-center justify-between py-3 w-[inherit] px-2 bg-white">
         <Link href="/">
           <Image src={logo} alt="조지주 홈으로" width={40} height={25} />
