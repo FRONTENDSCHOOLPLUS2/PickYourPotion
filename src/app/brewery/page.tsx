@@ -9,6 +9,12 @@ declare global {
     kakao: any;
   }
 }
+interface Activity {
+  activityLink: string;
+  title: string;
+  description: string;
+  price: string;
+}
 interface Brewery {
   location: string;
   title: string;
@@ -16,8 +22,8 @@ interface Brewery {
   main: string;
   mainImage: string;
   id: number;
+  activity: Activity[];
 }
-
 interface MarkerData {
   marker: kakao.maps.Marker;
   title: string;
@@ -26,6 +32,7 @@ interface MarkerData {
   main: string;
   image: string;
   id: number;
+  activity: Activity[];
 }
 
 export default function Page() {
@@ -99,6 +106,7 @@ export default function Page() {
                           main: brewery.main,
                           image: brewery.mainImage,
                           id: brewery.id,
+                          activity: brewery.activity,
                         });
                       }
                       resolve(marker);
@@ -186,8 +194,9 @@ export default function Page() {
   };
 
   return (
-    <>
-      <div className="mt-[70px] h-[400px] mx-5 round overflow-hidden relative">
+    <div className="h-full">
+      <div className="mt-2 h-[400px] mx-5 round overflow-hidden relative">
+
         <div id="map" className="w-full h-[590px] absolute  left-0 top-0 z-[40]" ref={mapRef}></div>
         {mapInfo === true ? (
           <div className=" w-full h-[400px] inset-0 absolute z-[50] left-0 top-0 bg-black bg-opacity-80  ">
@@ -195,22 +204,30 @@ export default function Page() {
           </div>
         ) : null}
       </div>
-      <div className="p-[25px] flex flex-col items-center justify-center">
+      <div className="h-full p-[25px] flex flex-col items-center justify-center">
         {visibleMarkers.length === 0 ? (
-          <p className="text-center text-gray-500 animate-zoomIn subTitleMedium">
-            지도를 움직여 보세요 :)
-          </p>
+          <div className="h-screen text-center text-gray-500 animate-zoomIn subTitleMedium">
+            지도를 움직여
+            <br />
+            양조장 정보를 확인해보세요 :)
+          </div>
         ) : (
-          <ul className="w-full">
+          <ul className="w-full h-screen">
             {visibleMarkers.map((markerData) => (
               <li key={markerData.title} className="mb-3">
                 <Link href={`/brewery/${markerData.id}`}>
-                  <div className="flex justify-between border border-gray rounded-xl py-4">
+                  <div className="flex justify-between border border-gray rounded-xl py-4 relative">
                     <div className="flex flex-col">
                       <div className="flex flex-col description text-gray ml-6">
-                        <h2 className="flex flex-col contentMedium text-black mb-1">
+                        <h2 className="flex flex-col contentMedium text-black mb-2">
                           {markerData.title}
                         </h2>
+                        {markerData.activity.length > 0 && (
+                          <span className="absolute text-[10px] text-primary border-primary border-[1px] w-[54px] h-[25px] p-1 flex items-center justify-center rounded-xl right-4 mb-2">
+                            체험 가능
+                          </span>
+                        )}
+
                         <table>
                           <tbody>
                             <tr>
@@ -243,6 +260,6 @@ export default function Page() {
           </ul>
         )}
       </div>
-    </>
+    </div>
   );
 }

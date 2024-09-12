@@ -1,5 +1,6 @@
 import Category from "@/components/Category";
 
+
 export default function layout({
   children,
 }: Readonly<{
@@ -7,6 +8,7 @@ export default function layout({
 }>) {
   return (
     <>
+      {/* <Navbar /> */}
       <Category />
       {children}
     </>
