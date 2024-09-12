@@ -2,22 +2,22 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export interface ProductStore {
-  showDetail?: boolean;
-  setShowDetail?: (showDetail: boolean) => void;
+  showDetail: boolean;
+  setShowDetail: (showDetail: boolean) => void;
   _id: number;
-  setId?: (_id: number) => void;
+  setId: (_id: number) => void;
   name: string;
-  setName?: (name: string) => void;
+  setName: (name: string) => void;
   price: number;
-  setPrice?: (price: number) => void;
+  setPrice: (price: number) => void;
   image: string;
-  setImage?: (image: string) => void;
+  setImage: (image: string) => void;
   quantity: number;
-  setQuantity: (quantity: number) => void;
+  setQuantity?: (quantity: number) => void;
   brewery: string;
-  setBrewery?: (brewery: string) => void;
+  setBrewery: (brewery: string) => void;
   alcohol: string;
-  setAlcohol?: (alcohol: string) => void;
+  setAlcohol: (alcohol: string) => void;
 }
 
 interface CartProductStore {

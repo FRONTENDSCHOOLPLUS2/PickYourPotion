@@ -10,6 +10,11 @@ import Image from "next/image";
 import iconGoogle from "../../../../public/images/icons/icon-google.svg";
 import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
 import iconLogo from "../../../../public/images/pic-mbti-start.png";
+
+async function handleLogin(email: string | undefined, password: string | undefined) {
+  await signInWithCredentials(email, password);
+  window.location.href = "/";
+}
 export default function Page() {
   const exEmail = process.env.NEXT_PUBLIC_EX_LOGIN_EMAIL;
   const exPassword = process.env.NEXT_PUBLIC_EX_LOGIN_PASSWORD;
@@ -24,7 +29,10 @@ export default function Page() {
       </div>
       <div className="w-full flex flex-col gap-5 contentMedium text-darkGray mb-24">
         <button
-          onClick={() => signInWithCredentials(exEmail, exPassword)}
+          // onClick={() => login(exEmail, exPassword, router)}
+          // onClick={() => login("106225699961280091507", router)}
+          // onClick={() => signInWithCredentials(exEmail, exPassword)}
+          onClick={() => handleLogin(exEmail, exPassword)}
           className="flex py-3 px-10 justify-center items-center text-white  bg-primary rounded-[44px]"
         >
           <div className="flex flex-row items-center justify-center">
