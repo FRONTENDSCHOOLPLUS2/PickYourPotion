@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import DetailClient from "./DetailClient";
 import { Metadata } from "next";
 
@@ -83,11 +84,13 @@ export async function fetchDetail(_id: string, delay?: number) {
   return resJson.item;
 }
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  const token = session?.accessToken;
   return (
     <div className="flex flex-col h-screen">
       <div className="flex-grow ">
-        <DetailClient />
+        <DetailClient token={token} />
       </div>
     </div>
   );

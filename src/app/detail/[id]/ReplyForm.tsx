@@ -6,7 +6,7 @@ import { Submit } from "@/components/Submit";
 import InputError from "@/components/InputError";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { errorToast } from "@/toast/errorToast";
+import { InfoToast } from "@/toast/InfoToast";
 
 export interface FormData {
   content: string;
@@ -97,10 +97,10 @@ export default function ReplyForm() {
   const onSubmit: SubmitHandler<FormData> = (formData) => {
     mutate(formData);
     if (!token) {
-      errorToast("후기를 등록하려면 로그인해야 합니다.");
+      InfoToast("후기를 등록하려면 로그인해야 합니다.");
       router.push("/login");
     } else {
-      errorToast("후기를 작성했습니다.");
+      InfoToast("후기를 작성했습니다.");
     }
   };
 
