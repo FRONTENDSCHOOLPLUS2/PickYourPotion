@@ -10,68 +10,15 @@ import Image from "next/image";
 import iconGoogle from "../../../../public/images/icons/icon-google.svg";
 import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
 import iconLogo from "../../../../public/images/pic-mbti-start.png";
-import { useRouter } from "next/navigation";
-import { signIn } from "@/auth";
 
-// async function login(email: string | undefined, password: string | undefined, router) {
-//   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-//   const res = await fetch(`${SERVER}/users/login`, {
-//     method: "POST",
-//     headers: {
-//       "client-id": process.env.NEXT_PUBLIC_CLIENT_ID || "",
-//       "Content-type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       email: email,
-//       password: password,
-//     }),
-//   });
-//   if (res.ok) {
-//     const resJson = await res.json();
-//     router.push("/");
-//     return resJson;
-//   } else {
-//     console.error("Login failed");
-//   }
-// }
-
-// async function signInWithCredentials(email: string | undefined, password: string | undefined) {
-//   await signIn("credentials", {
-//     email: email,
-//     password: password,
-//   });
-// }
-
-// async function login(providerAccountId, router) {
-//   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-//   const res = await fetch(`${SERVER}/users/login/with`, {
-//     method: "POST",
-//     headers: {
-//       "client-id": process.env.NEXT_PUBLIC_CLIENT_ID || "",
-//       "Content-type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       providerAccountId: providerAccountId,
-//     }),
-//   });
-//   if (res.ok) {
-//     const resJson = await res.json();
-//     console.log(resJson);
-//     console.log(resJson.item.token.accessToken);
-//     // router.push("/");
-//     return resJson;
-//   } else {
-//     console.error("Login failed");
-//   }
-// }
-async function handleLogin(email: string | undefined, password: string | undefined, router) {
-  const result = await signInWithCredentials(email, password);
+async function handleLogin(email: string | undefined, password: string | undefined) {
+  await signInWithCredentials(email, password);
   window.location.href = "/";
 }
 export default function Page() {
   const exEmail = process.env.NEXT_PUBLIC_EX_LOGIN_EMAIL;
   const exPassword = process.env.NEXT_PUBLIC_EX_LOGIN_PASSWORD;
-  const router = useRouter();
+
   return (
     <main className="flex flex-col items-center justify-between min-h-screen">
       <div className="mt-24">
@@ -85,7 +32,7 @@ export default function Page() {
           // onClick={() => login(exEmail, exPassword, router)}
           // onClick={() => login("106225699961280091507", router)}
           // onClick={() => signInWithCredentials(exEmail, exPassword)}
-          onClick={() => handleLogin(exEmail, exPassword, router)}
+          onClick={() => handleLogin(exEmail, exPassword)}
           className="flex py-3 px-10 justify-center items-center text-white  bg-primary rounded-[44px]"
         >
           <div className="flex flex-row items-center justify-center">
