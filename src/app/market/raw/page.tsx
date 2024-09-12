@@ -1,5 +1,6 @@
 import { ProductDetail } from "@/app/detail/[id]/page";
 import Card from "@/components/Card";
+// import { useState } from "react";
 
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -17,7 +18,18 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   }
   return resJson.item;
 }
+
 export default async function Page() {
+  // const [isSelected, setIsSelected] = useState("최신순");
+  // const selected = [
+  //   { value: "new", name: "최신순" },
+  //   { value: "seller", name: "판매순" },
+  //   { value: "price", name: "가격순" },
+  // ];
+  // const handleSelect = (e) => {
+  //   setIsSelected(e.target.value);
+  // };
+
   const takjuProduct = await fetchProductList([["custom", '{ "extra.category": "PC01" }']]);
   return (
     <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
