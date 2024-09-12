@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-// import { useEffect, useState } from "react";
-// import Loading from "../app/loading";
 
 import raw from "../../public/images/icons/icon-takju.png";
 import refined from "../../public/images/icons/icon-chungju.png";
