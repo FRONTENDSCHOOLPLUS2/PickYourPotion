@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import CartPage from "./CartPage";
 import { auth } from "@/auth";
 
@@ -19,7 +20,7 @@ export async function fetchGetCart(token: string | undefined) {
 }
 export default async function Page() {
   const session = await auth();
-  const cartData = await fetchGetCart(session?.accessToken);
+  const token = session?.accessToken;
 
-  return <CartPage cartData={cartData.item} total={cartData.cost} />;
+  return <CartPage token={token} />;
 }
