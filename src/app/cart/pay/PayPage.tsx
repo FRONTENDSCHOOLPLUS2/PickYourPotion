@@ -18,15 +18,14 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const STORE_ID = process.env.NEXT_PUBLIC_TOSS_CLIENT_STORE_ID ?? "";
 const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
 
-export default function PayPage({ cartData, total }: CartPageProps) {
+export default function PayPage({ item, token }: CartPageProps) {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [addressFilled, setAddressFilled] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [shippingFees, setShippingFees] = useState<number>(0);
-  const [updatedCartData, setUpdatedCartData] = useState(cartData);
+  const [updatedCartData, setUpdatedCartData] = useState(item);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { data: session } = useSession();
-  const token = session?.accessToken;
 
   useEffect(() => {
     setIsMounted(true);
@@ -76,7 +75,7 @@ export default function PayPage({ cartData, total }: CartPageProps) {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.accessToken}`,
+          Authorization: `Bearer ${token}`,
           "client-id": `${CLIENT_ID}`,
         },
       });

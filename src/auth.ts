@@ -11,12 +11,12 @@ import discord from "next-auth/providers/discord";
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  trustHost: true, // 배포시 필요
+  trustHost: true,
   providers: [
     CredentialsProvider({
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       // email/password 정보로 로그인 요청
       async authorize(credentials) {
@@ -35,6 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             refreshToken: user.token!.refreshToken,
           };
         } else {
+          console.error(resJson);
           throw new CredentialsSignin(resJson.message, { cause: resJson });
         }
       },
@@ -113,7 +114,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       switch (account?.provider) {
         case "credentials":
-          console.log("id/pwd 로그인", user);
+          // console.log("id/pwd 로그인", user);
           break;
         case "google":
 

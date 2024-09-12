@@ -10,9 +10,10 @@ import { certificationCallback, getUserInfo } from "../adult/action";
 import Image from "next/image";
 import empty from "../../../public/images/empty.png";
 import { fetchGetCart } from "./page";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface CartPageProps {
-  cartData: {
+  item: {
     _id: number;
     product: {
       _id: number;
@@ -30,7 +31,7 @@ export interface CartPageProps {
     };
     quantity: number;
   }[];
-  total: {
+  cost?: {
     products: number;
     shippingFees: number;
     discount: {
@@ -39,32 +40,63 @@ export interface CartPageProps {
     };
     total: number;
   };
+  token: string | undefined;
 }
 
-//전체 가격 불러오기
-export default function CartPage({ cartData, total }: CartPageProps) {
-  const [cartItems, setCartItems] = useState(cartData);
+export default function CartPage({ token }: { token: string | undefined }) {
+  const session = useSession();
+
+  const { data, refetch } = useQuery<CartPageProps>({
+    queryKey: ["cart"],
+    queryFn: () => fetchGetCart(token),
+    staleTime: 1000,
+  });
+
+  const [cartItems, setCartItems] = useState<CartPageProps["item"]>([]);
   const [totalCost, setTotalCost] = useState<number>(0);
   const [products, setProducts] = useState<number>(0);
   const [shippingFees, setShippingFees] = useState<number>(3000);
 
+  const queryClient = useQueryClient();
   const router = useRouter();
-  const session = useSession();
-  const token = session.data?.accessToken;
 
-  const fetchCartData = useCallback(async () => {
-    if (token) {
-      try {
-        const res = await fetchGetCart(token);
-        setCartItems(res.item);
-        setTotalCost(res.cost.total);
-        setProducts(res.cost.products);
-        setShippingFees(res.cost.shippingFees);
-      } catch (error) {
-        console.error("Error fetching cost data:", error);
+  const { mutate } = useMutation({
+    mutationFn() {
+      return fetchGetCart(token);
+    },
+    onSuccess(resData) {
+      console.log("resData", resData.cost.total);
+      if (resData) {
+        setCartItems(resData.item);
+        setTotalCost(resData.cost.total);
+        setProducts(resData.cost.products);
+        setShippingFees(resData.cost.shippingFees);
+        refetch();
+        queryClient.invalidateQueries({
+          queryKey: ["cart"],
+        });
+      } else {
+        console.error(resData);
       }
-    }
-  }, [token]);
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  // const fetchCartData = useCallback(async () => {
+  //   if (token) {
+  //     try {
+  //       const res = await fetchGetCart(token);
+  //       setCartItems(res.item);
+  //       setTotalCost(res.cost.total);
+  //       setProducts(res.cost.products);
+  //       setShippingFees(res.cost.shippingFees);
+  //     } catch (error) {
+  //       console.error("Error fetching cost data:", error);
+  //     }
+  //   }
+  // }, [token]);
 
   // url의 request값을 받아와 변수에 저장
   const request = useSearchParams().get("request");
@@ -94,12 +126,8 @@ export default function CartPage({ cartData, total }: CartPageProps) {
   };
 
   useEffect(() => {
-    fetchCartData();
-  }, [fetchCartData]);
-
-  const handleQuantityChange = () => {
-    fetchCartData();
-  };
+    mutate();
+  }, [token]);
 
   // 결제하기 버튼 누를 때 실행 될 함수
   const handlePayment = async () => {
@@ -114,16 +142,27 @@ export default function CartPage({ cartData, total }: CartPageProps) {
       router.push(`?request=true`);
     }
   };
+  useEffect(() => {
+    if (data) {
+      setCartItems(data.item);
+      setTotalCost(data.cost?.total || 0);
+      setProducts(data.cost?.products || 0);
+      setShippingFees(data.cost?.shippingFees || 3000);
+    }
+  }, [data]);
 
+  const handleQuantityChange = useCallback(() => {
+    mutate();
+  }, []);
   return (
     <div className="flex flex-col  mx-[25px] mt-9">
       <div className="mb-5 subTitleMedium">담은술</div>
-      {cartData.length !== 0 ? (
+      {data && data?.item?.length !== 0 ? (
         <>
           <div className="flex flex-col">
             <div className="h-[400px] overflow-y-auto hide-scrollbar">
-              {Array.from(new Set(cartData?.map((item) => item._id))).map((id) => {
-                const item = cartData.find((cartItem) => cartItem._id === id);
+              {Array.from(new Set(data?.item.map((item) => item._id)))?.map((id) => {
+                const item = data.item.find((cartItem) => cartItem._id === id);
                 if (item) {
                   return (
                     <CartCard
