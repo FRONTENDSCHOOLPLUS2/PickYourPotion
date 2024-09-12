@@ -110,7 +110,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           ...
         } undefined
       */
-      console.log("callbacks.signIn", user, account, profile, credentials);
+      // console.log("callbacks.signIn", user, account, profile, credentials);
 
       switch (account?.provider) {
         case "credentials":
