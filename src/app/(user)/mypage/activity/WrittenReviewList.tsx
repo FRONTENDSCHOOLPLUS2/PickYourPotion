@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import WrittenReviewCard from "./WrittenReviewCard";
 import { Replies } from "./replies";
 import { useSession } from "next-auth/react";
-import ReactPaginate from "react-paginate";
-import "@/components/pagination.css";
+import Pagination from "@/components/Pagination"; // 공통 컴포넌트 가져오기
 
 export default function WrittenReviewList() {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -44,13 +43,8 @@ export default function WrittenReviewList() {
   }, [url, CLIENT_ID, session, status]);
 
   // 페이지 변경 핸들러
-  const handlePageClick = (selectedItem: { selected: number }) => {
-    setCurrentPage(selectedItem.selected);
-    // 페이지를 클릭할 때 페이지의 최상단으로 스크롤
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // 스크롤을 부드럽게 이동
-    });
+  const handlePageChange = (selectedPage: number) => {
+    setCurrentPage(selectedPage);
   };
 
   // 현재 페이지에 맞는 데이터를 슬라이스해서 가져오기
@@ -69,26 +63,10 @@ export default function WrittenReviewList() {
         />
       ))}
 
-      {/* 페이지네이션 컴포넌트 */}
-      <ReactPaginate
-        previousLabel={"<"}
-        nextLabel={">"}
-        breakLabel={"..."}
+      {/* 공통 페이지네이션 컴포넌트 사용 */}
+      <Pagination
         pageCount={Math.ceil(replies.length / itemsPerPage)} // 총 페이지 수
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick} // 페이지 변경 시 실행
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-        pageLinkClassName={"page-link"}
-        previousClassName={"page-item"}
-        previousLinkClassName={"page-link"}
-        nextClassName={"page-item"}
-        nextLinkClassName={"page-link"}
-        breakClassName={"page-item"}
-        breakLinkClassName={"page-link"}
-        disabledClassName={"disabled"}
+        onPageChange={handlePageChange} // 페이지 변경 시 실행
       />
     </div>
   );
