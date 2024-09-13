@@ -69,10 +69,10 @@ export default async function Home() {
           <p className="mb-6 text-gray">최근 판매량이 가장 많은 상품이예요.</p>
           <ul className="flex flex-row flex-wrap gap-3 mb-3">
             {bestProduct &&
-              bestProduct.map((item) => {
+              bestProduct.map((item, index) => {
                 return (
                   <li className="mb-3 w-[calc(50%-6px)]" key={item._id}>
-                    <Card data={item} />
+                    <Card data={item} rate={index + 1} />
                   </li>
                 );
               })}
