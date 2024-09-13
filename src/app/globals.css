@@ -129,7 +129,10 @@ body {
   -webkit-box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
   -moz-box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
 }
-
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
