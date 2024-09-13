@@ -5,9 +5,9 @@ import { ImageProps } from "@/app/order/order";
 interface OrderDetailProps {
   image: ImageProps;
   name: string;
-  brewery: string;
+  brewery?: string;
   price: number;
-  quantity: number;
+  quantity?: number;
   className?: string;
 }
 
