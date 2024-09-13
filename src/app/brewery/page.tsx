@@ -196,23 +196,22 @@ export default function Page() {
   return (
     <div className="h-full">
       <div className="mt-2 h-[400px] mx-5 round overflow-hidden relative">
-
         <div id="map" className="w-full h-[590px] absolute  left-0 top-0 z-[40]" ref={mapRef}></div>
         {mapInfo === true ? (
-          <div className=" w-full h-[400px] inset-0 absolute z-[50] left-0 top-0 bg-black bg-opacity-80  ">
+          <div className=" w-full h-[400px] inset-0 absolute z-[50] left-0 top-0 bg-black bg-opacity-80">
             <MovingArrow />
           </div>
         ) : null}
       </div>
       <div className="h-full p-[25px] flex flex-col items-center justify-center">
         {visibleMarkers.length === 0 ? (
-          <div className="h-screen text-center text-gray-500 animate-zoomIn subTitleMedium">
+          <div className="h-full text-center text-gray-500 animate-zoomIn subTitleMedium">
             지도를 움직여
             <br />
             양조장 정보를 확인해보세요 :)
           </div>
         ) : (
-          <ul className="w-full h-screen">
+          <ul className="w-full h-full">
             {visibleMarkers.map((markerData) => (
               <li key={markerData.title} className="mb-3">
                 <Link href={`/brewery/${markerData.id}`}>

@@ -1,5 +1,6 @@
 import { ProductDetail } from "@/app/detail/[id]/page";
 import Card from "@/components/Card";
+import { ComboboxDemo } from "../SortDropdownMenu";
 
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -20,15 +21,20 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 export default async function Page() {
   const wineProduct = await fetchProductList([["custom", '{ "extra.category": "PC04" }']]);
   return (
-    <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
-      {wineProduct &&
-        wineProduct.map((item) => {
-          return (
-            <li key={item._id} className="w-[calc(50%-8px)]">
-              <Card data={item} />
-            </li>
-          );
-        })}
-    </ul>
+    <div className="flex flex-col">
+      <div className="flex justify-end mr-6">
+        <ComboboxDemo />
+      </div>
+      <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
+        {wineProduct &&
+          wineProduct.map((item) => {
+            return (
+              <li key={item._id} className="w-[calc(50%-8px)]">
+                <Card data={item} />
+              </li>
+            );
+          })}
+      </ul>
+    </div>
   );
 }

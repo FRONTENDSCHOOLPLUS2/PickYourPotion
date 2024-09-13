@@ -18,7 +18,7 @@ export default function Category() {
   ];
 
   return (
-    <div className="flex bg-whiteGray w-full h-[94px] justify-center items-center mb-3">
+    <div className="flex bg-whiteGray w-full h-[94px] justify-center items-center">
       <ul className="flex flex-row gap-2.5 px-[12px]">
         {links.map((link, index) => (
           <li key={index}>
