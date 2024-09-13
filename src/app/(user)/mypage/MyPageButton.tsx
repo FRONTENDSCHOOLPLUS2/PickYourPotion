@@ -18,7 +18,7 @@ const MyPageButton = () => {
       src: likeIcon,
       alt: "찜 아이콘",
       content: "찜",
-      href: "/cart",
+      href: "/bookmark",
     },
     {
       id: 2,

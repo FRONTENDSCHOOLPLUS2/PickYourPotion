@@ -1,83 +1,19 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Detail from "./Detail";
 import Reply from "./Reply";
 import { fetchDetail } from "./page";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Buying from "./Buying";
 import AddCart from "./AddCart";
 import { useProductStore } from "@/zustand/Store";
 import DegreeBar from "@/components/DegreeBar";
-import heart from "../../../../public/images/icons/icon-like.svg";
-import heartActive from "../../../../public/images/icons/icon-like-true.svg";
-import { InfoToast } from "@/toast/InfoToast";
+import BookMarkButton from "./BookMarkButton";
 
-export async function addBookmark(productId: number, token: string | undefined) {
-  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/bookmarks/product`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      "client-id": `${CLIENT_ID}`,
-    },
-    body: JSON.stringify({
-      target_id: productId,
-    }),
-  });
-  const resJson = await res.json();
-  if (!resJson.ok) {
-    throw new Error("error");
-  }
-  return resJson.item;
-}
-export async function deleteBookmark(productId: number, token: string | undefined) {
-  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/bookmarks/${productId}`;
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      "client-id": `${CLIENT_ID}`,
-    },
-  });
-  const resJson = await res.json();
-
-  if (!resJson.ok) {
-    throw new Error("error");
-  }
-  return resJson.item;
-}
-export async function getBookmark(token: string | undefined) {
-  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/bookmarks/product`;
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      "client-id": `${CLIENT_ID}`,
-    },
-  });
-  const resJson = await res.json();
-
-  if (!resJson.ok) {
-    throw new Error("error");
-  }
-  return resJson.item;
-}
-// 상품의 id로 삭제하는 것이 아닌 북마크 ID가 따로 있다.
 export default function DetailClient({ token }: { token: string | undefined }) {
-  const [bookId, setBookId] = useState<number | null>(null);
   let { id } = useParams();
-  const queryClient = useQueryClient();
   const { data } = useQuery({
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
@@ -134,33 +70,6 @@ export default function DetailClient({ token }: { token: string | undefined }) {
     }
   }, [data]);
 
-  const { data: book } = useQuery({
-    queryKey: ["book"],
-    queryFn: () => getBookmark(token),
-  });
-
-  useEffect(() => {
-    book?.map((v: { product: { _id: number }; _id: number }) => {
-      if (v.product._id === Number(id)) {
-        setBookId(v._id);
-      }
-    });
-  }, [id, token, book]);
-
-  const handleAddBookmark = () => {
-    addBookmark(data._id, token);
-    setBookId(bookId);
-    queryClient.invalidateQueries({ queryKey: ["book"] });
-    InfoToast("상품을 찜했습니다.");
-  };
-  const handleDeleteBookmark = () => {
-    if (bookId !== null) {
-      deleteBookmark(bookId, token);
-    }
-    setBookId(null);
-    InfoToast("상품 찜을 취소했습니다.");
-  };
-
   return (
     <>
       {data && (
@@ -181,29 +90,7 @@ export default function DetailClient({ token }: { token: string | undefined }) {
           <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
           <div className="flex flex-row justify-between">
             <h1 className="flex items-center titleMedium">{data?.name}</h1>
-            {bookId ? (
-              <button onClick={handleDeleteBookmark}>
-                <Image
-                  src={heartActive}
-                  width={0}
-                  height={0}
-                  alt="찜하기 버튼"
-                  priority={true}
-                  className="object-contain w-full h-auto"
-                />
-              </button>
-            ) : (
-              <button onClick={handleAddBookmark}>
-                <Image
-                  src={heart}
-                  width={0}
-                  height={0}
-                  alt="찜하기 버튼"
-                  priority={true}
-                  className="object-contain w-full h-auto"
-                />
-              </button>
-            )}
+            <BookMarkButton token={token} productId={id} />
           </div>
           <p className="mt-1 contentMedium text-ellipsis">{data?.price.toLocaleString()}원</p>
         </div>
