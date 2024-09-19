@@ -65,7 +65,6 @@ export default function CartPage({ token }: { token: string | undefined }) {
       return fetchGetCart(token);
     },
     onSuccess(resData) {
-      console.log("resData", resData.cost.total);
       if (resData) {
         setCartItems(resData.item);
         setTotalCost(resData.cost.total);
