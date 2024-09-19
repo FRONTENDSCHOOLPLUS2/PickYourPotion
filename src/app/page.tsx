@@ -6,6 +6,8 @@ import Banner from "./Banner";
 import Footer from "@/components/layout/Footer";
 import { Metadata } from "next";
 import Card from "@/components/Card";
+import { auth } from "@/auth";
+import { getUserInfo, updateAdminIsAdult } from "./adult/action";
 
 export const metadata: Metadata = {
   title: "조지주 메인",
@@ -34,6 +36,15 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 }
 
 export default async function Home() {
+  const session = await auth();
+  const token = session?.accessToken;
+  const userId = session?.user?.id;
+  if (userId === "2" && token) {
+    const adminInfo = await getUserInfo(userId);
+    const adminExtraInfo = adminInfo.item.extra;
+    const adminAdultFalse = await updateAdminIsAdult(userId, adminExtraInfo, token);
+  }
+
   const bestProduct = await fetchProductList([
     ["sort", '{"buyQuantity": -1}'],
     ["limit", "4"],
