@@ -23,7 +23,7 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 
 export default function Page() {
   const [takjuProduct, setTakjuProduct] = useState<ProductDetail[]>([]);
-  const [sortCriteria, setSortCriteria] = useState<string>("");
+  const [sortItem, setSortItem] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,29 +33,28 @@ export default function Page() {
     fetchData();
   }, []);
 
-  // 정렬 기준에 따른 정렬 함수
   useEffect(() => {
     let sortedProducts = [...takjuProduct];
 
-    if (sortCriteria === "upPrice") {
+    if (sortItem === "upPrice") {
       sortedProducts = sortedProducts.sort((a, b) => b.price - a.price); // 높은 가격순
-    } else if (sortCriteria === "downPrice") {
+    } else if (sortItem === "downPrice") {
       sortedProducts = sortedProducts.sort((a, b) => a.price - b.price); // 낮은 가격순
-    } else if (sortCriteria === "best") {
-      sortedProducts = sortedProducts.sort((a, b) => b.quantity - a.quantity); // 판매량 순 (남은 수량 많은 순)
-    } else if (sortCriteria === "new") {
+    } else if (sortItem === "best") {
+      sortedProducts = sortedProducts.sort((a, b) => a.quantity - b.quantity); // 판매량 순 (남은 수량 많은 순)
+    } else if (sortItem === "new") {
       sortedProducts = sortedProducts.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(), // 최신순
       );
     }
 
     setTakjuProduct(sortedProducts);
-  }, [sortCriteria]);
+  }, [sortItem]);
 
   return (
     <div className="flex flex-col">
       <div className="flex justify-end mr-6">
-        <ComboboxDemo onSelectSort={setSortCriteria} /> {/* 정렬 함수 전달 */}
+        <ComboboxDemo onSelectSort={setSortItem} />
       </div>
       <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
         {takjuProduct &&

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ProductDetail } from "@/app/detail/[id]/page";
 import Link from "next/link";
 
-export default function Card({ data, rate }: { data: ProductDetail; rate: number }) {
+export default function Card({ data, rate }: { data: ProductDetail; rate?: number }) {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   return (
     <Link href={`/detail/${data._id}`}>
