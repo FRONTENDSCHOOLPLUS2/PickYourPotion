@@ -3,6 +3,7 @@ import { ProductDetail } from "@/app/detail/[id]/page";
 import Card from "@/components/Card";
 import { ComboboxDemo } from "../SortDropdownMenu";
 import { useEffect, useState } from "react";
+import Pagination from "@/components/Pagination";
 
 async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -23,6 +24,8 @@ async function fetchProductList(params?: string[][]): Promise<ProductDetail[]> {
 export default function Page() {
   const [wineProduct, setWineProduct] = useState<ProductDetail[]>([]);
   const [sortItem, setSortItem] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,14 +52,24 @@ export default function Page() {
 
     setWineProduct(sortedProducts);
   }, [sortItem]);
+
+  const paginatedProducts = wineProduct.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage,
+  );
+
+  const handlePageChange = (selectedPage: number) => {
+    setCurrentPage(selectedPage); // 선택한 페이지로 변경
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-end mr-6">
         <ComboboxDemo onSelectSort={setSortItem} />
       </div>
       <ul className="flex flex-wrap justify-start gap-4 px-[25px] pb-3">
-        {wineProduct &&
-          wineProduct.map((item) => {
+        {paginatedProducts &&
+          paginatedProducts.map((item) => {
             return (
               <li key={item._id} className="w-[calc(50%-8px)]">
                 <Card data={item} />
@@ -64,6 +77,10 @@ export default function Page() {
             );
           })}
       </ul>
+      <Pagination
+        pageCount={Math.ceil(wineProduct.length / itemsPerPage)} // 총 페이지 수 계산
+        onPageChange={handlePageChange} // 페이지 변경 시 실행
+      />
     </div>
   );
 }

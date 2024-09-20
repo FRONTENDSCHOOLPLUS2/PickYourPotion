@@ -18,7 +18,7 @@ const frameworks = [
   },
   {
     value: "best",
-    label: "판매순",
+    label: "인기순",
   },
   {
     value: "new",
