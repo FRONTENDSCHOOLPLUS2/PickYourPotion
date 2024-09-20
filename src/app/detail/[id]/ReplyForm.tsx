@@ -7,6 +7,8 @@ import InputError from "@/components/InputError";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { InfoToast } from "@/toast/InfoToast";
+import Image from "next/image";
+import cameraIcon from "../../../../public/images/icons/icon-camera.svg";
 
 export interface FormData {
   content: string;
@@ -122,10 +124,25 @@ export default function ReplyForm() {
 
   const result = orderId.find((v) => v.toString() === id);
 
+  const [preview, setPreview] = useState(null); // 이미지 미리보기 URL
+
+  // 파일이 선택되면 미리보기 설정
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; // 첫 번째 파일만 사용
+    if (file) {
+      const imageURL = URL.createObjectURL(file); // 이미지 URL 생성
+      setPreview(imageURL); // 미리보기 상태 업데이트
+    }
+  };
   return (
     <>
       {result && (
         <>
+          {preview && (
+            <div className="mt-3">
+              <img src={preview} alt="Selected" style={{ width: "300px", height: "auto" }} />
+            </div>
+          )}
           <form className="flex justify-between mt-6 " onSubmit={handleSubmit(onSubmit)}>
             <input
               className="border-b-[1px] border-lightGray py-2 focus:outline-none focus:border-primary"
@@ -139,6 +156,17 @@ export default function ReplyForm() {
                 },
               })}
             />
+            <input
+              id="reviewImage"
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={handleImageChange}
+            />
+            <label htmlFor="reviewImage" className="cursor-pointer">
+              <Image alt="" width={0} height={0} src={cameraIcon} />
+            </label>
             <Submit>전송</Submit>
           </form>
           <InputError target={errors.content} />
