@@ -12,7 +12,7 @@
 
 .page-link {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 5px 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   color: var(--color-dark-gray);
@@ -26,7 +26,7 @@
 
 .active .page-link {
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: white;
   border-color: var(--color-primary);
 }
 
