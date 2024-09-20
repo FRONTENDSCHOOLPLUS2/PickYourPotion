@@ -129,6 +129,18 @@ body {
   -webkit-box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
   -moz-box-shadow: 0px -20px 20px 0px rgba(255, 255, 255, 0.74);
 }
+.redCircle::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  bottom: 10%;
+  right: 15%;
+  width: 11px;
+  height: 11px;
+  background-color: red;
+  border-radius: 50%;
+  margin-left: 5px;
+}
 .hide-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
