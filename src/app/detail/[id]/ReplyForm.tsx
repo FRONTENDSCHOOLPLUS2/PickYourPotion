@@ -19,11 +19,20 @@ export interface Product {
 export interface Order {
   products: Product[];
 }
-export async function addReply(_id: number, formData: FormData, accessToken: string | undefined) {
+
+export async function addReply(
+  _id: number,
+  formData: FormData,
+  accessToken: string | undefined,
+  reviewImage: File[],
+) {
   const data = {
     order_id: 1,
     product_id: _id,
     content: formData.content,
+    extra: {
+      repliesImage: reviewImage,
+    },
   };
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -63,6 +72,9 @@ export async function getOrder(accessToken: string | undefined) {
 
 export default function ReplyForm() {
   const [orderData, setOrderData] = useState<Order[]>([]);
+  const [preview, setPreview] = useState<string[]>([]);
+  const [reviewImage, setReviewImage] = useState<File[]>([]);
+  const [fileImages, setFileImages] = useState<File[]>([]);
   const orderId: string[] = [];
   const queryClient = useQueryClient();
   const session = useSession();
@@ -72,7 +84,7 @@ export default function ReplyForm() {
   let _id = Number(id);
   const { mutate } = useMutation({
     mutationFn(formData: FormData) {
-      return addReply(_id, formData, token);
+      return addReply(_id, formData, token, fileImages);
     },
     onSuccess(resData) {
       if (resData) {
@@ -103,6 +115,7 @@ export default function ReplyForm() {
       router.push("/login");
     } else {
       InfoToast("후기를 작성했습니다.");
+      setPreview([]);
     }
   };
 
@@ -124,23 +137,70 @@ export default function ReplyForm() {
 
   const result = orderId.find((v) => v.toString() === id);
 
-  const [preview, setPreview] = useState(null); // 이미지 미리보기 URL
+  const fetchFile = async (file: File, accessToken: string | undefined) => {
+    const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+    const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+    const formData = new FormData();
+    formData.append("attach", file);
 
-  // 파일이 선택되면 미리보기 설정
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]; // 첫 번째 파일만 사용
-    if (file) {
-      const imageURL = URL.createObjectURL(file); // 이미지 URL 생성
-      setPreview(imageURL); // 미리보기 상태 업데이트
+    try {
+      const response = await fetch(`${API_SERVER}/files`, {
+        method: "POST",
+        headers: {
+          "client-id": `${CLIENT_ID}`,
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      const resJson = await response.json();
+      setFileImages((prev) => (prev ? [...prev, ...resJson.item] : resJson.item));
+      if (!resJson.ok) {
+        throw new Error("error");
+      }
+    } catch (error) {
+      console.error("파일 업로드 중 에러 발생: ", error);
     }
   };
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const fileArray = Array.from(files);
+
+      if (fileArray.length > 3) {
+        InfoToast("최대 3장의 이미지만 선택할 수 있습니다.");
+        return;
+      }
+
+      setReviewImage(fileArray);
+      const newPreviews = fileArray.slice(0, 3).map((file) => URL.createObjectURL(file));
+      setPreview(newPreviews);
+
+      try {
+        await Promise.all(fileArray.map((file) => fetchFile(file, token)));
+      } catch (error) {
+        console.error("파일 업로드 중 에러 발생: ", error);
+      }
+    }
+  };
+
   return (
     <>
       {result && (
         <>
-          {preview && (
-            <div className="mt-3">
-              <img src={preview} alt="Selected" style={{ width: "300px", height: "auto" }} />
+          {preview.length > 0 && (
+            <div className="mt-3 grid grid-cols-3 gap-2">
+              {preview.map((preview, index) => (
+                <div key={index} className="mr-6">
+                  <Image
+                    src={preview}
+                    alt={`Selected ${index + 1}`}
+                    className="w-40 h-40 object-scale-down"
+                    width={0}
+                    height={0}
+                  />
+                </div>
+              ))}
             </div>
           )}
           <form className="flex justify-between mt-6 " onSubmit={handleSubmit(onSubmit)}>
