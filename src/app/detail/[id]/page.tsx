@@ -29,6 +29,13 @@ export interface ProductReplies {
   rating: number;
   content: string;
   createdAt: string;
+  extra?: {
+    repliesImage?: {
+      path: string;
+      name: string;
+      originalname: string;
+    }[];
+  };
 }
 export interface Extra {
   inherence: string;

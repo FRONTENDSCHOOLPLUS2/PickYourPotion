@@ -11,7 +11,6 @@ import logo from "../../../public/images/LOGO.png";
 import { fetchGetCart } from "@/app/cart/page";
 import { CartPageProps } from "@/app/cart/CartPage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -19,7 +18,7 @@ export default function Header() {
   const pathname = usePathname();
   const queryClient = useQueryClient();
 
-  const { data: cartData, refetch } = useQuery<CartPageProps>({
+  const { data: cartData } = useQuery<CartPageProps>({
     queryKey: ["cart"],
     queryFn: () => fetchGetCart(token),
     enabled: !!token,
