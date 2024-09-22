@@ -63,7 +63,7 @@ export default function Page() {
     setCurrentPage(selectedPage); // 선택한 페이지로 변경
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-3">
       <div className="flex justify-end mr-6">
         <ComboboxDemo onSelectSort={setSortItem} />
       </div>

@@ -64,7 +64,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-3">
       <div className="flex justify-end mr-6">
         <ComboboxDemo onSelectSort={setSortItem} />
       </div>
