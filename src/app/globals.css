@@ -167,7 +167,14 @@ body {
   color: #ddd;
   font-size: 50px;
 }
+.list-item {
+  border: 2px solid rgb(215, 215, 215); /* 기본 보더 색상 */
+  transition: border-color 0.3s; /* 색상 변화 애니메이션 */
+}
 
+.list-item:hover {
+  border: 2px solid #ff8f4b; /* 기본 보더 색상 */
+}
 .close:hover,
 .close:focus {
   color: gray;
@@ -225,6 +232,19 @@ body {
 
 .stretch-bounce-animation-up {
   animation: stretchAndBounceUp 1s infinite;
+}
+
+.info-title {
+  display: flex;
+  background: #ff8f4b;
+  color: #fff;
+  text-align: center;
+  /* height: 24px; */
+  line-height: 22px;
+  border-radius: 4px;
+  padding: 4px 10px;
+  margin-bottom: 70px;
+  /* margin-left: 30px; */
 }
 
 /* shadcn rechart 색상 */
