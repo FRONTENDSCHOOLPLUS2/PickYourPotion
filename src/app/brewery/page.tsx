@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import MovingArrow from "@/components/MovingArrow";
+import Pagination from "@/components/Pagination";
 
 declare global {
   interface Window {
@@ -39,6 +40,8 @@ export default function Page() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [visibleMarkers, setVisibleMarkers] = useState<MarkerData[]>([]);
   const [mapInfo, setMapInfo] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const loadKakaoMapScript = () => {
@@ -64,6 +67,8 @@ export default function Page() {
         document.head.appendChild(script);
       });
     };
+
+    let currentOverlay: kakao.maps.CustomOverlay | null = null; //현재 커스텀오버레이상태 저장~
 
     const createMap = () => {
       if (!window.kakao || !window.kakao.maps) {
@@ -108,6 +113,32 @@ export default function Page() {
                           id: brewery.id,
                           activity: brewery.activity,
                         });
+                        const content = `<div class="info-title">
+                             <span>${brewery.title}</span>
+                          </div>`;
+
+                        // 커스텀 오버레이가 표시될 위치입니다
+                        const position = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        // 커스텀 오버레이를 생성합니다
+                        const customOverlay = new kakao.maps.CustomOverlay({
+                          map: map,
+                          position: position,
+                          content: content,
+                          yAnchor: 1,
+                        });
+
+                        customOverlay.setMap(null); // 초기 상태에서 오버레이 숨김
+
+                        kakao.maps.event.addListener(marker, "click", function () {
+                          if (currentOverlay) {
+                            currentOverlay.setMap(null); // 이전 오버레이 숨김
+                          }
+                          customOverlay.setMap(map);
+                          currentOverlay = customOverlay; // 현재 활성화된 오버레이 저장
+                        });
+
+                        // 기존 mouseover, mouseout 이벤트는 필요 없으므로 제거
                       }
                       resolve(marker);
                     } else {
@@ -160,7 +191,7 @@ export default function Page() {
         createMap();
       })
       .catch((error) => {
-        console.error("Error loading Kakao Maps script:", error);
+        console.error("카카오맵을 로드하지 못했습니다.", error);
       });
 
     return () => {
@@ -174,13 +205,12 @@ export default function Page() {
 
   const customMarker = (lat: number, lng: number) => {
     if (!window.kakao || !window.kakao.maps) {
-      console.error("Kakao Maps is not loaded.");
       return null;
     }
 
     const imageSrc = "/images/icons/icon-marker.png";
     const imageSize = new window.kakao.maps.Size(50, 60);
-    const imageOption = { offset: new window.kakao.maps.Point(13, 42) };
+    const imageOption = { offset: new window.kakao.maps.Point(25, 60) };
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
     const markerPosition = new window.kakao.maps.LatLng(lat, lng);
@@ -191,6 +221,16 @@ export default function Page() {
     });
 
     return marker;
+  };
+
+  const paginatedProducts = visibleMarkers.slice(
+    //visibleMarkers 부분에 기존 배열데이터의 변수명을 입력
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage,
+  );
+
+  const handlePageChange = (selectedPage: number) => {
+    setCurrentPage(selectedPage); // 선택한 페이지로 변경
   };
 
   return (
@@ -212,52 +252,57 @@ export default function Page() {
           </div>
         ) : (
           <ul className="w-full h-full">
-            {visibleMarkers.map((markerData) => (
-              <li key={markerData.title} className="mb-3">
-                <Link href={`/brewery/${markerData.id}`}>
-                  <div className="flex justify-between border border-gray rounded-xl py-4 relative">
-                    <div className="flex flex-col">
-                      <div className="flex flex-col description text-gray ml-6">
-                        <h2 className="flex flex-col contentMedium text-black mb-2">
-                          {markerData.title}
-                        </h2>
-                        {markerData.activity.length > 0 && (
-                          <span className="absolute text-[10px] text-primary border-primary border-[1px] w-[54px] h-[25px] p-1 flex items-center justify-center rounded-xl right-4 mb-2">
-                            체험 가능
-                          </span>
-                        )}
+            {paginatedProducts &&
+              paginatedProducts.map((markerData) => (
+                <li key={markerData.title} className="mb-3">
+                  <Link href={`/brewery/${markerData.id}`}>
+                    <div className="justify-between list-item rounded-xl py-4 relative">
+                      <div className="flex flex-col">
+                        <div className="flex flex-col description text-gray ml-6">
+                          <h2 className="flex flex-col contentMedium text-black mb-2">
+                            {markerData.title}
+                          </h2>
+                          {markerData.activity.length > 0 && (
+                            <span className="absolute text-[10px] text-primary border-primary border-[1px] w-[54px] h-[25px] p-1 flex items-center justify-center rounded-xl right-4 mb-2">
+                              체험 가능
+                            </span>
+                          )}
 
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td className=" text-black">주소</td>
-                              <td className="pr-1">|</td>
-                              <td className=" overflow-hidden text-ellipsis line-clamp-1">
-                                {markerData.location}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className=" text-black">대표술</td>
-                              <td className="pr-1">|</td>
-                              <td className="pr-5 overflow-hidden text-ellipsis line-clamp-1">
-                                {markerData.main}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className="w-16 text-black">전화번호</td>
-                              <td className="pr-1">|</td>
-                              <td className="">{markerData.phone}</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td className=" text-black">주소</td>
+                                <td className="pr-1">|</td>
+                                <td className=" overflow-hidden text-ellipsis line-clamp-1">
+                                  {markerData.location}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className=" text-black">대표술</td>
+                                <td className="pr-1">|</td>
+                                <td className="pr-5 overflow-hidden text-ellipsis line-clamp-1">
+                                  {markerData.main}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="w-16 text-black">전화번호</td>
+                                <td className="pr-1">|</td>
+                                <td className="">{markerData.phone}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </li>
-            ))}
+                  </Link>
+                </li>
+              ))}
           </ul>
         )}
+        <Pagination
+          pageCount={Math.ceil(visibleMarkers.length / itemsPerPage)} // 총 페이지 수 계산
+          onPageChange={handlePageChange} // 페이지 변경 시 실행
+        />
       </div>
     </div>
   );
