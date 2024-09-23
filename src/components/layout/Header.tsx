@@ -37,6 +37,9 @@ export default function Header() {
       router.push("/login");
     }
   };
+  console.log(token);
+  console.log(cartData);
+  console.log(cartData?.item.length == 0);
 
   return (
     <header
@@ -59,9 +62,7 @@ export default function Header() {
           </Link>
 
           <div
-            className={`relative w-[40px] h-[40px] ${
-              cartData?.item.length === (0 || undefined) ? "" : "redCircle"
-            }`}
+            className={`relative w-[40px] h-[40px] ${!cartData?.item || cartData.item.length === 0 ? "" : "redCircle"}`}
           >
             <Image
               className="w-full h-full cursor-pointer"
