@@ -35,18 +35,18 @@ export default function ReplyItem({ item }: { item: ProductReplies }) {
               />
               {openModal === index && (
                 <div className="modal">
-                  <div>
-                    <Image
-                      alt={`${item.user.name + index}`}
-                      fill={true}
-                      src={API_SERVER + image.path}
-                      className="modal-content"
-                      onClick={handleImageClose}
-                    />
+                  <Image
+                    alt={`${item.user.name + index}`}
+                    fill={true}
+                    src={API_SERVER + image.path}
+                    className="modal-content"
+                    onClick={handleImageClose}
+                  />
+                  <div className="close-box">
+                    <button onClick={handleImageClose} className="close">
+                      x
+                    </button>
                   </div>
-                  <button onClick={handleImageClose} className="close">
-                    x
-                  </button>
                 </div>
               )}
             </div>
