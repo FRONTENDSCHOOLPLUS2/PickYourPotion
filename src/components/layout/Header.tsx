@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,12 +11,14 @@ import logo from "../../../public/images/LOGO.png";
 import { fetchGetCart } from "@/app/cart/page";
 import { CartPageProps } from "@/app/cart/CartPage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { InfoToast } from "@/toast/InfoToast";
 
 export default function Header() {
   const { data: session } = useSession();
   const token = session?.accessToken;
   const pathname = usePathname();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { data: cartData } = useQuery<CartPageProps>({
     queryKey: ["cart"],
@@ -26,6 +28,15 @@ export default function Header() {
   });
 
   queryClient.invalidateQueries({ queryKey: ["cart"] });
+
+  const handleCartPage = () => {
+    if (session) {
+      router.push("/cart");
+    } else {
+      InfoToast("로그인 후 이용하실 수 있습니다.");
+      router.push("/login");
+    }
+  };
 
   return (
     <header
@@ -46,21 +57,21 @@ export default function Header() {
               priority
             />
           </Link>
-          <Link href="/cart">
-            <div
-              className={`relative w-[40px] h-[40px] ${
-                cartData?.item.length === 0 ? "" : "redCircle"
-              }`}
-            >
-              <Image
-                className="w-full h-full"
-                src={cart}
-                alt="장바구니 아이콘"
-                width={40}
-                height={40}
-              />
-            </div>
-          </Link>
+
+          <div
+            className={`relative w-[40px] h-[40px] ${
+              cartData?.item.length === (0 || undefined) ? "" : "redCircle"
+            }`}
+          >
+            <Image
+              className="w-full h-full cursor-pointer"
+              src={cart}
+              alt="장바구니 아이콘"
+              width={40}
+              height={40}
+              onClick={handleCartPage}
+            />
+          </div>
         </div>
       </div>
       <ul className="flex flex-row items-end justify-between px-4 pb-3 w-[inherit] h-12 border-b bg-white border-b-zinc-200 navTitleMedium">
