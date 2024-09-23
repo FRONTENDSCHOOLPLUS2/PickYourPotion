@@ -37,9 +37,6 @@ export default function Header() {
       router.push("/login");
     }
   };
-  console.log(token);
-  console.log(cartData);
-  console.log(cartData?.item.length == 0);
 
   return (
     <header
