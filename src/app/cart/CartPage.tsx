@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from "react";
 import { certificationCallback, getUserInfo } from "../adult/action";
 import Image from "next/image";
 import empty from "../../../public/images/empty.png";
-import { fetchGetCart } from "./page";
+import { fetchGetCart } from "./cart";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface CartPageProps {

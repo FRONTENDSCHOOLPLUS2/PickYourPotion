@@ -13,7 +13,7 @@ export interface ProductStore {
   image: string;
   setImage: (image: string) => void;
   quantity: number;
-  setQuantity?: (quantity: number) => void;
+  setQuantity: (quantity: number) => void;
   brewery: string;
   setBrewery: (brewery: string) => void;
   alcohol: string;
