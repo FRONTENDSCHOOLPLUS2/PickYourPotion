@@ -8,6 +8,7 @@ import AdminInput from "../AdminInput";
 import AdminSelect from "../AdminSelect";
 import { InfoToast } from "@/toast/InfoToast";
 import { errorToast } from "@/toast/errorToast";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   price: number; // 가격
@@ -50,6 +51,7 @@ interface Extra {
 
 export default function ProductRegister() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -170,6 +172,7 @@ export default function ProductRegister() {
 
       if (response.ok) {
         InfoToast("상품이 정상적으로 등록되었습니다.");
+        router.push("/admin/products");
       } else {
         const errorData = await response.json();
         InfoToast(`상품 등록에 실패했습니다. ${errorData.message}`);
@@ -381,7 +384,6 @@ export default function ProductRegister() {
         />
         {errors.content && <p className="text-red-500 mt-1">{errors.content.message}</p>}
       </div>
-      {/* 등록한 상품의 디테일로 이동 */}
       <Button type="submit" className="w-full h-16 mb-10 border subTitleLight">
         {"상품 등록"}
       </Button>
