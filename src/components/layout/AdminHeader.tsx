@@ -22,7 +22,7 @@ function AdminHeader() {
             </Link>
           </li>
           <li>
-            <Link href="#" className="flex items-center my-5">
+            <Link href="/admin/products" className="flex items-center my-5">
               <WriteReviewIcon className="fill-whiteGray" />
               <span className="inline-block pt-1">등록 상품 관리</span>
             </Link>
