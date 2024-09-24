@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { fetchGetCart } from "../page";
+import { fetchGetCart } from "../cart";
 import PayPage from "./PayPage";
 
 export default async function page() {
