@@ -7,6 +7,7 @@ import OrderDetail from "@/components/OrderDetail";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { ImageProps } from "@/app/order/order";
+import { InfoToast } from "@/toast/InfoToast";
 
 interface Product {
   _id: number;
@@ -28,10 +29,34 @@ export async function getProductsList(apiServer: string, clientId: string, token
     });
 
     const result = await response.json();
-    console.log(result);
+    console.log(token);
     return result.item;
   } catch (error) {
     console.error("네트워크 오류 발생", error);
+  }
+}
+
+export async function deleteProduct(
+  apiServer: string,
+  clientId: string,
+  token: string,
+  productId: number,
+) {
+  const url = `${apiServer}/seller/products/${productId}`;
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "client-id": clientId,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("상품 삭제에 실패했습니다.");
+    }
+  } catch (error) {
+    console.error("상품 삭제 오류 발생", error);
   }
 }
 
@@ -47,6 +72,16 @@ export default function Product() {
 
   const handleRegisterClick = () => {
     router.push("/admin/register");
+  };
+
+  const handleDeleteClick = async (productId: number) => {
+    if (API_SERVER && CLIENT_ID && token) {
+      await deleteProduct(API_SERVER, CLIENT_ID, token, productId);
+      setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+      InfoToast("상품이 삭제되었습니다.");
+    } else {
+      console.error("API 서버, 클라이언트 ID 또는 토큰이 정의되어 있지 않습니다.");
+    }
   };
 
   useEffect(() => {
@@ -71,7 +106,10 @@ export default function Product() {
               quantity={product.quantity}
               className="border round border-gray p-[15px] mb-[10px]"
             />
-            <Button className="rounded-3xl text-xs absolute z-50 right-5 top-1/2 transform -translate-y-1/2">
+            <Button
+              className="rounded-3xl text-xs absolute z-50 right-5 top-1/2 transform -translate-y-1/2"
+              onClick={() => handleDeleteClick(product._id)}
+            >
               삭제
             </Button>
           </div>
