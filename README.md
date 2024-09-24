@@ -2,7 +2,7 @@
 
 ---
 
-배포 URL : https://pick-your-potion.verce
+배포 URL : https://pick-your-potion.vercel.app/
 
 ## 1. 프로젝트 소개
 
