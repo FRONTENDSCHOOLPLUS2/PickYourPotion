@@ -8,7 +8,7 @@ import Link from "next/link";
 import cart from "../../../public/images/icons/icon-cart.svg";
 import search from "../../../public/images/icons/icon-search.svg";
 import logo from "../../../public/images/LOGO.png";
-import { fetchGetCart } from "@/app/cart/page";
+import { fetchGetCart } from "@/app/cart/cart";
 import { CartPageProps } from "@/app/cart/CartPage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { InfoToast } from "@/toast/InfoToast";
