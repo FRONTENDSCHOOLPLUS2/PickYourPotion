@@ -1,5 +1,8 @@
 "use client";
 
+import "./slide.css";
+
+import React, { ChangeEvent } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/Button";
 import { useRef, useState } from "react";
@@ -79,6 +82,7 @@ export default function ProductRegister() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -168,7 +172,6 @@ export default function ProductRegister() {
       });
 
       const result = await response.json();
-      console.log("API 응답:", result); // 서버 응답 확인용 로그
 
       if (response.ok) {
         InfoToast("상품이 정상적으로 등록되었습니다.");
@@ -180,6 +183,12 @@ export default function ProductRegister() {
     } catch (error) {
       errorToast("네트워크 오류가 발생했습니다.");
     }
+  };
+
+  const onSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    // 슬라이더의 현재 값에 따라 바 색상을 설정
+    e.target.style.setProperty("--value", `${(value / 5) * 100}%`); // 0~5 범위로 설정
   };
 
   return (
@@ -283,64 +292,112 @@ export default function ProductRegister() {
       </div>
       {/* 당도 */}
       <div>
-        <AdminInput
+        <label htmlFor="extra.taste.sweet" className="block text-sm font-medium">
+          당도
+        </label>
+        <input
+          type="range"
           id="extra.taste.sweet"
-          type="text"
-          labelChildren="당도"
-          register={register("extra.taste.sweet", { required: "당도를 입력해주세요." })}
+          min="0"
+          max="5"
+          step="1"
+          defaultValue="0"
+          className="w-full"
+          {...register("extra.taste.sweet", {
+            required: "당도를 입력해주세요.",
+            onChange: onSliderChange,
+          })}
         />
+        <p className="text-gray-500">선택한 당도: {watch("extra.taste.sweet")}</p>
         {errors.extra?.taste?.sweet && (
-          <p className="text-red-500 mt-1">{errors.extra?.taste.sweet.message}</p>
+          <p className="text-red-500 mt-1">{errors.extra.taste.sweet.message}</p>
         )}
       </div>
+
       {/* 산미 */}
       <div>
-        <AdminInput
+        <label htmlFor="extra.taste.acidity" className="block text-sm font-medium">
+          산미
+        </label>
+        <input
+          type="range"
           id="extra.taste.acidity"
-          type="text"
-          labelChildren="산미"
-          register={register("extra.taste.acidity", { required: "산미를 입력해주세요." })}
+          min="0"
+          max="5"
+          step="1"
+          defaultValue="0"
+          className="w-full"
+          {...register("extra.taste.acidity", { required: "산미를 입력해주세요." })}
         />
+        <p className="text-gray-500">선택한 산미: {watch("extra.taste.acidity")}</p>
         {errors.extra?.taste?.acidity && (
-          <p className="text-red-500 mt-1">{errors.extra?.taste.acidity.message}</p>
+          <p className="text-red-500 mt-1">{errors.extra.taste.acidity.message}</p>
         )}
       </div>
+
       {/* 바디감 */}
       <div>
-        <AdminInput
+        <label htmlFor="extra.taste.body" className="block text-sm font-medium">
+          바디감
+        </label>
+        <input
+          type="range"
           id="extra.taste.body"
-          type="text"
-          labelChildren="바디감"
-          register={register("extra.taste.body", { required: "바디감을 입력해주세요." })}
+          min="0"
+          max="5"
+          step="1"
+          defaultValue="0"
+          className="w-full"
+          {...register("extra.taste.body", { required: "바디감을 입력해주세요." })}
         />
+        <p className="text-gray-500">선택한 바디감: {watch("extra.taste.body")}</p>
         {errors.extra?.taste?.body && (
-          <p className="text-red-500 mt-1">{errors.extra?.taste?.body.message}</p>
+          <p className="text-red-500 mt-1">{errors.extra.taste.body.message}</p>
         )}
       </div>
-      {/* 씁슬함 */}
+
+      {/* 씁쓸함 */}
       <div>
-        <AdminInput
+        <label htmlFor="extra.taste.bitter" className="block text-sm font-medium">
+          씁쓸함
+        </label>
+        <input
+          type="range"
           id="extra.taste.bitter"
-          type="text"
-          labelChildren="씁슬함"
-          register={register("extra.taste.bitter", { required: "씁슬함을 입력해주세요." })}
+          min="0"
+          max="5"
+          step="1"
+          defaultValue="0"
+          className="w-full"
+          {...register("extra.taste.bitter", { required: "씁쓸함을 입력해주세요." })}
         />
+        <p className="text-gray-500">선택한 씁쓸함: {watch("extra.taste.bitter")}</p>
         {errors.extra?.taste?.bitter && (
-          <p className="text-red-500 mt-1">{errors.extra?.taste.bitter.message}</p>
+          <p className="text-red-500 mt-1">{errors.extra.taste.bitter.message}</p>
         )}
       </div>
+
       {/* 탄산 */}
       <div>
-        <AdminInput
+        <label htmlFor="extra.taste.sparkle" className="block text-sm font-medium">
+          탄산
+        </label>
+        <input
+          type="range"
           id="extra.taste.sparkle"
-          type="text"
-          labelChildren="탄산"
-          register={register("extra.taste.sparkle", { required: "탄산을 입력해주세요." })}
+          min="0"
+          max="5"
+          step="1"
+          defaultValue="0"
+          className="w-full"
+          {...register("extra.taste.sparkle", { required: "탄산을 입력해주세요." })}
         />
+        <p className="text-gray-500">선택한 탄산: {watch("extra.taste.sparkle")}</p>
         {errors.extra?.taste?.sparkle && (
-          <p className="text-red-500 mt-1">{errors.extra?.taste.sparkle.message}</p>
+          <p className="text-red-500 mt-1">{errors.extra.taste.sparkle.message}</p>
         )}
       </div>
+
       {/* 소비기한 */}
       <div>
         <AdminInput
