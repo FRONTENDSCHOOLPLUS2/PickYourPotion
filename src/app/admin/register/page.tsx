@@ -327,7 +327,10 @@ export default function ProductRegister() {
           step="1"
           defaultValue="0"
           className="w-full"
-          {...register("extra.taste.acidity", { required: "산미를 입력해주세요." })}
+          {...register("extra.taste.acidity", {
+            required: "산미를 입력해주세요.",
+            onChange: onSliderChange,
+          })}
         />
         <p className="text-gray-500">선택한 산미: {watch("extra.taste.acidity")}</p>
         {errors.extra?.taste?.acidity && (
@@ -348,7 +351,10 @@ export default function ProductRegister() {
           step="1"
           defaultValue="0"
           className="w-full"
-          {...register("extra.taste.body", { required: "바디감을 입력해주세요." })}
+          {...register("extra.taste.body", {
+            required: "바디감을 입력해주세요.",
+            onChange: onSliderChange,
+          })}
         />
         <p className="text-gray-500">선택한 바디감: {watch("extra.taste.body")}</p>
         {errors.extra?.taste?.body && (
@@ -369,7 +375,10 @@ export default function ProductRegister() {
           step="1"
           defaultValue="0"
           className="w-full"
-          {...register("extra.taste.bitter", { required: "씁쓸함을 입력해주세요." })}
+          {...register("extra.taste.bitter", {
+            required: "씁쓸함을 입력해주세요.",
+            onChange: onSliderChange,
+          })}
         />
         <p className="text-gray-500">선택한 씁쓸함: {watch("extra.taste.bitter")}</p>
         {errors.extra?.taste?.bitter && (
@@ -390,7 +399,10 @@ export default function ProductRegister() {
           step="1"
           defaultValue="0"
           className="w-full"
-          {...register("extra.taste.sparkle", { required: "탄산을 입력해주세요." })}
+          {...register("extra.taste.sparkle", {
+            required: "탄산을 입력해주세요.",
+            onChange: onSliderChange,
+          })}
         />
         <p className="text-gray-500">선택한 탄산: {watch("extra.taste.sparkle")}</p>
         {errors.extra?.taste?.sparkle && (
