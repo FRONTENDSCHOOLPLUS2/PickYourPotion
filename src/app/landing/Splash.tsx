@@ -17,7 +17,7 @@ function Splash() {
   return (
     <>
       {showSplash && (
-        <div className="animate-[fadeout_1s_ease-in_3s_forwards] fixed top-0 w-[inherit] h-full flex justify-center items-center gap-5 bg-ivory text-primary">
+        <div className="animate-[fadeout_1s_ease-in_3s_forwards] fixed top-0 max-w-[inherit] w-[inherit] h-screen flex justify-center items-center gap-5 bg-ivory text-primary">
           <div className="text-center">
             <p
               className={twMerge(
