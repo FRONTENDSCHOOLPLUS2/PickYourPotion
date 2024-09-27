@@ -8,7 +8,7 @@ import itemdelete from "../../public/images/icons/icon-trash.svg";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { fetchGetCart } from "@/app/cart/page";
+import { fetchGetCart } from "@/app/cart/cart";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface CartCardProps {

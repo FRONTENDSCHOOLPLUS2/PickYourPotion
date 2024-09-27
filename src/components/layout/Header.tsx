@@ -1,28 +1,52 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 import cart from "../../../public/images/icons/icon-cart.svg";
 import search from "../../../public/images/icons/icon-search.svg";
 import logo from "../../../public/images/LOGO.png";
+import { fetchGetCart } from "@/app/cart/cart";
+import { CartPageProps } from "@/app/cart/CartPage";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { InfoToast } from "@/toast/InfoToast";
 
 export default function Header() {
-  const { data: session } = useSession(); // 로그인 세션 정보 가져오기
+  const { data: session } = useSession();
+  const token = session?.accessToken;
   const pathname = usePathname();
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const { data: cartData } = useQuery<CartPageProps>({
+    queryKey: ["cart"],
+    queryFn: () => fetchGetCart(token),
+    enabled: !!token,
+    refetchOnWindowFocus: true,
+  });
+
+  queryClient.invalidateQueries({ queryKey: ["cart"] });
+
+  const handleCartPage = () => {
+    if (session) {
+      router.push("/cart");
+    } else {
+      InfoToast("로그인 후 이용하실 수 있습니다.");
+      router.push("/login");
+    }
+  };
 
   return (
-    // landing, admin 페이지에선 Header 숨김처리
     <header
       className={`${(pathname.includes("landing") || pathname.includes("admin")) && "hidden"} sticky top-0 z-[100]`}
     >
       <div className="flex flex-row items-center justify-between py-3 w-[inherit] px-2 bg-white">
-        <Link href="/">
+        <Link href="/" className="pl-2">
           <Image src={logo} alt="조지주 홈으로" width={40} height={25} />
         </Link>
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
           <Link href="/search">
             <Image
               className="w-[40px] h-[40px]"
@@ -33,15 +57,19 @@ export default function Header() {
               priority
             />
           </Link>
-          <Link href="/cart">
+
+          <div
+            className={`relative w-[40px] h-[40px] ${!cartData?.item || cartData.item.length === 0 ? "" : "redCircle"}`}
+          >
             <Image
-              className="w-[40px] h-[40px]"
+              className="w-full h-full cursor-pointer"
               src={cart}
               alt="장바구니 아이콘"
               width={40}
               height={40}
+              onClick={handleCartPage}
             />
-          </Link>
+          </div>
         </div>
       </div>
       <ul className="flex flex-row items-end justify-between px-4 pb-3 w-[inherit] h-12 border-b bg-white border-b-zinc-200 navTitleMedium">

@@ -63,8 +63,8 @@ export default async function RootLayout({
         <body className="bg-[#ffe8d2]">
           <div className="max-w-[428px] w-full m-auto min-h-screen bg-white overflow-x-auto hide-scrollbar">
             <SessionProvider>
-              <Header />
               <TanstackProvider>
+                <Header />
                 <ToastContainer />
                 <ChannelTalkManager order={orderList.ok === 1 && orderList?.item[0]} />
                 {children}
