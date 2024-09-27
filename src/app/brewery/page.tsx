@@ -299,10 +299,12 @@ export default function Page() {
               ))}
           </ul>
         )}
-        <Pagination
-          pageCount={Math.ceil(visibleMarkers.length / itemsPerPage)} // 총 페이지 수 계산
-          onPageChange={handlePageChange} // 페이지 변경 시 실행
-        />
+        {visibleMarkers.length > 0 && (
+          <Pagination
+            pageCount={Math.ceil(visibleMarkers.length / itemsPerPage)} // 총 페이지 수 계산
+            onPageChange={handlePageChange} // 페이지 변경 시 실행
+          />
+        )}
       </div>
     </div>
   );
