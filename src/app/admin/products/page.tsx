@@ -18,7 +18,7 @@ interface Product {
   extra?: { brewery?: string };
 }
 
-export async function getProductsList(apiServer: string, clientId: string, token: string) {
+async function getProductsList(apiServer: string, clientId: string, token: string) {
   const url = `${apiServer}/seller/products/`;
   try {
     const response = await fetch(url, {
@@ -36,7 +36,7 @@ export async function getProductsList(apiServer: string, clientId: string, token
   }
 }
 
-export async function deleteProduct(
+async function deleteProduct(
   apiServer: string,
   clientId: string,
   token: string,
