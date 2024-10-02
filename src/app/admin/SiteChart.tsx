@@ -7,15 +7,30 @@ import {
   type ChartConfig,
 } from "@/components/Chart";
 import { Bar, BarChart, XAxis } from "recharts";
+import { useState, useEffect } from "react";
 
-const chartData = [
-  { day: "09/12", 신규주문: 186, 신규회원: 80 },
-  { day: "09/13", 신규주문: 305, 신규회원: 200 },
-  { day: "09/14", 신규주문: 237, 신규회원: 120 },
-  { day: "09/15", 신규주문: 73, 신규회원: 190 },
-  { day: "09/16", 신규주문: 209, 신규회원: 130 },
-  { day: "09/17", 신규주문: 214, 신규회원: 140 },
-];
+interface ChartData {
+  day: string;
+  신규주문: number;
+  신규회원: number;
+}
+
+function generateChartData(): ChartData[] {
+  const chartData: ChartData[] = [];
+  const today = new Date();
+
+  for (let i = 5; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const day = `${date.getMonth() + 1}/${String(date.getDate()).padStart(2, "0")}`;
+    const 신규주문 = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+    const 신규회원 = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+
+    chartData.push({ day, 신규주문, 신규회원 });
+  }
+
+  return chartData;
+}
 
 const chartConfig = {
   desktop: {
@@ -29,6 +44,12 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function SiteChart() {
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+
+  useEffect(() => {
+    setChartData(generateChartData());
+  }, []);
+
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={chartData}>
