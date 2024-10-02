@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import HomeIcon from "../icons/HomeIcon";
 import WriteReviewIcon from "../icons/WriteReviewIcon";
 import AccountIcon from "../icons/AccountIcon";
 import ListIcon from "../icons/ListIcon";
@@ -15,6 +16,12 @@ function AdminHeader() {
       {/* 태블릿 이상 nav */}
       <nav className="hidden md:block fixed top-0 left-0 max-w-52 h-screen bg-slate-700 pl-5 pr-7 py-4 leading-[0]">
         <ul className="text-whiteGray">
+          <li>
+            <Link href="/" className="flex items-center my-5">
+              <HomeIcon className="fill-whiteGray" />
+              <span className="inline-block pt-1">홈으로</span>
+            </Link>
+          </li>
           <li>
             <Link href="/admin/register" className="flex items-center my-5">
               <AddProductIcon className="fill-whiteGray" />
@@ -61,13 +68,19 @@ function AdminHeader() {
         </button>
         <ul className="text-whiteGray">
           <li>
+            <Link href="/" className="flex items-center my-5">
+              <HomeIcon className="fill-whiteGray" />
+              <span className="inline-block pt-1">홈으로</span>
+            </Link>
+          </li>
+          <li>
             <Link href="/admin/register" className="flex items-center my-5">
               <AddProductIcon className="fill-whiteGray" />
               <span className="inline-block pt-1">상품 등록</span>
             </Link>
           </li>
           <li>
-            <Link href="#" className="flex items-center my-5">
+            <Link href="/admin/products" className="flex items-center my-5">
               <WriteReviewIcon className="fill-whiteGray" />
               <span className="inline-block pt-1">등록 상품 관리</span>
             </Link>
