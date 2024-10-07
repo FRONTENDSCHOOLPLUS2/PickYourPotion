@@ -11,6 +11,7 @@ import PaymentCompleted from "./complete/page";
 import { InfoToast } from "@/toast/InfoToast";
 import OrderCard from "./OrderCard";
 import { CartPageProps } from "../CartPage";
+import { useRouter } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -26,6 +27,7 @@ export default function PayPage({ item, token }: CartPageProps) {
   const [updatedCartData, setUpdatedCartData] = useState(item);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -106,7 +108,7 @@ export default function PayPage({ item, token }: CartPageProps) {
         if (token) {
           await fetchOrder();
           await fetchCleanUpCart();
-          setCurrentPage(1);
+          router.push("/cart/pay/complete");
         } else {
           console.error("토큰이 없습니다.");
         }
