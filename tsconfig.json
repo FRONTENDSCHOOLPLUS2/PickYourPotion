@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["iamport-typings", "kakao.maps.d.ts"],
+    "types": ["iamport-typings", "kakao.maps.d.ts", "@shadcn/ui"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

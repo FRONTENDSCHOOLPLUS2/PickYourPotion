@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-interface ProductStore {
+export interface ProductStore {
   showDetail: boolean;
   setShowDetail: (showDetail: boolean) => void;
   _id: number;
@@ -18,6 +18,12 @@ interface ProductStore {
   setBrewery: (brewery: string) => void;
   alcohol: string;
   setAlcohol: (alcohol: string) => void;
+}
+
+interface CartProductStore {
+  cartData: ProductStore[];
+  addToCart?: (item: ProductStore) => void;
+  updateCartItem: (itemId: number, newQuantity: number) => void;
 }
 export const useProductStore = create<ProductStore>()(
   persist(
@@ -51,6 +57,40 @@ export const useProductStore = create<ProductStore>()(
         quantity: state.quantity,
         brewery: state.brewery,
         alcohol: state.alcohol,
+      }),
+    },
+  ),
+);
+export const useCartProductStore = create<CartProductStore>()(
+  persist(
+    (set) => ({
+      cartData: [],
+      addToCart: (item) =>
+        set((state) => {
+          const existingItem = state.cartData.find((cartItem) => cartItem._id === item._id);
+          if (existingItem) {
+            return state;
+          }
+          return {
+            cartData: [...state.cartData, item],
+          };
+        }),
+      updateCartItem: (itemId, newQuantity) =>
+        set((state) => {
+          const updatedCartData = state.cartData.map((cartItem) => {
+            if (cartItem._id === itemId) {
+              return { ...cartItem, quantity: newQuantity };
+            }
+            return cartItem;
+          });
+          return { cartData: updatedCartData };
+        }),
+    }),
+    {
+      name: "cart-product-storage",
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({
+        cartData: state.cartData,
       }),
     },
   ),

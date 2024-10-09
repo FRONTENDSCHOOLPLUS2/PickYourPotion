@@ -7,11 +7,13 @@ import teller from "../../../../public/images/icons/icon-teller.png";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Loading from "../../../app/loading";
 
 interface Activity {
   title: string;
   description: string;
-  price: number;
+  price: string;
+  activityLink: string;
 }
 interface Brewery {
   title: string;
@@ -55,7 +57,7 @@ export default function Page({ params }: { params: { id: number } }) {
     fetchBreweryData();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (!brewery) return <div>Brewery not found.</div>;
 
   return (
@@ -136,17 +138,19 @@ export default function Page({ params }: { params: { id: number } }) {
           {brewery.activity && brewery.activity.length > 0 ? (
             brewery.activity.map((act, subIndex) => (
               <li key={subIndex} className="flex flex-col mt-3">
-                <div className="border w-full py-6 px-7 rounded-[20px]">
-                  <span className="subTitleMedium">{act.title}</span>
-                  <p className="text-sm mt-3 text-ellipsis line-clamp-1 tracking-5percent-tight">
-                    {act.description}
-                  </p>
-                  <span className="flex justify-end mt-3 contentMedium">{act.price}</span>
-                </div>
+                <Link href={act.activityLink}>
+                  <div className="border w-full py-6 px-7 rounded-[20px]">
+                    <span className="subTitleMedium">{act.title}</span>
+                    <p className="text-sm mt-3 text-ellipsis line-clamp-1 tracking-5percent-tight">
+                      {act.description}
+                    </p>
+                    <span className="flex justify-end mt-3 contentMedium">{act.price}</span>
+                  </div>
+                </Link>
               </li>
             ))
           ) : (
-            <p></p> // 액티비티가 없을 경우 표시
+            <span></span>
           )}
         </ul>
       </div>

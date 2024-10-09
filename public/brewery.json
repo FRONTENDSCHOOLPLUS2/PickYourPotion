@@ -14,6 +14,7 @@
       "activity": [],
       "mainImage": "https://www.nongsaro.go.kr/cms_contents/1100/202753_MF_BIMG_01.jpg"
     },
+
     {
       "title": "배상면주가",
       "location": "경기도 포천시 화현면 화현리 512",
@@ -1240,7 +1241,7 @@
     },
     {
       "title": "인천탁주",
-      "location": "인천광역시 부평구 안남로 433번길 14",
+      "location": "인천광역시 부평구 안남로 433번길 26",
       "phone": "032-524-5016",
       "link": "http://sosungju.modoo.at/",
       "alwaysvisit": false,
@@ -1359,6 +1360,20 @@
       "content": "무주 구천동 머루와인및 산머루주는 덕유산이라는 무공해 청정지역을 배경으로 머루의 효능을 와인으로 제조향상에 더욱 노력할 것입니다.",
       "activity": [],
       "mainImage": "https://lh5.googleusercontent.com/proxy/jSLWoc0wvnHkLmR_Wogy5_-Rm2ryVagHayEu8cXr6sWnZnbamw7FJOIIrnX_PMvabp9MXbf9Zm12s2OJbXOZraIhAoPk5S4Vy4PiVSx4h3wwUA"
+    },
+    {
+      "title": "달성주조",
+      "location": "대구 달성군 논공읍 비슬로208길 10",
+      "phone": "0507-1367-1911",
+      "link": "https://dalseong.co/",
+      "alwaysvisit": false,
+      "reservation": true,
+      "visitcount": 2420,
+      "id": 56,
+      "main": "안개 막걸리 포그막",
+      "content": "달성주조는 대구의 서쪽 끝자락 비슬산 아래 낙동강이 흐르는 곳, 달성군(達城郡)의 한적한 마을에 있는 양조장입니다. 사계절의 변화가 뚜렷하여 아름다운 경관을 자랑하는 이곳에서, 자연을 재료로 순수한 술을 빚습니다. 우리 지역의 다양한 재료들이 고유한 향미를 낼 수 있는 최적의 조합을 찾기 위해 끊임없이 연구합니다.",
+      "activity": [],
+      "mainImage": "https://ecimg.cafe24img.com/pg422b96944887036/fogmag/web/upload/NNEditor/20230726/462eb47970d8bc5f5b484c410fbcfc08.jpg"
     }
   ]
 }

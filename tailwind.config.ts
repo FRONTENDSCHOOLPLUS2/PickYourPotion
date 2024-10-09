@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -166,7 +167,24 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, theme }: PluginAPI) {
+      addBase({
+        ":root": {
+          "--color-primary": theme("colors.primary"),
+          "--color-peach": theme("colors.peach"),
+          "--color-ivory": theme("colors.ivory"),
+          "--color-blue": theme("colors.blue"),
+          "--color-black": theme("colors.black"),
+          "--color-dark-gray": theme("colors.darkGray"),
+          "--color-gray": theme("colors.gray"),
+          "--color-light-gray": theme("colors.lightGray"),
+          "--color-white-gray": theme("colors.whiteGray"),
+          "--color-error": theme("colors.error"),
+        },
+      });
+    },
+  ],
 };
 
 export default config;

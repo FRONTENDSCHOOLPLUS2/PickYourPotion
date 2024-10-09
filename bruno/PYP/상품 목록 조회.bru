@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{URL}}/products
+  url: {{URL}}/products?page=2
   body: none
   auth: none
+}
+
+params:query {
+  page: 2
 }

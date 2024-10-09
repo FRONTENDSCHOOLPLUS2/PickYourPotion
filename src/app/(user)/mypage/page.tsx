@@ -45,7 +45,7 @@ export default function MyPage() {
   return (
     <main className="px-[25px]">
       <div className="px-3">
-        <h1 className="mt-[114px] text-2xl font-medium">{`${name}님`}</h1>
+        <h1 className="mt-14 text-2xl font-medium">{`${name}님`}</h1>
         <p className="text-2xl font-medium">안녕하세요👋🏻</p>
       </div>
       <MyPageButton />

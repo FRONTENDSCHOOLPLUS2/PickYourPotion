@@ -8,6 +8,8 @@ import itemdelete from "../../public/images/icons/icon-trash.svg";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { fetchGetCart } from "@/app/cart/cart";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface CartCardProps {
   name?: string;
@@ -71,6 +73,7 @@ export default function CartCard({
   _id,
   handleQuantityChange,
 }: CartCardProps) {
+  const queryClient = useQueryClient();
   const session = useSession();
   const router = useRouter();
   const token = session.data?.accessToken;
@@ -80,7 +83,47 @@ export default function CartCard({
 
   const productTotalPrice = quantity * price;
 
-  const handleAddClick = async (count: number) => {
+  const { mutate: changeCart } = useMutation({
+    mutationFn(newQuantity: number) {
+      if (token) {
+        return fetchChangeCart(_id, newQuantity, token);
+      }
+      return Promise.reject(new Error("토큰이 없습니다."));
+    },
+    onSuccess(resData) {
+      if (resData) {
+        setQuantity(resData.quantity);
+        handleQuantityChange(resData.quantity);
+        queryClient.invalidateQueries({
+          queryKey: ["cart", { exact: true }],
+        });
+      } else {
+        console.error(resData);
+      }
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  // 카드 삭제를 위한 mutate 함수
+  const { mutate: deleteCart } = useMutation({
+    mutationFn() {
+      if (token) {
+        return fetchDeleteCartCard(_id, token);
+      }
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
+      return Promise.reject(new Error("토큰이 없습니다."));
+    },
+
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  const handleAddClick = (count: number) => {
     if (!token) {
       alert("장바구니 추가를 하려면 로그인해야 합니다.");
       return router.push("/login");
@@ -88,21 +131,14 @@ export default function CartCard({
 
     const newQuantity = quantity + count;
 
-    try {
-      if (newQuantity === 0) {
-        await fetchDeleteCartCard(_id, token);
-        handleQuantityChange(newQuantity);
-        setQuantity(newQuantity);
-      } else {
-        await fetchChangeCart(_id, newQuantity, token);
-        setQuantity(newQuantity);
-        handleQuantityChange(newQuantity);
-      }
-    } catch (error) {
-      alert("수량을 변경하는 중 오류가 발생했습니다.");
+    if (newQuantity === 0) {
+      setQuantity(newQuantity);
+      handleQuantityChange(newQuantity);
+      deleteCart();
+    } else {
+      changeCart(newQuantity);
     }
   };
-
   return (
     <>
       {quantity !== 0 && (
@@ -124,12 +160,18 @@ export default function CartCard({
           <div className="flex flex-col items-center justify-between py-2 ml-2 w-auto relative">
             <div className="flex flex-row items-center w-[85px] justify-between my-2">
               {quantity > 1 ? (
-                <Image src={minus} alt="마이너스 아이콘" onClick={() => handleAddClick(-1)} />
+                <button onClick={() => handleAddClick(-1)}>
+                  <Image src={minus} alt="마이너스 아이콘" />
+                </button>
               ) : (
-                <Image src={itemdelete} alt="삭제 아이콘" onClick={() => handleAddClick(-1)} />
+                <button onClick={() => handleAddClick(-1)}>
+                  <Image src={itemdelete} alt="삭제 아이콘" />
+                </button>
               )}
               <span className="contentMedium">{quantity}</span>
-              <Image src={plus} alt="플러스 아이콘" onClick={() => handleAddClick(1)} />
+              <button onClick={() => handleAddClick(1)}>
+                <Image src={plus} alt="플러스 아이콘" />
+              </button>
             </div>
             <span className="contentMedium tracking-5percent-tight">
               {productTotalPrice.toLocaleString()} 원

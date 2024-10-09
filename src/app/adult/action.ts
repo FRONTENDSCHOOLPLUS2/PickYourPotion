@@ -42,6 +42,25 @@ const updateUserIsAdult = async (userId: string, extraInfo: object, accessToken:
   });
   return res.json();
 };
+// 어드민 정보의 extra값에 {isAdult: false}를 업데이트하는 함수
+export const updateAdminIsAdult = async (
+  userId: string,
+  extraInfo: object,
+  accessToken: string,
+) => {
+  const res = await fetch(`${API_SERVER}/users/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "client-id": `${CLIENT_ID}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      extra: { ...extraInfo, isAdult: false },
+    }),
+  });
+  return res.json();
+};
 
 // 포트원 서버로부터 access-token을 받아오는 함수
 export const getToken = async () => {

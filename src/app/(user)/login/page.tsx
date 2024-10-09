@@ -1,10 +1,9 @@
 "use client";
-
 import { signInWithGoogle, signInWithDiscord } from "../../../model/action/userAction";
 import Image from "next/image";
-
 import iconGoogle from "../../../../public/images/icons/icon-google.svg";
 import iconDiscord from "../../../../public/images/icons/icon-discord.svg";
+import FastLogin from "./FastLogin";
 
 export default function Page() {
   return (
@@ -16,6 +15,8 @@ export default function Page() {
         </p>
       </div>
       <div className="w-full flex flex-col gap-5 contentMedium text-darkGray mb-24">
+        <FastLogin />
+
         <button
           onClick={() => signInWithDiscord()}
           className="flex py-3 px-10 justify-center items-center text-white  bg-[#5865F2] rounded-[44px]"

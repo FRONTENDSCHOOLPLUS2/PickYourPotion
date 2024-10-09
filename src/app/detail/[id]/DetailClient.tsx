@@ -10,12 +10,15 @@ import Buying from "./Buying";
 import AddCart from "./AddCart";
 import { useProductStore } from "@/zustand/Store";
 import DegreeBar from "@/components/DegreeBar";
-export default function DetailClient() {
+import BookMarkButton from "./BookMarkButton";
+
+export default function DetailClient({ token }: { token: string | undefined }) {
   let { id } = useParams();
   const { data } = useQuery({
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id as string),
   });
+
   let content;
   let category = data?.extra.category[0];
   const { setId, showDetail, setShowDetail, setName, setPrice, setImage, setBrewery, setAlcohol } =
@@ -85,7 +88,10 @@ export default function DetailClient() {
       <div className="relative py-8 mt-[-35px] max-w-full bg-white topRound topShadow shadow-2xl">
         <div className="flex flex-col justify-between px-10">
           <p className="content text-darkGray text-ellipsis ">{data?.extra.brewery}</p>
-          <h1 className="flex items-center titleMedium">{data?.name}</h1>
+          <div className="flex flex-row justify-between">
+            <h1 className="flex items-center titleMedium">{data?.name}</h1>
+            <BookMarkButton token={token} productId={id} />
+          </div>
           <p className="mt-1 contentMedium text-ellipsis">{data?.price.toLocaleString()}원</p>
         </div>
 

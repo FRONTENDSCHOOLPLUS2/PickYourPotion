@@ -1,0 +1,15 @@
+meta {
+  name: 상품 삭제
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{URL}}/seller/products/77
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
