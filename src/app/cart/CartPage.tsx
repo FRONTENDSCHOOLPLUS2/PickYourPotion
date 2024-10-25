@@ -9,12 +9,14 @@ import { useState, useEffect, useCallback } from "react";
 import { certificationCallback, getUserInfo } from "../adult/action";
 import Image from "next/image";
 import empty from "../../../public/images/empty.png";
+import { fetchGetCart } from "./cart";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface CartPageProps {
-  // _id: number;
-  cartData: {
+  item: {
     _id: number;
     product: {
+      _id: number;
       name: string;
       extra: {
         brewery: string;
@@ -29,48 +31,71 @@ export interface CartPageProps {
     };
     quantity: number;
   }[];
+  cost?: {
+    products: number;
+    shippingFees: number;
+    discount: {
+      products: number;
+      shippingFees: number;
+    };
+    total: number;
+  };
+  token: string | undefined;
 }
 
-export async function fetchAddCart(accessToken: string) {
-  const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const url = `${API_SERVER}/carts`;
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-      "client-id": `${CLIENT_ID}`,
-    },
+export default function CartPage({ token }: { token: string | undefined }) {
+  const session = useSession();
+
+  const { data, refetch } = useQuery<CartPageProps>({
+    queryKey: ["cart"],
+    queryFn: () => fetchGetCart(token),
+    staleTime: 1000,
   });
-  const resJson = await res.json();
-  if (!resJson.ok) {
-    throw new Error("error");
-  }
-  return resJson.cost;
-}
 
-//전체 가격 불러오기
-export default function CartPage({ cartData }: CartPageProps) {
+  const [cartItems, setCartItems] = useState<CartPageProps["item"]>([]);
   const [totalCost, setTotalCost] = useState<number>(0);
   const [products, setProducts] = useState<number>(0);
   const [shippingFees, setShippingFees] = useState<number>(3000);
 
+  const queryClient = useQueryClient();
   const router = useRouter();
-  const session = useSession();
-  const token = session.data?.accessToken;
 
-  const fetchCartData = useCallback(async () => {
-    if (token) {
-      try {
-        const cost = await fetchAddCart(token);
-        setTotalCost(cost.total);
-        setProducts(cost.products);
-        setShippingFees(cost.shippingFees);
-      } catch (error) {
-        console.error("Error fetching cost data:", error);
+  const { mutate } = useMutation({
+    mutationFn() {
+      return fetchGetCart(token);
+    },
+    onSuccess(resData) {
+      if (resData) {
+        setCartItems(resData.item);
+        setTotalCost(resData.cost.total);
+        setProducts(resData.cost.products);
+        setShippingFees(resData.cost.shippingFees);
+        refetch();
+        queryClient.invalidateQueries({
+          queryKey: ["cart"],
+        });
+      } else {
+        console.error(resData);
       }
-    }
-  }, [token]);
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  // const fetchCartData = useCallback(async () => {
+  //   if (token) {
+  //     try {
+  //       const res = await fetchGetCart(token);
+  //       setCartItems(res.item);
+  //       setTotalCost(res.cost.total);
+  //       setProducts(res.cost.products);
+  //       setShippingFees(res.cost.shippingFees);
+  //     } catch (error) {
+  //       console.error("Error fetching cost data:", error);
+  //     }
+  //   }
+  // }, [token]);
 
   // url의 request값을 받아와 변수에 저장
   const request = useSearchParams().get("request");
@@ -100,12 +125,8 @@ export default function CartPage({ cartData }: CartPageProps) {
   };
 
   useEffect(() => {
-    fetchCartData();
-  }, [fetchCartData]);
-
-  const handleQuantityChange = async () => {
-    await fetchCartData();
-  };
+    mutate();
+  }, [token]);
 
   // 결제하기 버튼 누를 때 실행 될 함수
   const handlePayment = async () => {
@@ -113,35 +134,51 @@ export default function CartPage({ cartData }: CartPageProps) {
     const userInfo = await getUserInfo(session.data?.user?.id!);
     if (userInfo.item.extra.isAdult) {
       // 로그인이 되어있고 성인인증도 돼있을 때
-      router.push("/pay");
+      router.push("/cart/pay");
     } else {
       // 로그인은 되어있지만 성인인증이 되지 않았을 때
       // url의 request값이 true면 모달 띄우기(stateless modal)
       router.push(`?request=true`);
     }
   };
+  useEffect(() => {
+    if (data) {
+      setCartItems(data.item);
+      setTotalCost(data.cost?.total || 0);
+      setProducts(data.cost?.products || 0);
+      setShippingFees(data.cost?.shippingFees || 3000);
+    }
+  }, [data]);
 
+  const handleQuantityChange = useCallback(() => {
+    mutate();
+  }, []);
   return (
     <div className="flex flex-col  mx-[25px] mt-9">
       <div className="mb-5 subTitleMedium">담은술</div>
-      {cartData.length !== 0 ? (
+      {data && data?.item?.length !== 0 ? (
         <>
           <div className="flex flex-col">
             <div className="h-[400px] overflow-y-auto hide-scrollbar">
-              {cartData.length !== 0 &&
-                cartData.map((item, index: number) => (
-                  <CartCard
-                    key={index}
-                    name={item.product.name}
-                    brewery={item.product.extra.brewery}
-                    price={item.product.price}
-                    alcohol={item.product.extra.taste.alcohol}
-                    quantity={item.quantity}
-                    image={item.product.image.path}
-                    handleQuantityChange={handleQuantityChange} // 수량 변경 시 핸들러 호출
-                    _id={item._id}
-                  />
-                ))}
+              {Array.from(new Set(data?.item.map((item) => item._id)))?.map((id) => {
+                const item = data.item.find((cartItem) => cartItem._id === id);
+                if (item) {
+                  return (
+                    <CartCard
+                      key={id}
+                      name={item.product.name}
+                      brewery={item.product.extra.brewery}
+                      price={item.product.price}
+                      alcohol={item.product.extra.taste.alcohol}
+                      quantity={item.quantity}
+                      image={item.product.image.path}
+                      handleQuantityChange={handleQuantityChange}
+                      _id={item._id}
+                    />
+                  );
+                }
+                return null;
+              })}
             </div>
             <div className="mt-12">
               <div className="flex content justify-between mb-[28px]">

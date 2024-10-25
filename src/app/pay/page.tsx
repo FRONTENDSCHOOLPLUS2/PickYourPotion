@@ -12,6 +12,7 @@ import ProgressBar from "./ProgressBar";
 import PaymentCompleted from "./complete/page";
 import { InfoToast } from "@/toast/InfoToast";
 import OrderCard from "./OrderCard";
+import { useRouter } from "next/navigation";
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DOMAIN = process.env.NEXT_PUBLIC_API_NEXT_SERVER;
@@ -22,7 +23,7 @@ const CHANNEL_KEY = process.env.NEXT_PUBLIC_TOSS_CHANNEL_KEY;
 export default function PayPage() {
   const { data: session } = useSession();
   const token = session?.accessToken;
-
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [addressFilled, setAddressFilled] = useState<boolean>(false); // 주소 입력 상태 관리
   const [isMounted, setIsMounted] = useState<boolean>(false); // 컴포넌트가 마운트되었는지 확인
@@ -107,7 +108,7 @@ export default function PayPage() {
         // 결제 성공 시 주문 정보 서버로 전송 후 페이지 전환
         if (token) {
           await fetchOrder();
-          setCurrentPage(1);
+          router.push("/pay/complete");
         } else {
           console.error("토큰이 없습니다.");
         }

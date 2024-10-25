@@ -26,7 +26,6 @@ export async function signup(
     password: formData.get("password"),
     image: "",
   };
-
   // 이미지 먼저 업로드
   const attach = formData.get("attach") as File;
 
@@ -80,14 +79,17 @@ export async function signupWithOAuth(
 export async function login(
   userObj: UserLoginForm,
 ): Promise<ApiResWithValidation<SingleItem<UserData>, UserLoginForm>> {
+  const DOMAIN = process.env.NEXT_PUBLIC_API_SERVER;
   const res = await fetch(`${SERVER}/users/login`, {
     method: "POST",
     headers: {
       "client-id": process.env.NEXT_PUBLIC_CLIENT_ID || "",
       "Content-type": "application/json",
+      Location: `${DOMAIN}/pay/complete`,
     },
     body: JSON.stringify(userObj),
   });
+
   return res.json();
 }
 
@@ -112,8 +114,14 @@ export async function signInWithGoogle() {
 export async function signInWithDiscord() {
   await signIn("discord", { redirectTo: `/` });
 }
-
-// // 깃허브 로그인
-// export async function signInWithGithub(formData: FormData) {
-//   await signIn("github", { redirectTo: "/" });
-// }
+export async function signInWithCredentials(
+  email: string | undefined,
+  password: string | undefined,
+) {
+  await signIn("credentials", {
+    // redirectTo: `/`,
+    redirect: false,
+    email: email,
+    password: password,
+  });
+}

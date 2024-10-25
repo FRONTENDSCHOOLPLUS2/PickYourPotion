@@ -60,11 +60,11 @@ export default async function RootLayout({
           ></script>
           <script src="https://cdn.iamport.kr/v1/iamport.js" defer />
         </head>
-        <body className="pt-14">
-          <div className="">
-            <Header />
+        <body className="bg-[#ffe8d2]">
+          <div className="max-w-[428px] w-full m-auto min-h-screen bg-white overflow-x-auto hide-scrollbar">
             <SessionProvider>
               <TanstackProvider>
+                <Header />
                 <ToastContainer />
                 <ChannelTalkManager order={orderList.ok === 1 && orderList?.item[0]} />
                 {children}
