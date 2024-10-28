@@ -2,7 +2,7 @@
 
 ---
 
-배포 URL : https://pick-your-potion.vercel.app/
+배포 URL : https://www.pickyourpotion.store/
 
 ## 1. 프로젝트 소개
 
@@ -220,6 +220,39 @@
 
 ```
 
-## 7. 역할 분담
+## 7. 구현 내용
 
-## 8. 트러블 슈팅
+### 술BTI
+
+최근 유행하는 문답 테스트 방식을 구현하여 사용자의 상황에 맞는 술을 추천해줍니다.
+<img src="https://github.com/user-attachments/assets/753570c5-fe62-4c73-a701-82030930d256" width="240" alt="술BTI 움짤">
+
+### 메인페이지
+
+Swiper.js 라이브러리를 커스텀하여 상단 상품 목록과 중간 배너에 적용하였습니다.
+<img src="https://github.com/user-attachments/assets/532c2251-640c-4ec2-b72f-80fd3b36ccb5" width="240" alt="메인페이지 움짤">
+
+### 술창고
+
+판매중인 전통주를 카테고리별로 나누어 확인할 수 있습니다.
+<img src="https://github.com/user-attachments/assets/b2a9d577-7ca7-4029-a9d0-7ee82369eefe" width="240" alt="메인페이지 움짤">
+
+### 대동술지도
+
+전국의 찾아가는 양조장 정보를 카카오맵API에 표시하였습니다.
+<img src="https://github.com/user-attachments/assets/a7d3b9a6-cd6a-460a-b6e1-412913f33c67" width="240" alt="대동술지도 움짤">
+
+### 로그인
+
+Next Auth를 이용해 디스코드와 구글 계정으로 로그인 할 수 있게 했으며, 체험용 계정으로의 로그인도 가능합니다.
+<img src="https://github.com/user-attachments/assets/3d6b77a4-b11d-45c7-a4e6-e6e507320dfe" width="240" alt="로그인 움짤">
+
+### 장바구니
+
+판매중인 전통주를 장바구니에 넣어 관리할 수 있습니다.
+<img src="https://github.com/user-attachments/assets/79f8a4ea-c6af-4175-b716-ca3a26894d5b" width="240" alt="장바구니 움짤">
+
+### 마이페이지
+
+주문내역과 찜 한 상품을 확인할 수 있으며, 주문한 상품의 리뷰 작성이 가능합니다.
+<img src="https://github.com/user-attachments/assets/e382eb09-e451-4a1e-99bf-73418a82b916" width="240" alt="장바구니 움짤">
