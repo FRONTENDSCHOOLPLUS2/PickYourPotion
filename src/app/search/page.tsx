@@ -29,7 +29,7 @@ export default function Page() {
   const [searchText, setSearchText] = useState("");
   const [fetchedResult, setFetchedResult] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const debounceValue = useDebounce(searchText, 2000);
+  const debounceValue = useDebounce(searchText, 1000);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,10 +37,8 @@ export default function Page() {
         let result;
         if (searchText === "") {
           result = await fetchAllData(currentPage);
-          console.log(result);
         } else {
           result = await fetchSearch(debounceValue);
-          console.log(result);
         }
         setFetchedResult(result);
       } catch (error) {
@@ -49,7 +47,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, [debounceValue, searchText, currentPage]);
+  }, [debounceValue, currentPage]);
 
   const handlePageChange = (selectedPage: number) => {
     setCurrentPage(selectedPage);
