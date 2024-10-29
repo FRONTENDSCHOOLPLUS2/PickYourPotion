@@ -12,5 +12,5 @@ export async function fetchSearch(searchText: string) {
   if (!resJson.ok) {
     throw new Error("error");
   }
-  return resJson.item;
+  return resJson;
 }
